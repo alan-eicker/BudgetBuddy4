@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import ExpenseGroupFormPage from './pages/ExpenseGroupFormPage';
+import './styles/app.scss';
 
 function App() {
   return (
