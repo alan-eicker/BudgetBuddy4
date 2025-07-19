@@ -1,10 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import HomePage from './pages/HomePage';
+import ExpenseGroupFormPage from './pages/ExpenseGroupFormPage';
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/add-expense-goup" element={<ExpenseGroupFormPage />} />
+      <Route path="/edit-expense-goup/:id" element={<ExpenseGroupFormPage />} />
     </Routes>
   );
 }
