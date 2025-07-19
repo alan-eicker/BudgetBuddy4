@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Button.module.scss';
 
 const Header = () => {
-  return <></>;
+  return <header></header>;
 };
 
 export default Header;
