@@ -11,14 +11,14 @@
   }
 
   &__hero {
-    height: 400px;
     background-color: $navy;
     color: $white;
+    min-height: 400px;
 
     &__content {
       width: 100%;
-      max-width: 1440px;
       height: 100%;
+      max-width: 1440px;
       margin: 0 auto;
       padding: 20px;
     }
