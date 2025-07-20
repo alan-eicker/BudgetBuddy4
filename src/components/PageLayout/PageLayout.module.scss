@@ -1,10 +1,27 @@
+@import '../../styles/variables.scss';
+
 .pageLayout {
   display: flex;
   flex-direction: column;
   height: 100vh;
 
   &__header {
-    height: 70px;
+    min-height: 65px;
+    max-height: 65px;
+  }
+
+  &__hero {
+    height: 400px;
+    background-color: $navy;
+    color: $white;
+
+    &__content {
+      width: 100%;
+      max-width: 1440px;
+      height: 100%;
+      margin: 0 auto;
+      padding: 20px;
+    }
   }
 
   &__main {
