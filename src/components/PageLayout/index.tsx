@@ -15,7 +15,10 @@ const PageLayout = ({ children }: PageLayoutProps) => {
   return (
     <div className={styles.pageLayout}>
       <div className={styles.pageLayout__header}>
-        <Header nav={staticSiteContent.nav} />
+        <Header
+          nav={staticSiteContent.nav}
+          appName={staticSiteContent.appName}
+        />
       </div>
       <main className={styles.pageLayout__main}>
         <div className={styles.pageLayout__content}>{children}</div>

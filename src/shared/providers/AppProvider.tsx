@@ -1,18 +1,25 @@
 import { createContext, useContext } from 'react';
 
-import { NAV, COPYRIGHT_TEXT } from '../../constants/site';
+import { NAV, COPYRIGHT_TEXT, APP_NAME } from '../../constants/site';
 
 const AppContext = createContext<{
   staticSiteContent: {
     copyrightText: string;
     nav: { text: string; url: string }[];
+    appName: string;
   };
 } | null>(null);
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <AppContext.Provider
-      value={{ staticSiteContent: { copyrightText: COPYRIGHT_TEXT, nav: NAV } }}
+      value={{
+        staticSiteContent: {
+          appName: APP_NAME,
+          copyrightText: COPYRIGHT_TEXT,
+          nav: NAV,
+        },
+      }}
     >
       {children}
     </AppContext.Provider>

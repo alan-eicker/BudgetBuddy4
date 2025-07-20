@@ -1,17 +1,22 @@
 @import '../../styles/variables.scss';
 
 .header {
-  background-color: $gray-1;
+  background-color: $white;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
   padding: 0 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
-  width: 140px;
+  font-size: 22px;
+  text-transform: uppercase;
+  color: $gray-1;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .nav {
@@ -22,7 +27,14 @@
   padding: 0;
 
   &__link {
-    color: $white;
+    color: $gray-1;
     text-decoration: none;
+    font-weight: 500;
+
+    &:hover,
+    &:focus,
+    &.active {
+      color: $red;
+    }
   }
 }
