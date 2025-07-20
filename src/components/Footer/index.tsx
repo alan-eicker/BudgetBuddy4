@@ -1,10 +1,12 @@
 import React from 'react';
-import styles from './Button.module.scss';
+import styles from './Footer.module.scss';
 
-const Footer = () => {
-  return (
-    <footer>&copy; {new Date().getFullYear()}. All rights reserved.</footer>
-  );
+export interface FooterProps {
+  copyrightText: string;
+}
+
+const Footer = ({ copyrightText }: FooterProps) => {
+  return <footer className={styles.footer}>&copy; {copyrightText}</footer>;
 };
 
 export default Footer;

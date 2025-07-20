@@ -1,11 +1,14 @@
-import PageLayout from '../../components/PageLayout';
+import { Helmet } from 'react-helmet';
 
 const HomePage = () => {
   return (
-    <PageLayout docTitle="BudgetBuddy | Dashboard">
+    <>
+      <Helmet>
+        <title>Budget Buddy | Dashboard</title>
+      </Helmet>
       <h1>Home Page</h1>
       <p>Welcome to the home page!</p>
-    </PageLayout>
+    </>
   );
 };
 
