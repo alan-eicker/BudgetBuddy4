@@ -4,72 +4,72 @@ import HomePage from './pages/HomePage';
 import ExpenseGroupFormPage from './pages/ExpenseGroupFormPage';
 
 import PageLayout from './components/PageLayout';
-import BarChart from './components/BarChart';
+import ExpenseSnapshotChart from './components/ExpenseSnapshotChart';
 
 import './styles/app.scss';
 
-const data = [
+const chartData = [
   {
     name: 'Jan',
-    uv: 9000,
-    pv: 1000,
-    amt: 10000,
+    budgetTotal: 9000,
+    overageTotal: 1000,
+    totalBalance: 10000,
     type: 'housing',
   },
   {
     name: 'Feb',
-    uv: 9000,
-    pv: 2000,
-    amt: 11000,
+    budgetTotal: 9000,
+    overageTotal: 2000,
+    totalBalance: 11000,
     type: 'utilities',
   },
   {
     name: 'Mar',
-    uv: 7700,
-    pv: 0,
-    amt: 7700,
+    budgetTotal: 7700,
+    overageTotal: 0,
+    totalBalance: 7700,
     type: 'utilities',
   },
   {
     name: 'Apr',
-    uv: 9000,
-    pv: 4500,
-    amt: 13500,
+    budgetTotal: 9000,
+    overageTotal: 4500,
+    totalBalance: 13500,
     type: 'medical',
   },
   {
     name: 'May',
-    uv: 5500,
-    pv: 0,
-    amt: 5500,
+    budgetTotal: 5500,
+    overageTotal: 0,
+    totalBalance: 5500,
     type: 'groceries',
   },
   {
     name: 'June',
-    uv: 6760,
-    pv: 0,
-    amt: 6760,
+    budgetTotal: 6760,
+    overageTotal: 0,
+    totalBalance: 6760,
     type: 'entertainment',
   },
   {
     name: 'July',
-    uv: 9000,
-    pv: 1500,
-    amt: 10500,
+    budgetTotal: 9000,
+    overageTotal: 1500,
+    totalBalance: 10500,
     type: 'utilities',
   },
   {
     name: 'Aug',
-    uv: 9000,
-    pv: 0,
-    amt: 9000,
+    budgetTotal: 9000,
+    overageTotal: 0,
+    totalBalance: 9000,
     type: 'investing',
   },
   {
     name: 'Sept',
-    uv: 9000,
-    pv: 500,
-    amt: 9500,
+    budgetTotal: 9000,
+    overageTotal: 500,
+    totalBalance: 9500,
     type: 'investing',
   },
 ];
@@ -80,9 +80,18 @@ function App() {
   return (
     <PageLayout
       heroContent={
-        <BarChart
-          data={data}
+        <ExpenseSnapshotChart
+          chartData={chartData}
           title="Total Expenses Over 12 Months"
+          categories={[
+            'All',
+            'Housing',
+            'Utilities',
+            'Medical',
+            'Groceries',
+            'Entertainment',
+            'Investing',
+          ]}
           onCategoryChange={(category) => console.log(category)}
         />
       }

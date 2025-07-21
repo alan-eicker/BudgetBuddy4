@@ -8,15 +8,15 @@ import {
   ReferenceLine,
 } from 'recharts';
 import { useMediaQuery } from 'react-responsive';
-import uniqBy from 'lodash/uniqBy';
 
-import BarCharLabel from '../BarChartLabel';
+import BarCharLabel from './ChartLabel';
 import CategoryList from '../CategoryList';
 
-import styles from './BarChart.module.scss';
+import styles from './ExpenseSnapshotChart.module.scss';
 
-export interface BarChartProps {
-  data: any[];
+export interface ExpenseSnapshotChartProps {
+  chartData: any[];
+  categories: string[];
   barSize?: number;
   title?: string;
   onCategoryChange?: (category: string) => void;
@@ -29,18 +29,17 @@ const chartColors = {
   referenceLine: 'rgba(255,255,255,0.50)',
 };
 
-const BarChart = ({
-  data,
+const ExpenseSnapshotChart = ({
+  chartData,
+  categories,
   title,
   barSize = 80,
   onCategoryChange = () => {},
-}: BarChartProps) => {
+}: ExpenseSnapshotChartProps) => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
 
   const isExtraSmallScreen = useMediaQuery({ query: '(max-width: 480px)' });
   const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
-
-  const categories = ['All', ...uniqBy(data, 'type').map((item) => item.type)];
 
   const handleCategoryClick = (category: string) => {
     setActiveCategory(category);
@@ -54,7 +53,7 @@ const BarChart = ({
         height={isExtraSmallScreen ? '65%' : '74%'}
       >
         <RechartsBarChart
-          data={data}
+          data={chartData}
           margin={{
             top: 20,
             right: 30,
@@ -66,13 +65,13 @@ const BarChart = ({
           <YAxis stroke={chartColors.axisStroke} />
           <Bar
             barSize={barSize}
-            dataKey="uv"
+            dataKey="budgetTotal"
             stackId="a"
             fill={chartColors.barFill}
           />
           <Bar
             barSize={barSize}
-            dataKey="pv"
+            dataKey="overageTotal"
             stackId="a"
             fill={chartColors.barOverageFill}
             {...(!isSmallScreen && { label: <BarCharLabel /> })}
@@ -81,7 +80,7 @@ const BarChart = ({
         </RechartsBarChart>
       </ResponsiveContainer>
     ),
-    [data, barSize, isSmallScreen, isExtraSmallScreen],
+    [chartData, barSize, isSmallScreen, isExtraSmallScreen],
   );
 
   return (
@@ -97,4 +96,4 @@ const BarChart = ({
   );
 };
 
-export default BarChart;
+export default ExpenseSnapshotChart;
