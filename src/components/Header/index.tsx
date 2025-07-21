@@ -39,6 +39,9 @@ const Header = ({ nav, appName }: HeaderProps) => {
               </Link>
             </li>
           ))}
+          <li>
+            <button className={styles.logOutButton}>Log Out</button>
+          </li>
         </ul>
       </nav>
     </header>
