@@ -1,5 +1,4 @@
 import { useState, useMemo } from 'react';
-import classnames from 'classnames';
 import {
   BarChart as RechartsBarChart,
   Bar,
@@ -12,6 +11,7 @@ import { useMediaQuery } from 'react-responsive';
 import uniqBy from 'lodash/uniqBy';
 
 import BarCharLabel from '../BarChartLabel';
+import CategoryList from '../CategoryList';
 
 import styles from './BarChart.module.scss';
 
@@ -19,6 +19,7 @@ export interface BarChartProps {
   data: any[];
   barSize?: number;
   title?: string;
+  onCategoryChange?: (category: string) => void;
 }
 
 const chartColors = {
@@ -28,7 +29,12 @@ const chartColors = {
   referenceLine: 'rgba(255,255,255,0.50)',
 };
 
-const BarChart = ({ data, title, barSize = 80 }: BarChartProps) => {
+const BarChart = ({
+  data,
+  title,
+  barSize = 80,
+  onCategoryChange = () => {},
+}: BarChartProps) => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
 
   const isExtraSmallScreen = useMediaQuery({ query: '(max-width: 480px)' });
@@ -38,6 +44,7 @@ const BarChart = ({ data, title, barSize = 80 }: BarChartProps) => {
 
   const handleCategoryClick = (category: string) => {
     setActiveCategory(category);
+    onCategoryChange(category);
   };
 
   const MemoizedBarChart = useMemo(
@@ -74,26 +81,18 @@ const BarChart = ({ data, title, barSize = 80 }: BarChartProps) => {
         </RechartsBarChart>
       </ResponsiveContainer>
     ),
-    [data, barSize, isSmallScreen],
+    [data, barSize, isSmallScreen, isExtraSmallScreen],
   );
 
   return (
     <>
       {title && <h2 className={styles.title}>{title}</h2>}
       {MemoizedBarChart}
-      <div className={styles.categoryList}>
-        {categories.map((category) => (
-          <button
-            className={classnames({
-              [styles.isActive]: activeCategory === category,
-            })}
-            key={category}
-            onClick={() => handleCategoryClick(category)}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
+      <CategoryList
+        categories={categories}
+        activeCategory={activeCategory}
+        onCategoryChange={handleCategoryClick}
+      />
     </>
   );
 };

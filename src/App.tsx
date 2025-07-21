@@ -80,7 +80,11 @@ function App() {
   return (
     <PageLayout
       heroContent={
-        <BarChart data={data} title="Total Expenses Over 12 Months" />
+        <BarChart
+          data={data}
+          title="Total Expenses Over 12 Months"
+          onCategoryChange={(category) => console.log(category)}
+        />
       }
       hasHero={location.pathname === '/'}
     >
