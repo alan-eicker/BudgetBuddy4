@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import classnames from 'classnames';
 
+import Logo from '../Logo';
+
 import styles from './Header.module.scss';
-import { useEffect } from 'react';
 
 export interface HeaderProps {
   nav: { text: string; url: string }[];
@@ -21,8 +22,8 @@ const Header = ({ nav, appName }: HeaderProps) => {
 
   return (
     <header className={styles.header}>
-      <Link className={styles.logo} to="/" aria-label="Go to dashboard">
-        {appName}
+      <Link className={styles.homeLink} to="/" aria-label="Go to dashboard">
+        <Logo />
       </Link>
       <nav>
         <ul className={styles.nav}>

@@ -1,13 +1,18 @@
 import { Helmet } from 'react-helmet-async';
 
+import ExpenseGroupGrid from '../../components/ExpenseGroupGrid';
+
+import { useAppContext } from '../../shared/providers/AppProvider';
+
 const HomePage = () => {
+  const { expenseGroups } = useAppContext();
+
   return (
     <>
       <Helmet>
         <title>Budget Buddy | Dashboard</title>
       </Helmet>
-      <h1>Home Page</h1>
-      <p>Welcome to the home page!</p>
+      <ExpenseGroupGrid expenseGroupData={expenseGroups} />
     </>
   );
 };

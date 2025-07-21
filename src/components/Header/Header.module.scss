@@ -11,14 +11,6 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.logo {
-  font-size: 20px;
-  text-transform: uppercase;
-  color: $gray-1;
-  text-decoration: none;
-  font-weight: 600;
-}
-
 .nav {
   display: flex;
   gap: 20px;
@@ -37,4 +29,8 @@
       color: $red;
     }
   }
+}
+
+.homeLink {
+  text-decoration: none;
 }

@@ -1,0 +1,28 @@
+@import '../../styles/variables.scss';
+
+.expenseGroupGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.expenseGroupCard {
+  background-color: $gray-9;
+  padding: 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: $black;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+    background-color: $gray-8;
+  }
+}
+
+.groupTitle {
+  font-size: 20px;
+  font-weight: 500;
+}

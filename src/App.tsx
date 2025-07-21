@@ -1,6 +1,7 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 
 import HomePage from './pages/HomePage';
+import ExpenseGroupPage from './pages/ExpenseGroupPage';
 import ExpenseGroupFormPage from './pages/ExpenseGroupFormPage';
 
 import PageLayout from './components/PageLayout';
@@ -99,6 +100,7 @@ function App() {
     >
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/expense-group/:id" element={<ExpenseGroupPage />} />
         <Route path="/expense-goup/add" element={<ExpenseGroupFormPage />} />
         <Route
           path="/expense-goup/edit/:id"

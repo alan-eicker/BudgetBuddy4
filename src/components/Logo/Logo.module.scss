@@ -1,0 +1,24 @@
+@import '../../styles/variables.scss';
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  img {
+    width: 200px;
+  }
+
+  &::before {
+    background-color: $red;
+    color: $white;
+    content: 'Bb';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    font-size: 24px;
+    border-radius: 5px;
+  }
+}
