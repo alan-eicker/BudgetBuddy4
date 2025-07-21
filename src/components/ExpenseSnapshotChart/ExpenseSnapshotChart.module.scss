@@ -1,9 +1,18 @@
 @import '../../styles/variables.scss';
 
-.title {
-  font-size: 24px;
-  font-weight: 500;
-  margin: 0 0 20px;
-  color: $white;
-  text-align: center;
+.chartContainer {
+  width: 100%;
+  height: 100%;
+
+  .title {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0 0 20px;
+    color: $white;
+    text-align: center;
+  }
+
+  svg[class='recharts-surface']:focus {
+    outline: none;
+  }
 }

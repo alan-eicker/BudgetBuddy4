@@ -9,7 +9,7 @@ const CustomLabel = ({ x, y, value }: any) => {
       fill={'#fff'}
       textAnchor="middle"
     >
-      ${value}
+      ${value.toLocaleString()}
     </text>
   );
 };

@@ -6,7 +6,8 @@
   gap: 3px;
 
   img {
-    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
   }
 
   &::before {
@@ -17,7 +18,7 @@
     align-items: center;
     justify-content: center;
     height: 40px;
-    width: 40px;
+    min-width: 40px;
     font-size: 24px;
     border-radius: 5px;
   }

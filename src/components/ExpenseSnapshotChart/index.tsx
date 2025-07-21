@@ -26,7 +26,7 @@ const chartColors = {
   axisStroke: '#fff',
   barFill: 'rgba(255,255,255,0.15)',
   barOverageFill: '#fa3802',
-  referenceLine: 'rgba(255,255,255,0.50)',
+  referenceLine: 'rgba(255,255,255,0.25)',
 };
 
 const ExpenseSnapshotChart = ({
@@ -84,7 +84,7 @@ const ExpenseSnapshotChart = ({
   );
 
   return (
-    <>
+    <div className={styles.chartContainer}>
       {title && <h2 className={styles.title}>{title}</h2>}
       {MemoizedBarChart}
       <CategoryList
@@ -92,7 +92,7 @@ const ExpenseSnapshotChart = ({
         activeCategory={activeCategory}
         onCategoryChange={handleCategoryClick}
       />
-    </>
+    </div>
   );
 };
 

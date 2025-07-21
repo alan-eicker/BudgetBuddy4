@@ -75,6 +75,17 @@ const chartData = [
   },
 ];
 
+const categories = [
+  'All',
+  'Housing',
+  'Utilities',
+  'Medical',
+  'Groceries',
+  'Entertainment',
+  'Investing',
+  'Misc',
+];
+
 function App() {
   const location = useLocation();
 
@@ -84,15 +95,7 @@ function App() {
         <ExpenseSnapshotChart
           chartData={chartData}
           title="Total Expenses Over 12 Months"
-          categories={[
-            'All',
-            'Housing',
-            'Utilities',
-            'Medical',
-            'Groceries',
-            'Entertainment',
-            'Investing',
-          ]}
+          categories={categories}
           onCategoryChange={(category) => console.log(category)}
         />
       }
