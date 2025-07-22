@@ -7,6 +7,8 @@ import ExpenseGroupFormPage from './pages/ExpenseGroupFormPage';
 import PageLayout from './components/PageLayout';
 import ExpenseSnapshotChart from './features/ExpenseSnapshotChart';
 
+import { BASE_URL } from './constants/site';
+
 import './styles/app.scss';
 
 function App() {
@@ -15,10 +17,10 @@ function App() {
   return (
     <PageLayout
       heroContent={<ExpenseSnapshotChart />}
-      hasHero={location.pathname === '/'}
+      hasHero={location.pathname === BASE_URL}
     >
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path={BASE_URL} element={<HomePage />} />
         <Route path="/expense-group/:id" element={<ExpenseGroupPage />} />
         <Route path="/expense-goup/add" element={<ExpenseGroupFormPage />} />
         <Route
