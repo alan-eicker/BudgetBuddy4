@@ -1,4 +1,4 @@
-const CustomLabel = ({ x, y, value }: any) => {
+const ChartLabel = ({ x, y, value }: any) => {
   return (
     <text
       x={x + 70 / 2}
@@ -14,4 +14,4 @@ const CustomLabel = ({ x, y, value }: any) => {
   );
 };
 
-export default CustomLabel;
+export default ChartLabel;

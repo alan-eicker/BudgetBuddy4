@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { ExpenseGroup } from '../../types/expenseGroups';
+import { ExpenseGroup } from '../../shared/types/expenseGroups';
 
 import styles from './ExpenseGroupGrid.module.scss';
 

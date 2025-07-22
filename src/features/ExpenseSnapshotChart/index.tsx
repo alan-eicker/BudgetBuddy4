@@ -9,18 +9,14 @@ import {
 } from 'recharts';
 import { useMediaQuery } from 'react-responsive';
 
-import BarCharLabel from './ChartLabel';
-import CategoryList from '../CategoryList';
+import ChartLabel from './ChartLabel';
+import CategoryList from '../../components/CategoryList';
+
+import useAppProvider from '../../shared/hooks/useAppProvider';
+
+import { aggregateExpensesByMonth } from '../../shared/helpers/chartHelpers';
 
 import styles from './ExpenseSnapshotChart.module.scss';
-
-export interface ExpenseSnapshotChartProps {
-  chartData: any[];
-  categories: string[];
-  barSize?: number;
-  title?: string;
-  onCategoryChange?: (category: string) => void;
-}
 
 const chartColors = {
   axisStroke: '#fff',
@@ -29,21 +25,20 @@ const chartColors = {
   referenceLine: 'rgba(255,255,255,0.20)',
 };
 
-const ExpenseSnapshotChart = ({
-  chartData,
-  categories,
-  title,
-  barSize = 80,
-  onCategoryChange = () => {},
-}: ExpenseSnapshotChartProps) => {
+const ExpenseSnapshotChart = () => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
+
+  const { allExpenses, expenseTypes } = useAppProvider();
+
+  const chartData = aggregateExpensesByMonth(allExpenses, 9000, activeCategory);
 
   const isExtraSmallScreen = useMediaQuery({ query: '(max-width: 480px)' });
   const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
+  const barSize = 80;
+
   const handleCategoryClick = (category: string) => {
     setActiveCategory(category);
-    onCategoryChange(category);
   };
 
   const MemoizedBarChart = useMemo(
@@ -74,7 +69,7 @@ const ExpenseSnapshotChart = ({
             dataKey="overageTotal"
             stackId="a"
             fill={chartColors.barOverageFill}
-            {...(!isSmallScreen && { label: <BarCharLabel /> })}
+            {...(!isSmallScreen && { label: <ChartLabel /> })}
           />
           <ReferenceLine y={9000} stroke={chartColors.referenceLine} />
         </RechartsBarChart>
@@ -85,10 +80,10 @@ const ExpenseSnapshotChart = ({
 
   return (
     <div className={styles.chartContainer}>
-      {title && <h2 className={styles.title}>{title}</h2>}
+      <h2 className={styles.title}>{activeCategory} Expenses Over 12 Months</h2>
       {MemoizedBarChart}
       <CategoryList
-        categories={categories}
+        categories={expenseTypes}
         activeCategory={activeCategory}
         onCategoryChange={handleCategoryClick}
       />

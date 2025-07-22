@@ -14,11 +14,12 @@ const AppContext = createContext<{
   };
   expenseGroups: ExpenseGroup[];
   expenseTypes: string[];
+  allExpenses: Expense[];
   error: string | undefined;
 } | null>(null);
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
-  const { expenseGroups, expenseTypes, error } = useAppProvider();
+  const { expenseGroups, expenseTypes, allExpenses, error } = useAppProvider();
 
   return (
     <AppContext.Provider
@@ -30,6 +31,7 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
         },
         expenseGroups,
         expenseTypes,
+        allExpenses,
         error: error ? error.toString() : undefined,
       }}
     >

@@ -5,7 +5,7 @@ import { ErrorMessage } from '../types/common';
 
 const useAppProvider = () => {
   const [expenseGroups, setExpenseGroups] = useState<ExpenseGroup[]>([]);
-  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [allExpenses, setAllExpenses] = useState<Expense[]>([]);
   const [expenseTypes, setExpenseTypes] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<ErrorMessage>();
@@ -13,6 +13,7 @@ const useAppProvider = () => {
   useEffect(() => {
     getExpenseGroups();
     getExpenseTypes();
+    getAllExpenses();
   }, []);
 
   const getExpenseGroups = async () => {
@@ -51,8 +52,63 @@ const useAppProvider = () => {
     }
   };
 
-  const getExpenses = async (groupId: string) => {
+  const getAllExpenses = async () => {
     setLoading(true);
+    try {
+      setAllExpenses([
+        {
+          id: '0',
+          groupId: '0',
+          amount: 2300,
+          dueDate: new Date('05/01/2025'),
+          type: 'Entertainment',
+        },
+        {
+          id: '1',
+          groupId: '1',
+          amount: 2300,
+          dueDate: new Date('06/01/2025'),
+          type: 'Housing',
+        },
+        {
+          id: '2',
+          groupId: '2',
+          amount: 10670,
+          dueDate: new Date('06/15/2025'),
+          type: 'Medical',
+        },
+        {
+          id: '3',
+          groupId: '3',
+          amount: 8670,
+          dueDate: new Date('07/01/2025'),
+          type: 'Medical',
+        },
+        {
+          id: '4',
+          groupId: '4',
+          amount: 1500,
+          dueDate: new Date('07/15/2025'),
+          type: 'Travel',
+        },
+        {
+          id: '5',
+          groupId: '0',
+          amount: 10000,
+          dueDate: new Date('05/22/2025'),
+          type: 'Travel',
+        },
+        {
+          id: '6',
+          groupId: '5',
+          amount: 2300,
+          dueDate: new Date('04/01/2025'),
+          type: 'Housing',
+        },
+      ]);
+    } catch (err: any) {
+      setError(err.message);
+    }
   };
 
   const getExpenseTypes = async () => {
@@ -66,6 +122,7 @@ const useAppProvider = () => {
         'Groceries',
         'Entertainment',
         'Investing',
+        'Travel',
         'Misc',
       ]);
     } catch (err: any) {
@@ -76,8 +133,8 @@ const useAppProvider = () => {
   return {
     expenseTypes,
     expenseGroups,
-    expenses,
-    getExpenses,
+    allExpenses,
+    getAllExpenses,
     getExpenseTypes,
     getExpenseGroups,
     loading,
