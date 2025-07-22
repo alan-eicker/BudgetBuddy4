@@ -2,34 +2,9 @@ import { createContext, useContext } from 'react';
 
 import { NAV, COPYRIGHT_TEXT, APP_NAME } from '../../constants/site';
 
-import { ExpenseGroup } from '../../types/expenseGroups';
+import useAppProvider from '../hooks/useAppProvider';
 
-const expenseGroupData = [
-  {
-    id: '1',
-    totalBudget: 4500,
-    startDate: new Date('07/04/2025'),
-    endDate: new Date('07/18/2025'),
-  },
-  {
-    id: '2',
-    totalBudget: 4500,
-    startDate: new Date('07/18/2025'),
-    endDate: new Date('08/01/2025'),
-  },
-  {
-    id: '3',
-    totalBudget: 4500,
-    startDate: new Date('08/01/2025'),
-    endDate: new Date('08/15/2025'),
-  },
-  {
-    id: '4',
-    totalBudget: 4500,
-    startDate: new Date('08/15/2025'),
-    endDate: new Date('08/29/2025'),
-  },
-];
+import { ExpenseGroup, Expense } from '../types/expenseGroups';
 
 const AppContext = createContext<{
   staticSiteContent: {
@@ -38,9 +13,13 @@ const AppContext = createContext<{
     appName: string;
   };
   expenseGroups: ExpenseGroup[];
+  expenseTypes: string[];
+  error: string | undefined;
 } | null>(null);
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
+  const { expenseGroups, expenseTypes, error } = useAppProvider();
+
   return (
     <AppContext.Provider
       value={{
@@ -49,7 +28,9 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
           copyrightText: COPYRIGHT_TEXT,
           nav: NAV,
         },
-        expenseGroups: expenseGroupData,
+        expenseGroups,
+        expenseTypes,
+        error: error ? error.toString() : undefined,
       }}
     >
       {children}

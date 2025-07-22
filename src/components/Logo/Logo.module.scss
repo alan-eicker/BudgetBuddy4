@@ -6,8 +6,8 @@
   gap: 3px;
 
   img {
-    min-width: 200px;
-    max-width: 200px;
+    min-width: 170px;
+    max-width: 170px;
   }
 
   &::before {
@@ -17,9 +17,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
-    min-width: 40px;
-    font-size: 24px;
+    height: 32px;
+    min-width: 35px;
+    font-size: 20px;
     border-radius: 5px;
   }
 }
