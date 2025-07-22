@@ -2,7 +2,7 @@
   "name": "budget-buddy-4",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://alan-eicker.github.io/BudgetBuddy4/",
+  "homepage": ".",
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -26,6 +26,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:dev": "NODE_ENV=development react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

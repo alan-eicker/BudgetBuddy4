@@ -23,7 +23,7 @@ const PageLayout = ({
       <div className={styles.pageLayout__header}>
         <Header
           nav={staticSiteContent.nav}
-          appName={staticSiteContent.appName}
+          baseUrl={staticSiteContent.baseUrl}
         />
       </div>
       {hasHero && (

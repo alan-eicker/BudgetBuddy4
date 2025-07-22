@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import { NAV, COPYRIGHT_TEXT, APP_NAME } from '../../constants/site';
+import { NAV, COPYRIGHT_TEXT, APP_NAME, BASE_URL } from '../../constants/site';
 
 import useAppProvider from '../hooks/useAppProvider';
 
@@ -11,6 +11,7 @@ const AppContext = createContext<{
     copyrightText: string;
     nav: { text: string; url: string }[];
     appName: string;
+    baseUrl: string;
   };
   expenseGroups: ExpenseGroup[];
   expenseTypes: string[];
@@ -28,6 +29,7 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
           appName: APP_NAME,
           copyrightText: COPYRIGHT_TEXT,
           nav: NAV,
+          baseUrl: BASE_URL,
         },
         expenseGroups,
         expenseTypes,
