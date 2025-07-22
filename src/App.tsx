@@ -7,20 +7,7 @@ import ExpenseGroupFormPage from './pages/ExpenseGroupFormPage';
 import PageLayout from './components/PageLayout';
 import ExpenseSnapshotChart from './features/ExpenseSnapshotChart';
 
-import useAppProvider from './shared/hooks/useAppProvider';
-
 import './styles/app.scss';
-
-const categories = [
-  'All',
-  'Housing',
-  'Utilities',
-  'Medical',
-  'Groceries',
-  'Entertainment',
-  'Investing',
-  'Misc',
-];
 
 function App() {
   const location = useLocation();
