@@ -26,7 +26,7 @@ const chartColors = {
   axisStroke: '#fff',
   barFill: 'rgba(255,255,255,0.15)',
   barOverageFill: '#fa3802',
-  referenceLine: 'rgba(255,255,255,0.25)',
+  referenceLine: 'rgba(255,255,255,0.20)',
 };
 
 const ExpenseSnapshotChart = ({
