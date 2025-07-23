@@ -1,0 +1,35 @@
+@import '../../styles/variables.scss';
+
+.button {
+  background-color: $gray-2;
+  color: $white;
+  height: 40px;
+  border-radius: 4px;
+  border: 0;
+  padding: 0 20px;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $black;
+  }
+
+  &.secondary {
+    background-color: $white;
+    border: 1px solid $gray-5;
+    color: $black;
+
+    &:hover {
+      background-color: $gray-9;
+    }
+  }
+
+  &.tertiary {
+    background-color: $red;
+
+    &:hover {
+      background-color: darken($red, 5%);
+    }
+  }
+}

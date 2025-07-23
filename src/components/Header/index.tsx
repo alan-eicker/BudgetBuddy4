@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import classnames from 'classnames';
 
 import Logo from '../Logo';
+import Button from '../Button';
 
 import styles from './Header.module.scss';
 
@@ -45,7 +46,7 @@ const Header = ({ nav, logoUrl, baseUrl = '/' }: HeaderProps) => {
             </li>
           ))}
           <li>
-            <button className={styles.logOutButton}>Log Out</button>
+            <Button text="Log Out" variant="secondary" onClick={() => {}} />
           </li>
         </ul>
       </nav>

@@ -3,6 +3,9 @@ import { Helmet } from 'react-helmet-async';
 
 import useAppProvider from '../../shared/hooks/useAppProvider';
 import ExpenseGroupPageLoader from '../../components/Loaders/ExpenseGroupPageLoader';
+import Button from '../../components/Button';
+
+import HeaderSection from './components/HeaderSection';
 
 const ExpenseGroupPage = () => {
   const { id } = useParams<{ id?: string }>();
@@ -23,7 +26,7 @@ const ExpenseGroupPage = () => {
 
   if (expenseGroup?.startDate && expenseGroup?.endDate) {
     title = `${new Date(expenseGroup?.startDate).toDateString()} - ${new Date(
-      expenseGroup?.startDate,
+      expenseGroup?.endDate,
     ).toDateString()}`;
   }
 
@@ -32,10 +35,17 @@ const ExpenseGroupPage = () => {
       <Helmet>
         <title>Budget Buddy | Expense Group</title>
       </Helmet>
-      <h1>{title}</h1>
-      <h2>
-        Total Budget: ${(expenseGroup?.totalBudget || 0).toLocaleString()}
-      </h2>
+      <HeaderSection
+        title={title}
+        subtitle={`Total Budget: ${(
+          expenseGroup?.totalBudget || 0
+        ).toLocaleString()}`}
+        buttons={[
+          <Button text="Edit" onClick={() => {}} />,
+          <Button text="Duplicate" onClick={() => {}} />,
+          <Button text="Delete" variant="tertiary" onClick={() => {}} />,
+        ]}
+      />
     </>
   );
 };
