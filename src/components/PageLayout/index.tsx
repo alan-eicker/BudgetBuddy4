@@ -24,6 +24,7 @@ const PageLayout = ({
         <Header
           nav={staticSiteContent.nav}
           baseUrl={staticSiteContent.baseUrl}
+          logoUrl={`${staticSiteContent.baseUrl}images/logo.png`}
         />
       </div>
       {hasHero && (

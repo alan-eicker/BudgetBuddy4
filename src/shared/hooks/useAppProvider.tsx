@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 
 import { ExpenseGroup, Expense } from '../types/expenseGroups';
 import { ErrorMessage } from '../types/common';
+import { setDocRef } from '../helpers/data';
 
-import { collection, getDocs, DocumentData } from '@firebase/firestore';
+import { collection, getDocs } from '@firebase/firestore';
 
 const useAppProvider = () => {
   const [expenseGroups, setExpenseGroups] = useState<ExpenseGroup[]>([]);
@@ -19,20 +20,6 @@ const useAppProvider = () => {
     getExpenseTypes();
     getAllExpenses();
   }, []);
-
-  const setDocRef = (docs: DocumentData) => {
-    const docRefs: ExpenseGroup[] = [];
-
-    docs.forEach((doc: DocumentData) => {
-      const data = doc.data();
-      docRefs.push({
-        id: doc.id,
-        ...data,
-      });
-    });
-
-    return docRefs;
-  };
 
   const getExpenseGroups = async () => {
     setLoading(true);
@@ -49,7 +36,7 @@ const useAppProvider = () => {
   };
 
   const getAllExpenses = async () => {
-    // setLoading(true);
+    setLoading(true);
     try {
       setAllExpenses([
         {
@@ -103,12 +90,12 @@ const useAppProvider = () => {
         },
       ]);
     } catch (err: any) {
-      // setError(err.message);
+      setError(err.message);
     }
   };
 
   const getExpenseTypes = async () => {
-    // setLoading(true);
+    setLoading(true);
     try {
       setExpenseTypes([
         'All',
@@ -122,7 +109,7 @@ const useAppProvider = () => {
         'Misc',
       ]);
     } catch (err: any) {
-      // setError(err.message);
+      setError(err.message);
     }
   };
 

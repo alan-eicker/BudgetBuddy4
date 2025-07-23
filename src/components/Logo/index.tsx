@@ -1,9 +1,13 @@
 import styles from './Logo.module.scss';
 
-const Logo = () => {
+export interface LogoProps {
+  logoUrl: string;
+}
+
+const Logo = ({ logoUrl }: LogoProps) => {
   return (
     <div className={styles.logo} aria-label="Go to dashboard">
-      <img src="./images/logo.png" alt="Logo" />
+      <img src={logoUrl} alt="Logo" />
     </div>
   );
 };

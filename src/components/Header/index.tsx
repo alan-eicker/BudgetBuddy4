@@ -8,10 +8,11 @@ import styles from './Header.module.scss';
 
 export interface HeaderProps {
   nav: { text: string; url: string }[];
-  baseUrl?: string;
+  baseUrl: string;
+  logoUrl: string;
 }
 
-const Header = ({ nav, baseUrl = '/' }: HeaderProps) => {
+const Header = ({ nav, logoUrl, baseUrl = '/' }: HeaderProps) => {
   const location = useLocation();
 
   const [activePath, setActivePath] = useState(location.pathname);
@@ -27,7 +28,7 @@ const Header = ({ nav, baseUrl = '/' }: HeaderProps) => {
         to={baseUrl}
         aria-label="Go to dashboard"
       >
-        <Logo />
+        <Logo logoUrl={logoUrl} />
       </Link>
       <nav>
         <ul className={styles.nav}>
