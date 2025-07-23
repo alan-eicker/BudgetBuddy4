@@ -7,7 +7,6 @@ import { ErrorMessage } from '../types/common';
 import { setDocRef } from '../helpers/data';
 
 import { collection, getDocs } from '@firebase/firestore';
-import { group } from 'console';
 
 export interface UseAppProviderReturnType {
   expenseGroups: ExpenseGroup[];
