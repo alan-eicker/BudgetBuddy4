@@ -7,7 +7,7 @@ import ExpenseGroupPageLoader from '../../components/Loaders/ExpenseGroupPageLoa
 const ExpenseGroupPage = () => {
   const { id } = useParams<{ id?: string }>();
 
-  const { getExpenseGroupById, getExpensesByGroupId, loading } =
+  const { getExpenseGroupById, /** getExpensesByGroupId, */ loading } =
     useAppProvider();
 
   if (!id) return <>No Expense Group ID</>;
