@@ -1,4 +1,4 @@
-import '../../firebase';
+import db from '../../firebase';
 
 import { useEffect, useState } from 'react';
 
@@ -7,12 +7,9 @@ import { ErrorMessage } from '../types/common';
 
 import {
   collection,
-  getFirestore,
   getDocs,
-  DocumentData,
+  // DocumentData,
 } from '@firebase/firestore';
-
-const db = getFirestore();
 
 const useAppProvider = () => {
   const [expenseGroups, setExpenseGroups] = useState<ExpenseGroup[]>([]);
@@ -27,7 +24,7 @@ const useAppProvider = () => {
     getAllExpenses();
   }, []);
 
-  const setDocRef = (docs: DocumentData, fieldMap: string[]) => {};
+  // const setDocRef = (docs: DocumentData, fieldMap: string[]) => {};
 
   const getExpenseGroups = async () => {
     setLoading(true);
