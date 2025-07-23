@@ -5,11 +5,7 @@ import { useEffect, useState } from 'react';
 import { ExpenseGroup, Expense } from '../types/expenseGroups';
 import { ErrorMessage } from '../types/common';
 
-import {
-  collection,
-  getDocs,
-  // DocumentData,
-} from '@firebase/firestore';
+import { collection, getDocs, DocumentData } from '@firebase/firestore';
 
 const useAppProvider = () => {
   const [expenseGroups, setExpenseGroups] = useState<ExpenseGroup[]>([]);
@@ -24,24 +20,25 @@ const useAppProvider = () => {
     getAllExpenses();
   }, []);
 
-  // const setDocRef = (docs: DocumentData, fieldMap: string[]) => {};
+  const setDocRef = (docs: DocumentData) => {
+    const docRefs: ExpenseGroup[] = [];
+
+    docs.forEach((doc: DocumentData) => {
+      const data = doc.data();
+      docRefs.push({
+        id: doc.id,
+        ...data,
+      });
+    });
+
+    return docRefs;
+  };
 
   const getExpenseGroups = async () => {
     setLoading(true);
     try {
       const docs = await getDocs(collection(db, 'ExpenseGroup'));
-      const docRefs: ExpenseGroup[] = [];
-
-      docs.forEach((doc) => {
-        const data = doc.data();
-        docRefs.push({
-          id: doc.id,
-          totalBudget: data.totalBudget,
-          startDate: data.startDate,
-          endDate: data.endDate,
-          ...data,
-        });
-      });
+      const docRefs: ExpenseGroup[] = setDocRef(docs);
 
       setExpenseGroups(docRefs);
     } catch (err: any) {
