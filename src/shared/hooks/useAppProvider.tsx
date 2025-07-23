@@ -1,7 +1,18 @@
+import '../../firebase';
+
 import { useEffect, useState } from 'react';
 
 import { ExpenseGroup, Expense } from '../types/expenseGroups';
 import { ErrorMessage } from '../types/common';
+
+import {
+  collection,
+  getFirestore,
+  getDocs,
+  DocumentData,
+} from '@firebase/firestore';
+
+const db = getFirestore();
 
 const useAppProvider = () => {
   const [expenseGroups, setExpenseGroups] = useState<ExpenseGroup[]>([]);
@@ -16,35 +27,26 @@ const useAppProvider = () => {
     getAllExpenses();
   }, []);
 
+  const setDocRef = (docs: DocumentData, fieldMap: string[]) => {};
+
   const getExpenseGroups = async () => {
     setLoading(true);
     try {
-      setExpenseGroups([
-        {
-          id: '1',
-          totalBudget: 4500,
-          startDate: new Date('07/04/2025'),
-          endDate: new Date('07/18/2025'),
-        },
-        {
-          id: '2',
-          totalBudget: 4500,
-          startDate: new Date('07/18/2025'),
-          endDate: new Date('08/01/2025'),
-        },
-        {
-          id: '3',
-          totalBudget: 4500,
-          startDate: new Date('08/01/2025'),
-          endDate: new Date('08/15/2025'),
-        },
-        {
-          id: '4',
-          totalBudget: 4500,
-          startDate: new Date('08/15/2025'),
-          endDate: new Date('08/29/2025'),
-        },
-      ]);
+      const docs = await getDocs(collection(db, 'ExpenseGroup'));
+      const docRefs: ExpenseGroup[] = [];
+
+      docs.forEach((doc) => {
+        const data = doc.data();
+        docRefs.push({
+          id: doc.id,
+          totalBudget: data.totalBudget,
+          startDate: data.startDate,
+          endDate: data.endDate,
+          ...data,
+        });
+      });
+
+      setExpenseGroups(docRefs);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -53,7 +55,7 @@ const useAppProvider = () => {
   };
 
   const getAllExpenses = async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       setAllExpenses([
         {
@@ -107,12 +109,12 @@ const useAppProvider = () => {
         },
       ]);
     } catch (err: any) {
-      setError(err.message);
+      // setError(err.message);
     }
   };
 
   const getExpenseTypes = async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       setExpenseTypes([
         'All',
@@ -126,7 +128,7 @@ const useAppProvider = () => {
         'Misc',
       ]);
     } catch (err: any) {
-      setError(err.message);
+      // setError(err.message);
     }
   };
 
