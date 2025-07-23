@@ -7,8 +7,19 @@ import { ErrorMessage } from '../types/common';
 import { setDocRef } from '../helpers/data';
 
 import { collection, getDocs } from '@firebase/firestore';
+import { group } from 'console';
 
-const useAppProvider = () => {
+export interface UseAppProviderReturnType {
+  expenseGroups: ExpenseGroup[];
+  expenseTypes: string[];
+  allExpenses: Expense[];
+  loading: boolean;
+  error?: ErrorMessage;
+  getExpenseGroupById: (groupId: string) => ExpenseGroup | undefined;
+  getExpensesByGroupId: (expenseGroupId: string) => Expense[] | undefined;
+}
+
+const useAppProvider = (): UseAppProviderReturnType => {
   const [expenseGroups, setExpenseGroups] = useState<ExpenseGroup[]>([]);
   const [allExpenses, setAllExpenses] = useState<Expense[]>([]);
   const [expenseTypes, setExpenseTypes] = useState<string[]>([]);
@@ -60,15 +71,26 @@ const useAppProvider = () => {
     }
   };
 
+  const getExpenseGroupById = (groupId: string): ExpenseGroup | undefined => {
+    return expenseGroups.find((group) => group.id === groupId);
+  };
+
+  const getExpensesByGroupId = (
+    expenseGroupId: string,
+  ): Expense[] | undefined => {
+    return allExpenses.filter(
+      (expense) => expense.expenseGroupId === expenseGroupId,
+    );
+  };
+
   return {
-    expenseTypes,
     expenseGroups,
+    expenseTypes,
     allExpenses,
-    getAllExpenses,
-    getExpenseTypes,
-    getExpenseGroups,
     loading,
     error,
+    getExpenseGroupById,
+    getExpensesByGroupId,
   };
 };
 
