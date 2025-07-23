@@ -1,8 +1,7 @@
 import { DocumentData } from '@firebase/firestore';
-import { ExpenseGroup } from '../types/expenseGroups';
 
-export const setDocRef = (docs: DocumentData) => {
-  const docRefs: ExpenseGroup[] = [];
+export const setDocRef = <T>(docs: DocumentData) => {
+  const docRefs: T[] = [];
 
   docs.forEach((doc: DocumentData) => {
     const data = doc.data();

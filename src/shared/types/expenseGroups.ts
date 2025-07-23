@@ -7,8 +7,13 @@ export interface ExpenseGroup {
 
 export interface Expense {
   id: string;
-  groupId: string;
-  amount: number;
+  name: string;
+  expenseGroupId: string;
+  balance: number;
   dueDate: Date;
   type: string;
+}
+
+export interface ExpenseType {
+  name: string;
 }

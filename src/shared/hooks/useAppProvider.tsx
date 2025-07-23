@@ -2,7 +2,7 @@ import db from '../../firebase';
 
 import { useEffect, useState } from 'react';
 
-import { ExpenseGroup, Expense } from '../types/expenseGroups';
+import { ExpenseGroup, Expense, ExpenseType } from '../types/expenseGroups';
 import { ErrorMessage } from '../types/common';
 import { setDocRef } from '../helpers/data';
 
@@ -25,7 +25,7 @@ const useAppProvider = () => {
     setLoading(true);
     try {
       const docs = await getDocs(collection(db, 'ExpenseGroup'));
-      const docRefs: ExpenseGroup[] = setDocRef(docs);
+      const docRefs = setDocRef<ExpenseGroup>(docs);
 
       setExpenseGroups(docRefs);
     } catch (err: any) {
@@ -38,57 +38,10 @@ const useAppProvider = () => {
   const getAllExpenses = async () => {
     setLoading(true);
     try {
-      setAllExpenses([
-        {
-          id: '0',
-          groupId: '0',
-          amount: 2300,
-          dueDate: new Date('05/01/2025'),
-          type: 'Entertainment',
-        },
-        {
-          id: '1',
-          groupId: '1',
-          amount: 2300,
-          dueDate: new Date('06/01/2025'),
-          type: 'Housing',
-        },
-        {
-          id: '2',
-          groupId: '2',
-          amount: 10670,
-          dueDate: new Date('06/15/2025'),
-          type: 'Medical',
-        },
-        {
-          id: '3',
-          groupId: '3',
-          amount: 8670,
-          dueDate: new Date('07/01/2025'),
-          type: 'Medical',
-        },
-        {
-          id: '4',
-          groupId: '4',
-          amount: 1500,
-          dueDate: new Date('07/15/2025'),
-          type: 'Travel',
-        },
-        {
-          id: '5',
-          groupId: '0',
-          amount: 10000,
-          dueDate: new Date('05/22/2025'),
-          type: 'Travel',
-        },
-        {
-          id: '6',
-          groupId: '5',
-          amount: 2300,
-          dueDate: new Date('04/01/2025'),
-          type: 'Housing',
-        },
-      ]);
+      const docs = await getDocs(collection(db, 'Expense'));
+      const docRefs = setDocRef<Expense>(docs);
+
+      setAllExpenses(docRefs);
     } catch (err: any) {
       setError(err.message);
     }
@@ -97,17 +50,11 @@ const useAppProvider = () => {
   const getExpenseTypes = async () => {
     setLoading(true);
     try {
-      setExpenseTypes([
-        'All',
-        'Housing',
-        'Utilities',
-        'Medical',
-        'Groceries',
-        'Entertainment',
-        'Investing',
-        'Travel',
-        'Misc',
-      ]);
+      const docs = await getDocs(collection(db, 'ExpenseType'));
+      const docRefs = setDocRef<ExpenseType>(docs);
+      const expenseTypes = docRefs.map((type) => type.name).sort();
+
+      setExpenseTypes(expenseTypes);
     } catch (err: any) {
       setError(err.message);
     }
