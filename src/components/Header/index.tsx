@@ -24,6 +24,7 @@ const Header = ({ nav, logoUrl, baseUrl = '/' }: HeaderProps) => {
 
   useEffect(() => {
     setActivePath(location.pathname);
+    setShowMenu(false);
   }, [location]);
 
   return (
