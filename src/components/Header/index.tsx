@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
-import { GiHamburgerMenu } from 'react-icons/gi';
 import classnames from 'classnames';
+import { Link, useLocation } from 'react-router-dom';
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 import Logo from '../Logo';
 import Button from '../Button';
@@ -21,8 +20,7 @@ const Header = ({ nav, logoUrl, baseUrl = '/' }: HeaderProps) => {
   const location = useLocation();
 
   const [activePath, setActivePath] = useState(location.pathname);
-
-  const isMediumScreen = useMediaQuery({ query: '(min-width: 768px)' });
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     setActivePath(location.pathname);
@@ -38,30 +36,33 @@ const Header = ({ nav, logoUrl, baseUrl = '/' }: HeaderProps) => {
         <Logo logoUrl={logoUrl} />
       </Link>
       <nav>
-        {isMediumScreen && (
-          <ul className={styles.nav}>
-            {nav.map((item, index) => (
-              <li key={index}>
-                <Link
-                  to={item.url}
-                  className={classnames(styles.nav__link, {
-                    [styles.active]: activePath === item.url,
-                  })}
-                >
-                  {item.text}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <Button text="Log Out" variant="secondary" onClick={() => {}} />
+        <ul
+          className={classnames(styles.nav, {
+            [styles.isOpen]: showMenu,
+          })}
+        >
+          {nav.map((item, index) => (
+            <li key={index}>
+              <Link
+                to={item.url}
+                className={classnames(styles.nav__link, {
+                  [styles.active]: activePath === item.url,
+                })}
+              >
+                {item.text}
+              </Link>
             </li>
-          </ul>
-        )}
-        {!isMediumScreen && (
-          <button className={styles.mobileMenuTrigger}>
-            <HamburgerMenu />
-          </button>
-        )}
+          ))}
+          <li>
+            <Button text="Log Out" variant="secondary" onClick={() => {}} />
+          </li>
+        </ul>
+        <button
+          className={styles.mobileMenuTrigger}
+          onClick={() => setShowMenu(!showMenu)}
+        >
+          <HamburgerMenu />
+        </button>
       </nav>
     </header>
   );

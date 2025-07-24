@@ -9,15 +9,31 @@
   gap: 20px;
   padding: 0 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .nav {
+  background-color: $white;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 20px;
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding: 20px 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease-in-out;
+
+  &.isOpen {
+    opacity: 1;
+    pointer-events: all;
+  }
 
   &__link {
     color: $gray-1;
@@ -30,6 +46,16 @@
     &.active {
       color: $red;
     }
+  }
+
+  @media (min-width: 768px) {
+    box-shadow: none;
+    display: flex;
+    position: static;
+    flex-direction: row;
+    padding: 0;
+    opacity: 1;
+    pointer-events: all;
   }
 }
 
@@ -58,4 +84,9 @@
   border: 0;
   font-size: 24px;
   cursor: pointer;
+  display: block;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
 }
