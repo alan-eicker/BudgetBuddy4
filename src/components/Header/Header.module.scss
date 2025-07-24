@@ -48,7 +48,7 @@
     }
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: $breakpoint-sm) {
     box-shadow: none;
     display: flex;
     position: static;
@@ -86,7 +86,7 @@
   cursor: pointer;
   display: block;
 
-  @media (min-width: 768px) {
+  @media (min-width: $breakpoint-sm) {
     display: none;
   }
 }

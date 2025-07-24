@@ -1,8 +1,17 @@
+@import '../../../../styles/variables.scss';
+
 .headerSection {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+  text-align: center;
+
+  @media (min-width: $breakpoint-sm) {
+    flex-direction: row;
+    text-align: left;
+  }
 }
 
 .buttonList {
