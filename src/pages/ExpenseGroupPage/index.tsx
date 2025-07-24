@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 import useAppProvider from '../../shared/hooks/useAppProvider';
-import ExpenseGroupPageLoader from '../../components/Loaders/ExpenseGroupPageLoader';
+import LoaderOverlay from '../../components/LoaderOverlay';
 import Button from '../../components/Button';
 
 import HeaderSection from './components/HeaderSection';
@@ -16,7 +16,7 @@ const ExpenseGroupPage = () => {
   if (!id) return <>No Expense Group ID</>;
 
   if (loading) {
-    return <ExpenseGroupPageLoader />;
+    return <LoaderOverlay heightOffset={60} />;
   }
 
   const expenseGroup = getExpenseGroupById(id);

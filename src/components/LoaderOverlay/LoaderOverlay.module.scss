@@ -1,0 +1,6 @@
+.loaderOverlay {
+  height: calc(100vh - var(--heightOffset));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
