@@ -5,6 +5,10 @@ import * as yup from 'yup';
 import styles from './ExpenseGroupForm.module.scss';
 import Button from '../../components/Button';
 
+export interface ExpenseGroupFormProps {
+  expenseGroupId?: string;
+}
+
 // ✅ Yup validation schema
 const validationSchema = yup.object({
   startDate: yup.string().required('Start date is required'),
@@ -18,26 +22,27 @@ const validationSchema = yup.object({
     .of(
       yup.object({
         name: yup.string().required('Expense name is required'),
-        amount: yup
+        balance: yup
           .number()
-          .typeError('Amount must be a number')
-          .min(0.01, 'Amount must be greater than zero')
-          .required('Amount is required'),
+          .typeError('Balance must be a number')
+          .min(0.01, 'Balance must be greater than zero')
+          .required('Balance is required'),
+        dueDate: yup.string().required('Due date is required'),
+        type: yup.string().required('Type is required'),
       }),
     )
     .min(1, 'At least one expense is required')
     .required('Expenses are required'),
 });
 
-// ✅ Initial values
-const initialValues = {
-  startDate: '',
-  endDate: '',
-  totalBudget: 0,
-  expenses: [],
-};
+const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
+  const initialValues = {
+    startDate: '',
+    endDate: '',
+    totalBudget: 0,
+    expenses: [],
+  };
 
-const ExpenseGroupForm = () => {
   const handleSubmit = (values: typeof initialValues) => {
     console.log('Form submitted:', values);
   };
@@ -84,24 +89,35 @@ const ExpenseGroupForm = () => {
             <label className={styles.expenseFieldsetTitle}>Expenses</label>
             <FieldArray name="expenses">
               {({ push, remove }) => (
-                <div>
+                <div className={styles.expenseFields}>
                   {values.expenses.length === 0 && (
                     <p>Please add at least one expense.</p>
                   )}
 
                   {values.expenses.map((_, index) => (
-                    <div key={index} style={{ marginBottom: '1rem' }}>
-                      <div className={styles.expenseFieldset}>
+                    <>
+                      <div key={index} className={styles.expenseFieldset}>
                         <Field
                           type="text"
                           name={`expenses[${index}].name`}
                           placeholder="Expense name"
                         />
                         <Field
-                          name={`expenses[${index}].amount`}
+                          name={`expenses[${index}].balance`}
                           type="number"
-                          placeholder="Amount"
+                          placeholder="balance"
                         />
+                        <Field
+                          type="date"
+                          name={`expenses[${index}].dueDate`}
+                          placeholder="Due date"
+                        />
+                        <Field as="select" name={`expenses[${index}].type`}>
+                          <option value="">Type</option>
+                          {/* Dynamically add options for expense types */}
+                          <option value="recurring">Housing</option>
+                        </Field>
+
                         <Button
                           type="button"
                           text="Remove"
@@ -110,25 +126,42 @@ const ExpenseGroupForm = () => {
                         />
                       </div>
                       <div className={styles.error}>
-                        <ErrorMessage name={`expenses[${index}].name`} />
-                        <ErrorMessage name={`expenses[${index}].amount`} />
+                        <ErrorMessage
+                          component="div"
+                          name={`expenses[${index}].name`}
+                        />
+                        <ErrorMessage
+                          component="div"
+                          name={`expenses[${index}].balance`}
+                        />
+                        <ErrorMessage
+                          component="div"
+                          name={`expenses[${index}].dueDate`}
+                        />
+                        <ErrorMessage
+                          component="div"
+                          name={`expenses[${index}].type`}
+                        />
                       </div>
-                    </div>
+                    </>
                   ))}
+
                   <Button
                     type="button"
                     text="Add Expense"
                     variant="secondary"
-                    onClick={() => push({ name: '', amount: '' })}
+                    onClick={() =>
+                      push({
+                        name: '',
+                        balance: 0,
+                        dueDate: '',
+                        type: '',
+                      })
+                    }
                   />
                 </div>
               )}
             </FieldArray>
-            <ErrorMessage
-              name="expenses"
-              component="div"
-              className={styles.error}
-            />
           </div>
 
           <Button size="lg" type="submit" text="Submit" variant="tertiary" />

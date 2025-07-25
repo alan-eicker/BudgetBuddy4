@@ -21,6 +21,12 @@
   margin-bottom: 20px;
 }
 
+.expenseFields {
+  & > * + * {
+    margin-top: 20px;
+  }
+}
+
 .expenseFieldset {
   display: flex;
   gap: 16px;
@@ -30,4 +36,5 @@
   color: $red;
   font-size: 14px;
   font-weight: 500;
+  display: block;
 }

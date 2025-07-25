@@ -15,7 +15,7 @@ const ExpenseGroupFormPage = () => {
       </Helmet>
       <h1>{id ? 'Edit' : 'Add'} Expense Group</h1>
       <section>
-        <ExpenseGroupForm />
+        <ExpenseGroupForm expenseGroupId={id} />
       </section>
     </>
   );
