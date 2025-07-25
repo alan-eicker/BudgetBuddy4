@@ -1,0 +1,33 @@
+@import '../../styles/variables.scss';
+
+.expenseGroupForm {
+  width: 100%;
+
+  & > * + * {
+    margin-top: 15px;
+  }
+
+  & > :last-child {
+    margin-top: 40px;
+  }
+
+  @media (min-width: $breakpoint-sm) {
+    width: 50%;
+  }
+}
+
+.expenseFieldsetTitle {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.expenseFieldset {
+  display: flex;
+  gap: 16px;
+}
+
+.error {
+  color: $red;
+  font-size: 14px;
+  font-weight: 500;
+}

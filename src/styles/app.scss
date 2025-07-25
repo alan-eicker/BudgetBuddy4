@@ -26,3 +26,27 @@ h6 {
   font-weight: 600;
   margin: 0;
 }
+
+section {
+  margin-top: 30px;
+}
+
+input[type='text'],
+input[type='date'],
+input[type='number'] {
+  width: 100%;
+  border: 1px solid $gray-6;
+  border-radius: 4px;
+  padding: 6px;
+}
+
+label {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+p {
+  margin-bottom: 20px;
+}

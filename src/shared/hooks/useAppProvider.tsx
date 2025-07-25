@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import * as _ from 'lodash';
 
 import db from '../../firebase';
@@ -26,22 +26,15 @@ const useAppProvider = (): UseAppProviderReturnType => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<ErrorMessage>();
 
-  useEffect(() => {
-    getExpenseGroups();
-    getAllExpenses();
-  }, []);
-
-  useEffect(() => {
-    if (allExpenses.length) {
-      getExpenseTypes();
-    }
-  }, [allExpenses]);
-
   const getExpenseGroups = async () => {
     setLoading(true);
     try {
       const docs = await getDocs(collection(db, 'ExpenseGroup'));
-      const docRefs = setDocRef<ExpenseGroup>(docs);
+      const docRefs = _.orderBy(
+        setDocRef<ExpenseGroup>(docs),
+        ['startDate'],
+        ['desc'],
+      );
 
       setExpenseGroups(docRefs);
     } catch (err: any) {
@@ -55,7 +48,11 @@ const useAppProvider = (): UseAppProviderReturnType => {
     setLoading(true);
     try {
       const docs = await getDocs(collection(db, 'Expense'));
-      const docRefs = setDocRef<Expense>(docs);
+      const docRefs = _.orderBy(
+        setDocRef<Expense>(docs),
+        ['dueDate'],
+        ['desc'],
+      );
 
       setAllExpenses(docRefs);
     } catch (err: any) {
@@ -65,10 +62,13 @@ const useAppProvider = (): UseAppProviderReturnType => {
     }
   };
 
-  const getExpenseTypes = async () => {
-    const types = _.uniq(allExpenses.map((expense) => expense.type));
-    setExpenseTypes(types);
-  };
+  const getExpenseTypes = useCallback(
+    () => async () => {
+      const types = _.uniq(allExpenses.map((expense) => expense.type));
+      setExpenseTypes(types);
+    },
+    [allExpenses],
+  );
 
   const getExpenseGroupById = (groupId: string): ExpenseGroup | undefined => {
     return expenseGroups.find((group) => group.id === groupId);
@@ -81,6 +81,17 @@ const useAppProvider = (): UseAppProviderReturnType => {
       (expense) => expense.expenseGroupId === expenseGroupId,
     );
   };
+
+  useEffect(() => {
+    getExpenseGroups();
+    getAllExpenses();
+  }, []);
+
+  useEffect(() => {
+    if (allExpenses.length) {
+      getExpenseTypes();
+    }
+  }, [allExpenses, getExpenseTypes]);
 
   return {
     expenseGroups,
