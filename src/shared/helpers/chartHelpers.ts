@@ -9,8 +9,6 @@ export const aggregateExpensesByMonth = (
   const now = new Date();
   const resultMap = new Map();
 
-  console.log(expenses);
-
   const filteredExpenses =
     filter !== 'All'
       ? expenses.filter((expense) => expense.type === filter)
@@ -43,7 +41,6 @@ export const aggregateExpensesByMonth = (
       );
 
       if (monthData.overageTotal === 0) {
-        console.log(monthData.overageTotal);
         monthData.budgetTotal = monthData.totalBalance;
       } else {
         monthData.budgetTotal = monthlyBudget;

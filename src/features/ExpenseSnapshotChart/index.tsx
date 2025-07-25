@@ -83,7 +83,7 @@ const ExpenseSnapshotChart = () => {
       <h2 className={styles.title}>{activeCategory} Expenses Over 12 Months</h2>
       {MemoizedBarChart}
       <CategoryList
-        categories={expenseTypes}
+        categories={['All', ...expenseTypes]}
         activeCategory={activeCategory}
         onCategoryChange={handleCategoryClick}
       />

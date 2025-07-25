@@ -1,8 +1,9 @@
+import { useEffect, useState } from 'react';
+import * as _ from 'lodash';
+
 import db from '../../firebase';
 
-import { useEffect, useState } from 'react';
-
-import { ExpenseGroup, Expense, ExpenseType } from '../types/expenseGroups';
+import { ExpenseGroup, Expense } from '../types/expenseGroups';
 import { ErrorMessage } from '../types/common';
 import { setDocRef } from '../helpers/data';
 
@@ -27,9 +28,14 @@ const useAppProvider = (): UseAppProviderReturnType => {
 
   useEffect(() => {
     getExpenseGroups();
-    getExpenseTypes();
     getAllExpenses();
   }, []);
+
+  useEffect(() => {
+    if (allExpenses.length) {
+      getExpenseTypes();
+    }
+  }, [allExpenses]);
 
   const getExpenseGroups = async () => {
     setLoading(true);
@@ -54,20 +60,14 @@ const useAppProvider = (): UseAppProviderReturnType => {
       setAllExpenses(docRefs);
     } catch (err: any) {
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   const getExpenseTypes = async () => {
-    setLoading(true);
-    try {
-      const docs = await getDocs(collection(db, 'ExpenseType'));
-      const docRefs = setDocRef<ExpenseType>(docs);
-      const expenseTypes = docRefs.map((type) => type.name).sort();
-
-      setExpenseTypes(expenseTypes);
-    } catch (err: any) {
-      setError(err.message);
-    }
+    const types = _.uniq(allExpenses.map((expense) => expense.type));
+    setExpenseTypes(types);
   };
 
   const getExpenseGroupById = (groupId: string): ExpenseGroup | undefined => {
