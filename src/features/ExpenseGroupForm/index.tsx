@@ -1,51 +1,18 @@
-import React from 'react';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
-import * as yup from 'yup';
+
+import Button from '../../components/Button';
+
+import useExpenseGroupForm from './useExpenseGroupForm';
 
 import styles from './ExpenseGroupForm.module.scss';
-import Button from '../../components/Button';
 
 export interface ExpenseGroupFormProps {
   expenseGroupId?: string;
 }
 
-// ✅ Yup validation schema
-const validationSchema = yup.object({
-  startDate: yup.string().required('Start date is required'),
-  endDate: yup.string().required('End date is required'),
-  totalBudget: yup
-    .number()
-    .typeError('Total budget must be a number')
-    .min(1, 'Total budget is required'),
-  expenses: yup
-    .array()
-    .of(
-      yup.object({
-        name: yup.string().required('Expense name is required'),
-        balance: yup
-          .number()
-          .typeError('Balance must be a number')
-          .min(0.01, 'Balance must be greater than zero')
-          .required('Balance is required'),
-        dueDate: yup.string().required('Due date is required'),
-        type: yup.string().required('Type is required'),
-      }),
-    )
-    .min(1, 'At least one expense is required')
-    .required('Expenses are required'),
-});
-
 const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
-  const initialValues = {
-    startDate: '',
-    endDate: '',
-    totalBudget: 0,
-    expenses: [],
-  };
-
-  const handleSubmit = (values: typeof initialValues) => {
-    console.log('Form submitted:', values);
-  };
+  const { initialValues, validationSchema, handleSubmit } =
+    useExpenseGroupForm(expenseGroupId);
 
   return (
     <Formik
