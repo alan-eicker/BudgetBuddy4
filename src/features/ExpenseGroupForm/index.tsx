@@ -18,6 +18,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
+      validateOnBlur={false}
       onSubmit={handleSubmit}
     >
       {({ values }) => (
@@ -65,28 +66,38 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                     <>
                       <div key={index} className={styles.expenseFieldset}>
                         <div>
-                          <label>Name</label>
-                          <Field type="text" name={`expenses[${index}].name`} />
+                          <label htmlFor={`expenseName${index}`}>Name</label>
+                          <Field
+                            id={`expenseName${index}`}
+                            type="text"
+                            name={`expenses[${index}].name`}
+                          />
                         </div>
                         <div>
-                          <label>Balance</label>
+                          <label htmlFor={`balance${index}`}>Balance</label>
                           <Field
+                            id={`balance${index}`}
                             name={`expenses[${index}].balance`}
                             type="number"
                             placeholder="balance"
                           />
                         </div>
                         <div>
-                          <label>Due Date</label>
+                          <label htmlFor={`dueDate${index}`}>Due Date</label>
                           <Field
+                            id={`dueDate${index}`}
                             type="date"
                             name={`expenses[${index}].dueDate`}
                             placeholder="Due date"
                           />
                         </div>
                         <div>
-                          <label>Type</label>
-                          <Field as="select" name={`expenses[${index}].type`}>
+                          <label htmlFor={`expenseType${index}`}>Type</label>
+                          <Field
+                            id={`expenseType${index}`}
+                            as="select"
+                            name={`expenses[${index}].type`}
+                          >
                             <option value="">Type</option>
                             {/* Dynamically add options for expense types */}
                             <option value="recurring">Housing</option>
