@@ -22,7 +22,7 @@
 }
 
 .expenseFields {
-  & > * + * {
+  & > * + *:not(.error) {
     margin-top: 20px;
   }
 }
