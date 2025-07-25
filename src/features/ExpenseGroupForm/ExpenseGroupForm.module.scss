@@ -12,11 +12,13 @@
   }
 
   @media (min-width: $breakpoint-sm) {
-    width: 50%;
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
   }
 }
 
-.expenseFieldsetTitle {
+.fieldsetTitle {
   font-size: 24px;
   margin: 20px 0;
 }

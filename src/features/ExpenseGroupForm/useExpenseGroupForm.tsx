@@ -77,23 +77,27 @@ const useExpenseGroupForm = (
     values: ExpenseGroupFormValues,
     formikHelpers: FormikHelpers<ExpenseGroupFormValues>,
   ) => {
-    if (expenseGroupId) {
-      // Update expense group
-    } else {
-      try {
+    try {
+      if (expenseGroupId) {
+        updateExpenseGroup(values, expenseGroupId);
+        setStatusMessage({
+          type: 'success',
+          message: 'Expense group updated successfully.',
+        });
+      } else {
         addExpenseGroup(values);
         setStatusMessage({
           type: 'success',
           message: 'Expense group created successfully.',
         });
-      } catch (e) {
-        setStatusMessage({
-          type: 'success',
-          message: `Error creating expense group: ${(e as Error).message}`,
-        });
-      } finally {
-        formikHelpers.setSubmitting(false);
       }
+    } catch (e) {
+      setStatusMessage({
+        type: 'success',
+        message: `Error creating expense group: ${(e as Error).message}`,
+      });
+    } finally {
+      formikHelpers.setSubmitting(false);
     }
   };
 
@@ -112,7 +116,7 @@ const useExpenseGroupForm = (
 
       if (expenseGroupRef.id) {
         for (const expense of expenses) {
-          const expenseRef = await addDoc(collection(db, 'Expense'), {
+          await addDoc(collection(db, 'Expense'), {
             expenseGroupId: expenseGroupRef.id,
             ...expense,
           });

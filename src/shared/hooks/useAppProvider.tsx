@@ -62,13 +62,10 @@ const useAppProvider = (): UseAppProviderReturnType => {
     }
   };
 
-  const getExpenseTypes = useCallback(
-    () => async () => {
-      const types = _.uniq(allExpenses.map((expense) => expense.type));
-      setExpenseTypes(types);
-    },
-    [allExpenses],
-  );
+  const getExpenseTypes = useCallback(() => {
+    const types = _.uniq(allExpenses.map((expense) => expense.type));
+    setExpenseTypes(types);
+  }, [allExpenses]);
 
   const getExpenseGroupById = (groupId: string): ExpenseGroup | undefined => {
     return expenseGroups.find((group) => group.id === groupId);

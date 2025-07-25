@@ -35,6 +35,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
               {statusMessage.message}
             </div>
           )}
+          <h2 className={styles.fieldsetTitle}>Expense Group Info</h2>
           <div>
             <label htmlFor="startDate">Start Date</label>
             <Field id="startDate" type="date" name="startDate" />
@@ -66,7 +67,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
           </div>
 
           <div>
-            <h2 className={styles.expenseFieldsetTitle}>Expenses</h2>
+            <h2 className={styles.fieldsetTitle}>Expenses</h2>
             <FieldArray name="expenses">
               {({ push, remove }) => (
                 <div className={styles.expenseFields}>
@@ -113,6 +114,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                             <option value="">Type</option>
                             {/* Dynamically add options for expense types */}
                             <option value="Medical">Medical</option>
+                            <option value="Travel">Travel</option>
                           </Field>
                         </div>
 
