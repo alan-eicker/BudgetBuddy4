@@ -23,8 +23,8 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
       {({ values }) => (
         <Form className={styles.expenseGroupForm}>
           <div>
-            <label>Start Date</label>
-            <Field type="date" name="startDate" />
+            <label htmlFor="startDate">Start Date</label>
+            <Field id="startDate" type="date" name="startDate" />
             <ErrorMessage
               name="startDate"
               component="div"
@@ -33,8 +33,8 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
           </div>
 
           <div>
-            <label>End Date</label>
-            <Field type="date" name="endDate" />
+            <label htmlFor="endDate">End Date</label>
+            <Field id="endDate" type="date" name="endDate" />
             <ErrorMessage
               name="endDate"
               component="div"
@@ -43,8 +43,8 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
           </div>
 
           <div>
-            <label>Total Budget</label>
-            <Field type="number" name="totalBudget" />
+            <label htmlFor="totalBudget">Total Budget</label>
+            <Field id="totalBudget" type="number" name="totalBudget" />
             <ErrorMessage
               name="totalBudget"
               component="div"
@@ -53,37 +53,45 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
           </div>
 
           <div>
-            <label className={styles.expenseFieldsetTitle}>Expenses</label>
+            <h2 className={styles.expenseFieldsetTitle}>Expenses</h2>
             <FieldArray name="expenses">
               {({ push, remove }) => (
                 <div className={styles.expenseFields}>
                   {values.expenses.length === 0 && (
-                    <p>Please add at least one expense.</p>
+                    <div>Please add at least one expense.</div>
                   )}
 
                   {values.expenses.map((_, index) => (
                     <>
                       <div key={index} className={styles.expenseFieldset}>
-                        <Field
-                          type="text"
-                          name={`expenses[${index}].name`}
-                          placeholder="Expense name"
-                        />
-                        <Field
-                          name={`expenses[${index}].balance`}
-                          type="number"
-                          placeholder="balance"
-                        />
-                        <Field
-                          type="date"
-                          name={`expenses[${index}].dueDate`}
-                          placeholder="Due date"
-                        />
-                        <Field as="select" name={`expenses[${index}].type`}>
-                          <option value="">Type</option>
-                          {/* Dynamically add options for expense types */}
-                          <option value="recurring">Housing</option>
-                        </Field>
+                        <div>
+                          <label>Name</label>
+                          <Field type="text" name={`expenses[${index}].name`} />
+                        </div>
+                        <div>
+                          <label>Balance</label>
+                          <Field
+                            name={`expenses[${index}].balance`}
+                            type="number"
+                            placeholder="balance"
+                          />
+                        </div>
+                        <div>
+                          <label>Due Date</label>
+                          <Field
+                            type="date"
+                            name={`expenses[${index}].dueDate`}
+                            placeholder="Due date"
+                          />
+                        </div>
+                        <div>
+                          <label>Type</label>
+                          <Field as="select" name={`expenses[${index}].type`}>
+                            <option value="">Type</option>
+                            {/* Dynamically add options for expense types */}
+                            <option value="recurring">Housing</option>
+                          </Field>
+                        </div>
 
                         <Button
                           type="button"

@@ -18,18 +18,24 @@
 
 .expenseFieldsetTitle {
   font-size: 24px;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 .expenseFields {
   & > * + *:not(.error) {
-    margin-top: 20px;
+    margin-top: 25px;
   }
 }
 
 .expenseFieldset {
   display: flex;
+  flex-direction: column;
   gap: 16px;
+
+  @media (min-width: $breakpoint-sm) {
+    flex-direction: row;
+    align-items: flex-end;
+  }
 }
 
 .error {
@@ -37,4 +43,5 @@
   font-size: 14px;
   font-weight: 500;
   display: block;
+  margin-top: 4px;
 }
