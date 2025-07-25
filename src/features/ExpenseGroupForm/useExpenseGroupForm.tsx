@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import * as yup from 'yup';
 import { FormikHelpers } from 'formik';
+import { addDoc, collection } from 'firebase/firestore';
+import db from '../../firebase';
 
-// Define the shape of an individual expense
 export interface Expense {
   name: string;
   balance: number;
@@ -9,7 +11,11 @@ export interface Expense {
   type: string;
 }
 
-// Define the full form's values
+export interface StatusMessage {
+  type: 'error' | 'success';
+  message: string;
+}
+
 export interface ExpenseGroupFormValues {
   startDate: string;
   endDate: string;
@@ -17,8 +23,8 @@ export interface ExpenseGroupFormValues {
   expenses: Expense[];
 }
 
-// Define the return type for the custom hook
 export interface UseExpenseGroupFormReturnType {
+  statusMessage?: StatusMessage;
   initialValues: ExpenseGroupFormValues;
   validationSchema: yup.ObjectSchema<ExpenseGroupFormValues>;
   handleSubmit: (
@@ -30,6 +36,8 @@ export interface UseExpenseGroupFormReturnType {
 const useExpenseGroupForm = (
   expenseGroupId?: string,
 ): UseExpenseGroupFormReturnType => {
+  const [statusMessage, setStatusMessage] = useState<StatusMessage>();
+
   const validationSchema: yup.ObjectSchema<ExpenseGroupFormValues> = yup.object(
     {
       startDate: yup.string().required('Start date is required'),
@@ -69,11 +77,63 @@ const useExpenseGroupForm = (
     values: ExpenseGroupFormValues,
     formikHelpers: FormikHelpers<ExpenseGroupFormValues>,
   ) => {
-    console.log('Form submitted:', values);
-    formikHelpers.setSubmitting(false);
+    if (expenseGroupId) {
+      // Update expense group
+    } else {
+      try {
+        addExpenseGroup(values);
+        setStatusMessage({
+          type: 'success',
+          message: 'Expense group created successfully.',
+        });
+      } catch (e) {
+        setStatusMessage({
+          type: 'success',
+          message: `Error creating expense group: ${(e as Error).message}`,
+        });
+      } finally {
+        formikHelpers.setSubmitting(false);
+      }
+    }
+  };
+
+  const addExpenseGroup = async (
+    values: ExpenseGroupFormValues,
+  ): Promise<void> => {
+    // 1. Create new expense group in ExpenseGroup collection
+    // 2. Add expense(s) to Expense collections.
+    //       Requires document if from step 1
+    try {
+      const { expenses, ...expenseGroupValues } = values;
+      const expenseGroupRef = await addDoc(
+        collection(db, 'ExpenseGroup'),
+        expenseGroupValues,
+      );
+
+      if (expenseGroupRef.id) {
+        for (const expense of expenses) {
+          const expenseRef = await addDoc(collection(db, 'Expense'), {
+            expenseGroupId: expenseGroupRef.id,
+            ...expense,
+          });
+        }
+      }
+    } catch (e) {
+      throw new Error(`Error adding document: ${e}`);
+    }
+  };
+
+  const updateExpenseGroup = (
+    values: ExpenseGroupFormValues,
+    expenseGroupId: string,
+  ): void => {
+    // 1. Update expense group in ExpenseGroup collection
+    // 2. Update expense(s) to Expense collections
+    //       Requires document if from step 1
   };
 
   return {
+    statusMessage,
     validationSchema,
     initialValues,
     handleSubmit,

@@ -1,3 +1,6 @@
+import React from 'react';
+import classnames from 'classnames';
+
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 
 import Button from '../../components/Button';
@@ -11,7 +14,7 @@ export interface ExpenseGroupFormProps {
 }
 
 const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
-  const { initialValues, validationSchema, handleSubmit } =
+  const { initialValues, validationSchema, handleSubmit, statusMessage } =
     useExpenseGroupForm(expenseGroupId);
 
   return (
@@ -23,6 +26,15 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
     >
       {({ values }) => (
         <Form className={styles.expenseGroupForm}>
+          {statusMessage && (
+            <div
+              className={classnames(styles.statusMessage, {
+                [styles[statusMessage.type]]: statusMessage,
+              })}
+            >
+              {statusMessage.message}
+            </div>
+          )}
           <div>
             <label htmlFor="startDate">Start Date</label>
             <Field id="startDate" type="date" name="startDate" />
@@ -63,8 +75,8 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                   )}
 
                   {values.expenses.map((_, index) => (
-                    <>
-                      <div key={index} className={styles.expenseFieldset}>
+                    <React.Fragment key={index}>
+                      <div className={styles.expenseFieldset}>
                         <div>
                           <label htmlFor={`expenseName${index}`}>Name</label>
                           <Field
@@ -100,7 +112,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                           >
                             <option value="">Type</option>
                             {/* Dynamically add options for expense types */}
-                            <option value="recurring">Housing</option>
+                            <option value="Medical">Medical</option>
                           </Field>
                         </div>
 
@@ -129,7 +141,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                           name={`expenses[${index}].type`}
                         />
                       </div>
-                    </>
+                    </React.Fragment>
                   ))}
 
                   <Button
