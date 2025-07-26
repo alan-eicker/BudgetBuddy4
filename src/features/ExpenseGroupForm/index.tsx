@@ -8,6 +8,7 @@ import Button from '../../components/Button';
 import Switch from '../../components/Switch';
 
 import useExpenseGroupForm from './useExpenseGroupForm';
+import { useAppContext } from '../../shared/providers/AppProvider';
 
 import styles from './ExpenseGroupForm.module.scss';
 
@@ -16,6 +17,8 @@ export interface ExpenseGroupFormProps {
 }
 
 const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
+  const { staticSiteContent } = useAppContext();
+
   const { initialValues, validationSchema, handleSubmit, statusMessage } =
     useExpenseGroupForm(expenseGroupId);
 
@@ -30,7 +33,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
   const navigate = useNavigate();
 
   const handleCancelClick = () => {
-    navigate('/');
+    navigate(staticSiteContent.baseUrl);
   };
 
   return (
