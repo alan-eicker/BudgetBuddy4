@@ -26,7 +26,7 @@
 .fieldsetContainer {
   background-color: $gray-9;
   padding: 20px;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .expenseGroupFields {
@@ -54,13 +54,21 @@
   flex-direction: column;
   gap: 16px;
 
+  &:not(:last-of-type) {
+    border-bottom: 1px solid $gray-7;
+    padding-bottom: 30px;
+  }
+
   & > *:not(:last-child) {
     flex: 1;
   }
 
   @media (min-width: $breakpoint-sm) {
     flex-direction: row;
-    align-items: flex-end;
+
+    & > *:last-child {
+      margin-top: 23px;
+    }
   }
 }
 

@@ -88,6 +88,11 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                             type="text"
                             name={`expenses[${index}].name`}
                           />
+                          <ErrorMessage
+                            className={styles.error}
+                            component="div"
+                            name={`expenses[${index}].name`}
+                          />
                         </div>
                         <div>
                           <label htmlFor={`balance${index}`}>Balance</label>
@@ -97,6 +102,11 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                             type="number"
                             placeholder="balance"
                           />
+                          <ErrorMessage
+                            className={styles.error}
+                            component="div"
+                            name={`expenses[${index}].balance`}
+                          />
                         </div>
                         <div>
                           <label htmlFor={`dueDate${index}`}>Due Date</label>
@@ -105,6 +115,11 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                             type="date"
                             name={`expenses[${index}].dueDate`}
                             placeholder="Due date"
+                          />
+                          <ErrorMessage
+                            className={styles.error}
+                            component="div"
+                            name={`expenses[${index}].dueDate`}
                           />
                         </div>
                         <div>
@@ -119,6 +134,11 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                             <option value="Medical">Medical</option>
                             <option value="Travel">Travel</option>
                           </Field>
+                          <ErrorMessage
+                            className={styles.error}
+                            component="div"
+                            name={`expenses[${index}].type`}
+                          />
                         </div>
 
                         <Button
@@ -126,25 +146,6 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                           text="Remove"
                           variant="secondary"
                           onClick={() => remove(index)}
-                        />
-                      </div>
-
-                      <div className={styles.error}>
-                        <ErrorMessage
-                          component="div"
-                          name={`expenses[${index}].name`}
-                        />
-                        <ErrorMessage
-                          component="div"
-                          name={`expenses[${index}].balance`}
-                        />
-                        <ErrorMessage
-                          component="div"
-                          name={`expenses[${index}].dueDate`}
-                        />
-                        <ErrorMessage
-                          component="div"
-                          name={`expenses[${index}].type`}
                         />
                       </div>
                     </React.Fragment>
