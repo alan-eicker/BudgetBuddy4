@@ -12,6 +12,7 @@ export interface Expense {
   balance: number;
   dueDate: Date;
   type: string;
+  paid?: false;
 }
 
 export interface ExpenseType {

@@ -41,6 +41,11 @@ textarea {
   padding: 6px;
 }
 
+input[type='checkbox'] {
+  width: 20px;
+  height: 20px;
+}
+
 select {
   width: 100%;
   border: 1px solid $gray-6;

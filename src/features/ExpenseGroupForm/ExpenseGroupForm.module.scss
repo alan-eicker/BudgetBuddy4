@@ -13,9 +13,20 @@
 
   @media (min-width: $breakpoint-sm) {
     width: 100%;
-    max-width: 1024px;
+    max-width: 1200px;
     margin: 0 auto;
   }
+}
+
+.formActionButtions {
+  background-color: $white;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  position: sticky;
+  top: 0;
 }
 
 .fieldsetTitle {
@@ -59,7 +70,7 @@
     padding-bottom: 30px;
   }
 
-  & > *:not(:last-child) {
+  & > *:not(:nth-last-child(-n + 2)) {
     flex: 1;
   }
 
@@ -70,6 +81,10 @@
       margin-top: 23px;
     }
   }
+}
+
+.switchField {
+  padding-top: 8px;
 }
 
 .error {

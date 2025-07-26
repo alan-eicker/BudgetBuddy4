@@ -1,9 +1,11 @@
 import React from 'react';
 import classnames from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 
 import Button from '../../components/Button';
+import Switch from '../../components/Switch';
 
 import useExpenseGroupForm from './useExpenseGroupForm';
 
@@ -17,6 +19,20 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
   const { initialValues, validationSchema, handleSubmit, statusMessage } =
     useExpenseGroupForm(expenseGroupId);
 
+  const newExpense = {
+    name: '',
+    balance: 0,
+    dueDate: '',
+    type: '',
+    paid: false,
+  };
+
+  const navigate = useNavigate();
+
+  const handleCancelClick = () => {
+    navigate('/');
+  };
+
   return (
     <Formik
       initialValues={initialValues}
@@ -24,8 +40,17 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
       validateOnBlur={false}
       onSubmit={handleSubmit}
     >
-      {({ values }) => (
+      {({ values, setFieldValue }) => (
         <Form className={styles.expenseGroupForm}>
+          <div className={styles.formActionButtions}>
+            <Button type="submit" text="Submit" variant="tertiary" />
+            <Button
+              type="button"
+              text="Cancel"
+              variant="secondary"
+              onClick={handleCancelClick}
+            />
+          </div>
           {statusMessage && (
             <div
               className={classnames(styles.statusMessage, {
@@ -140,6 +165,20 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                             name={`expenses[${index}].type`}
                           />
                         </div>
+                        <div>
+                          <label htmlFor={`balance${index}`}>Paid</label>
+                          <div className={styles.switchField}>
+                            <Switch
+                              checked={values.expenses[index].paid}
+                              onChange={(e) => {
+                                setFieldValue(
+                                  `expenses[${index}].paid`,
+                                  e.target.checked,
+                                );
+                              }}
+                            />
+                          </div>
+                        </div>
 
                         <Button
                           type="button"
@@ -155,21 +194,12 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                     type="button"
                     text="Add Expense"
                     variant="secondary"
-                    onClick={() =>
-                      push({
-                        name: '',
-                        balance: 0,
-                        dueDate: '',
-                        type: '',
-                      })
-                    }
+                    onClick={() => push(newExpense)}
                   />
                 </div>
               )}
             </FieldArray>
           </div>
-
-          <Button size="lg" type="submit" text="Submit" variant="tertiary" />
         </Form>
       )}
     </Formik>

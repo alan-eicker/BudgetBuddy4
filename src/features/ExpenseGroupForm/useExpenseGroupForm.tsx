@@ -9,6 +9,7 @@ export interface Expense {
   balance: number;
   dueDate: string;
   type: string;
+  paid?: boolean;
 }
 
 export interface StatusMessage {
@@ -59,6 +60,7 @@ const useExpenseGroupForm = (
               .required('Balance is required'),
             dueDate: yup.string().required('Due date is required'),
             type: yup.string().required('Type is required'),
+            paid: yup.bool().optional(),
           }),
         )
         .min(1, 'At least one expense is required')
