@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as _ from 'lodash';
 
 import db from '../../firebase';
 
-import { ExpenseGroup, Expense } from '../types/expenseGroups';
+import { ExpenseGroup, Expense, ExpenseType } from '../types/expenseGroups';
 import { ErrorMessage } from '../types/common';
 import { setDocRef } from '../helpers/data';
 
@@ -62,10 +62,21 @@ const useAppProvider = (): UseAppProviderReturnType => {
     }
   };
 
-  const getExpenseTypes = useCallback(() => {
-    const types = _.uniq(allExpenses.map((expense) => expense.type));
-    setExpenseTypes(types);
-  }, [allExpenses]);
+  const getExpenseTypes = async (): Promise<void> => {
+    setLoading(true);
+    try {
+      const docs = await getDocs(collection(db, 'ExpenseType'));
+      const docRefs = _.orderBy(setDocRef<ExpenseType>(docs), ['name']).map(
+        (type) => type.name,
+      );
+
+      setExpenseTypes(docRefs);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getExpenseGroupById = (groupId: string): ExpenseGroup | undefined => {
     return expenseGroups.find((group) => group.id === groupId);
@@ -82,13 +93,8 @@ const useAppProvider = (): UseAppProviderReturnType => {
   useEffect(() => {
     getExpenseGroups();
     getAllExpenses();
+    getExpenseTypes();
   }, []);
-
-  useEffect(() => {
-    if (allExpenses.length) {
-      getExpenseTypes();
-    }
-  }, [allExpenses, getExpenseTypes]);
 
   return {
     expenseGroups,

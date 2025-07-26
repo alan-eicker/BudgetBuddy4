@@ -7,22 +7,21 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
   icon?: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'tertiary';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'white' | 'delete';
   size?: 'sm' | 'md' | 'lg';
 }
 
 const Button = ({
   text,
   icon,
-  variant,
+  variant = 'primary',
   size = 'md',
   ...otherProps
 }: ButtonProps) => {
   return (
     <button
       className={classnames(styles.button, {
-        [styles.tertiary]: variant === 'tertiary',
-        [styles.secondary]: variant === 'secondary',
+        [styles[variant]]: variant,
         [styles[size]]: size,
       })}
       {...otherProps}

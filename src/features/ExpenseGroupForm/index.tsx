@@ -17,7 +17,7 @@ export interface ExpenseGroupFormProps {
 }
 
 const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
-  const { staticSiteContent } = useAppContext();
+  const { staticSiteContent, expenseTypes } = useAppContext();
 
   const { initialValues, validationSchema, handleSubmit, statusMessage } =
     useExpenseGroupForm(expenseGroupId);
@@ -158,9 +158,11 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                             name={`expenses[${index}].type`}
                           >
                             <option value="">Type</option>
-                            {/* Dynamically add options for expense types */}
-                            <option value="Medical">Medical</option>
-                            <option value="Travel">Travel</option>
+                            {expenseTypes.map((type, index) => (
+                              <option key={index} value={type}>
+                                {type}
+                              </option>
+                            ))}
                           </Field>
                           <ErrorMessage
                             className={styles.error}
@@ -169,7 +171,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                           />
                         </div>
                         <div>
-                          <label htmlFor={`balance${index}`}>Paid</label>
+                          <label htmlFor={`balance${index}`}>Is Paid</label>
                           <div className={styles.switchField}>
                             <Switch
                               checked={values.expenses[index].paid}
@@ -186,7 +188,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                         <Button
                           type="button"
                           text="Remove"
-                          variant="secondary"
+                          variant="delete"
                           onClick={() => remove(index)}
                         />
                       </div>

@@ -6,6 +6,8 @@ import Button from '../../components/Button';
 
 import HeaderSection from './components/HeaderSection';
 
+import ExpenseList from '../../features/ExpenseList';
+
 const ExpenseGroupPage = () => {
   const { id } = useParams<{ id?: string }>();
 
@@ -41,7 +43,7 @@ const ExpenseGroupPage = () => {
         ]}
       />
       <section>
-        <pre>{JSON.stringify(expenses, null, 2)}</pre>
+        <ExpenseList expenses={expenses} />
       </section>
     </>
   );

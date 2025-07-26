@@ -8,6 +8,7 @@ import {
   ReferenceLine,
 } from 'recharts';
 import { useMediaQuery } from 'react-responsive';
+import * as _ from 'lodash';
 
 import ChartLabel from './ChartLabel';
 import CategoryList from '../../components/CategoryList';
@@ -28,7 +29,9 @@ const chartColors = {
 const ExpenseSnapshotChart = () => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
 
-  const { allExpenses, expenseTypes } = useAppProvider();
+  const { allExpenses } = useAppProvider();
+
+  const expenseCategories = _.uniq(allExpenses.map((expense) => expense.type));
 
   const chartData = aggregateExpensesByMonth(allExpenses, 9000, activeCategory);
 
@@ -83,7 +86,7 @@ const ExpenseSnapshotChart = () => {
       <h2 className={styles.title}>{activeCategory} Expenses Over 12 Months</h2>
       {MemoizedBarChart}
       <CategoryList
-        categories={['All', ...expenseTypes]}
+        categories={['All', ...expenseCategories]}
         activeCategory={activeCategory}
         onCategoryChange={handleCategoryClick}
       />
