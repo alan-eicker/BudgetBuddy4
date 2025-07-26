@@ -20,7 +20,13 @@
 
 .fieldsetTitle {
   font-size: 24px;
-  margin: 20px 0;
+  margin-bottom: 20px;
+}
+
+.fieldsetContainer {
+  background-color: $gray-9;
+  padding: 20px;
+  margin-top: 30px;
 }
 
 .expenseGroupFields {

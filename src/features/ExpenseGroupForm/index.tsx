@@ -35,39 +35,41 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
               {statusMessage.message}
             </div>
           )}
-          <h2 className={styles.fieldsetTitle}>Expense Group Info</h2>
 
-          <div className={styles.expenseGroupFields}>
-            <div>
-              <label htmlFor="startDate">Start Date</label>
-              <Field id="startDate" type="date" name="startDate" />
-              <ErrorMessage
-                name="startDate"
-                component="div"
-                className={styles.error}
-              />
-            </div>
-            <div>
-              <label htmlFor="endDate">End Date</label>
-              <Field id="endDate" type="date" name="endDate" />
-              <ErrorMessage
-                name="endDate"
-                component="div"
-                className={styles.error}
-              />
-            </div>
-            <div>
-              <label htmlFor="totalBudget">Total Budget</label>
-              <Field id="totalBudget" type="number" name="totalBudget" />
-              <ErrorMessage
-                name="totalBudget"
-                component="div"
-                className={styles.error}
-              />
+          <div className={styles.fieldsetContainer}>
+            <h2 className={styles.fieldsetTitle}>Expense Group Info</h2>
+            <div className={styles.expenseGroupFields}>
+              <div>
+                <label htmlFor="startDate">Start Date</label>
+                <Field id="startDate" type="date" name="startDate" />
+                <ErrorMessage
+                  name="startDate"
+                  component="div"
+                  className={styles.error}
+                />
+              </div>
+              <div>
+                <label htmlFor="endDate">End Date</label>
+                <Field id="endDate" type="date" name="endDate" />
+                <ErrorMessage
+                  name="endDate"
+                  component="div"
+                  className={styles.error}
+                />
+              </div>
+              <div>
+                <label htmlFor="totalBudget">Total Budget</label>
+                <Field id="totalBudget" type="number" name="totalBudget" />
+                <ErrorMessage
+                  name="totalBudget"
+                  component="div"
+                  className={styles.error}
+                />
+              </div>
             </div>
           </div>
 
-          <div>
+          <div className={styles.fieldsetContainer}>
             <h2 className={styles.fieldsetTitle}>Expenses</h2>
             <FieldArray name="expenses">
               {({ push, remove }) => (
@@ -126,6 +128,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                           onClick={() => remove(index)}
                         />
                       </div>
+
                       <div className={styles.error}>
                         <ErrorMessage
                           component="div"
