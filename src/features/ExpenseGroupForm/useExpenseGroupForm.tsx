@@ -104,9 +104,6 @@ const useExpenseGroupForm = (
   const addExpenseGroup = async (
     values: ExpenseGroupFormValues,
   ): Promise<void> => {
-    // 1. Create new expense group in ExpenseGroup collection
-    // 2. Add expense(s) to Expense collections.
-    //       Requires document if from step 1
     try {
       const { expenses, ...expenseGroupValues } = values;
       const expenseGroupRef = await addDoc(

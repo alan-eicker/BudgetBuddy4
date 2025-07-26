@@ -6,11 +6,18 @@ import styles from './Button.module.scss';
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
+  icon?: React.ReactNode;
   variant?: 'primary' | 'secondary' | 'tertiary';
   size?: 'sm' | 'md' | 'lg';
 }
 
-const Button = ({ text, variant, size = 'md', ...otherProps }: ButtonProps) => {
+const Button = ({
+  text,
+  icon,
+  variant,
+  size = 'md',
+  ...otherProps
+}: ButtonProps) => {
   return (
     <button
       className={classnames(styles.button, {
@@ -20,7 +27,7 @@ const Button = ({ text, variant, size = 'md', ...otherProps }: ButtonProps) => {
       })}
       {...otherProps}
     >
-      {text}
+      {icon} <span>{text}</span>
     </button>
   );
 };
