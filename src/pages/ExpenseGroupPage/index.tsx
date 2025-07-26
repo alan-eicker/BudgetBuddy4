@@ -35,8 +35,8 @@ const ExpenseGroupPage = () => {
           expenseGroup?.totalBudget || 0
         ).toLocaleString()}`}
         buttons={[
-          <Button text="Edit" onClick={() => {}} />,
-          <Button text="Duplicate" onClick={() => {}} />,
+          <Button text="Edit" variant="secondary" onClick={() => {}} />,
+          <Button text="Duplicate" variant="secondary" onClick={() => {}} />,
           <Button text="Delete" variant="tertiary" onClick={() => {}} />,
         ]}
       />
