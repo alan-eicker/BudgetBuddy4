@@ -55,7 +55,12 @@ const Header = ({ nav, logoUrl, baseUrl = '/' }: HeaderProps) => {
             </li>
           ))}
           <li>
-            <Button text="Log Out" variant="secondary" onClick={() => {}} />
+            <Button
+              size="sm"
+              text="Log Out"
+              variant="primary"
+              onClick={() => {}}
+            />
           </li>
         </ul>
         <button
