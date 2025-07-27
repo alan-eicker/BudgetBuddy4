@@ -10,20 +10,27 @@ import styles from './PageLayout.module.scss';
 export interface PageLayoutProps {
   children?: React.ReactNode;
   hasHero?: boolean;
-  heroContent?: React.ReactNode;
+  heroMinHeight?: number;
   loading: boolean;
 }
 
 const PageLayout = ({
   children,
-  heroContent,
-  hasHero = false,
+  hasHero = true,
+  heroMinHeight = 250,
   loading = false,
 }: PageLayoutProps) => {
   const { staticSiteContent } = useAppContext();
 
   return (
-    <div className={styles.pageLayout}>
+    <div
+      className={styles.pageLayout}
+      style={
+        {
+          '--heroMinHeight': `${heroMinHeight}px`,
+        } as React.CSSProperties
+      }
+    >
       <div className={styles.pageLayout__header}>
         <Header
           nav={staticSiteContent.nav}
@@ -37,9 +44,10 @@ const PageLayout = ({
         <>
           {hasHero && (
             <div className={styles.pageLayout__hero}>
-              <div className={styles.pageLayout__hero__content}>
-                {heroContent}
-              </div>
+              <div
+                id="hero-section"
+                className={styles.pageLayout__hero__content}
+              />
             </div>
           )}
           <main className={styles.pageLayout__main}>

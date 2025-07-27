@@ -1,8 +1,11 @@
+import { createPortal } from 'react-dom';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
 import ExpenseGroupGrid from '../../components/ExpenseGroupGrid';
 import Button from '../../components/Button';
+
+import ExpenseSnapshotChart from '../../features/ExpenseSnapshotChart';
 
 import { useAppContext } from '../../shared/providers/AppProvider';
 
@@ -13,6 +16,12 @@ const HomePage = () => {
   const goToAddExpenseGroupPage = () => {
     navigate('/expense-goup/add');
   };
+
+  const portalTarget = document.querySelector('#hero-section');
+
+  const heroContent = portalTarget
+    ? createPortal(<ExpenseSnapshotChart />, portalTarget)
+    : null;
 
   return (
     <>
@@ -25,6 +34,7 @@ const HomePage = () => {
         onClick={goToAddExpenseGroupPage}
       />
       <section>
+        {heroContent}
         <ExpenseGroupGrid expenseGroupData={expenseGroups} />
       </section>
     </>

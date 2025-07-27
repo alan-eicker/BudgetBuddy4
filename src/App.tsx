@@ -6,8 +6,6 @@ import ExpenseGroupFormPage from './pages/ExpenseGroupFormPage';
 
 import PageLayout from './components/PageLayout';
 
-import ExpenseSnapshotChart from './features/ExpenseSnapshotChart';
-
 import useAppProvider from './shared/hooks/useAppProvider';
 
 import { BASE_URL } from './constants/site';
@@ -20,8 +18,7 @@ function App() {
 
   return (
     <PageLayout
-      heroContent={<ExpenseSnapshotChart />}
-      hasHero={location.pathname === BASE_URL}
+      heroMinHeight={location.pathname === BASE_URL ? 400 : 150}
       loading={loading}
     >
       <Routes>

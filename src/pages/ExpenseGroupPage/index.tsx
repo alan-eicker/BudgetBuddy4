@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
+import { createPortal } from 'react-dom';
 
 import useAppProvider from '../../shared/hooks/useAppProvider';
 import Button from '../../components/Button';
@@ -25,6 +26,25 @@ const ExpenseGroupPage = () => {
 
   let title = 'Expense Group';
 
+  const portalTarget = document.querySelector('#hero-section');
+
+  const heroContent = portalTarget
+    ? createPortal(
+        <HeaderSection
+          title={title}
+          subtitle={`Total Budget: $${(
+            expenseGroup?.totalBudget || 0
+          ).toLocaleString()}`}
+          buttons={[
+            <Button text="Edit" variant="secondary" onClick={() => {}} />,
+            <Button text="Duplicate" variant="secondary" onClick={() => {}} />,
+            <Button text="Delete" variant="tertiary" onClick={() => {}} />,
+          ]}
+        />,
+        portalTarget,
+      )
+    : null;
+
   if (expenseGroup?.startDate && expenseGroup?.endDate) {
     title = `${new Date(expenseGroup?.startDate).toDateString()} - ${new Date(
       expenseGroup?.endDate,
@@ -36,17 +56,7 @@ const ExpenseGroupPage = () => {
       <Helmet>
         <title>Budget Buddy | Expense Group</title>
       </Helmet>
-      <HeaderSection
-        title={title}
-        subtitle={`Total Budget: $${(
-          expenseGroup?.totalBudget || 0
-        ).toLocaleString()}`}
-        buttons={[
-          <Button text="Edit" variant="secondary" onClick={() => {}} />,
-          <Button text="Duplicate" variant="secondary" onClick={() => {}} />,
-          <Button text="Delete" variant="tertiary" onClick={() => {}} />,
-        ]}
-      />
+      {heroContent}
       <section>
         <div className={styles.expenseListContainer}>
           <div className={styles.expenseListAction}>
