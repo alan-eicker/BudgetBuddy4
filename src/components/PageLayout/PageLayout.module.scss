@@ -8,6 +8,9 @@
   &__header {
     min-height: 65px;
     max-height: 65px;
+    position: sticky;
+    top: 0;
+    z-index: 3;
   }
 
   &__hero {

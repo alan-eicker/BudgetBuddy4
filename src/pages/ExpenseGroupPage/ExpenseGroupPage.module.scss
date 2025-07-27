@@ -1,6 +1,6 @@
+@import '../../styles/variables.scss';
+
 .expenseListContainer {
-  width: 100%;
-  max-width: 1220px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -9,6 +9,7 @@
 }
 
 .expenseListAction {
+  background: $white;
   display: flex;
   justify-content: flex-end;
 }
