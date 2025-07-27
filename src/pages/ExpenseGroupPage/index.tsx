@@ -11,6 +11,8 @@ import HeaderSection from './components/HeaderSection';
 import ExpenseList from '../../features/ExpenseList';
 import SpendingSnapshot from '../../features/SpendingSnapshot';
 
+import { toDollarAmountString } from '../../utils/numbers';
+
 import styles from './ExpenseGroupPage.module.scss';
 
 const ExpenseGroupPage = () => {
@@ -35,9 +37,9 @@ const ExpenseGroupPage = () => {
 
   const portalTarget = document.querySelector('#hero-section');
 
-  const totalBudgetStr = `Total Budget: $${(expenseGroup?.totalBudget || 0)
-    .toFixed(2)
-    .toLocaleString()}`;
+  const totalBudgetStr = `Total Budget: ${toDollarAmountString(
+    expenseGroup?.totalBudget || 0,
+  )}`;
 
   const heroContent = portalTarget
     ? createPortal(

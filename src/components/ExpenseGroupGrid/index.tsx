@@ -3,6 +3,8 @@ import { FaChevronRight } from 'react-icons/fa';
 
 import { ExpenseGroup } from '../../shared/types/expenseGroups';
 
+import { toDollarAmountString } from '../../utils/numbers';
+
 import styles from './ExpenseGroupGrid.module.scss';
 
 interface ExpenseGroupGridProps {
@@ -26,7 +28,7 @@ const ExpenseGroupGrid = ({ expenseGroupData = [] }: ExpenseGroupGridProps) => {
               {new Date(group.endDate).toDateString()}
             </h3>
             <p className={styles.groupBudget}>
-              Total Budget: ${group.totalBudget.toFixed(2).toLocaleString()}
+              Total Budget: {toDollarAmountString(group.totalBudget)}
             </p>
           </div>
           <ChevronRight />

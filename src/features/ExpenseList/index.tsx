@@ -5,6 +5,8 @@ import Button from '../../components/Button';
 import Switch from '../../components/Switch';
 import ConfirmationSlider from '../../components/ConfirmationSlider';
 
+import { toDollarAmountString } from '../../utils/numbers';
+
 import styles from './ExpenseList.module.scss';
 
 export interface ExpenseListProps {
@@ -27,7 +29,7 @@ const ExpenseList = ({ onDelete, onEdit, expenses = [] }: ExpenseListProps) => {
         <div key={expense.id} className={styles.expenseListItem}>
           <div>
             <h3 className={styles.expenseListItemTitle}>{expense.name}</h3>
-            <b>Balance Due:</b> ${expense.balance.toFixed(2).toLocaleString()}
+            <b>Balance Due:</b> {toDollarAmountString(expense.balance)}
           </div>
           <div className={styles.expenseListItemActions}>
             <div className={styles.expenseListItemStatusSwitch}>

@@ -1,4 +1,7 @@
 import { Expense } from '../../shared/types/expenseGroups';
+
+import { toDollarAmountString } from '../../utils/numbers';
+
 import styles from './SpendingSnapshot.module.scss';
 
 export interface SpendingSnapshotProps {
@@ -13,22 +16,23 @@ const SpendingSnapshot = ({ expenses, totalBudget }: SpendingSnapshotProps) => {
       }, 0)
     : 0;
 
-  const totalBalance = rawTotalBalance.toFixed(2).toLocaleString();
+  const totalBalance = toDollarAmountString(rawTotalBalance);
 
-  const unpaidBalance = expenses
-    ? expenses
-        .filter((expense) => !expense.paid)
-        .reduce((acc, expense) => {
-          return acc + expense.balance;
-        }, 0)
-        .toFixed(2)
-        .toLocaleString()
-    : 0;
+  const unpaidBalance = toDollarAmountString(
+    expenses
+      ? expenses
+          .filter((expense) => !expense.paid)
+          .reduce((acc, expense) => {
+            return acc + expense.balance;
+          }, 0)
+      : 0,
+  );
 
   const rawLeftOverBalance = totalBudget ? totalBudget - rawTotalBalance : 0;
 
-  let leftOverBalance =
-    rawLeftOverBalance > 0 ? rawLeftOverBalance.toFixed(2).toLocaleString() : 0;
+  let leftOverBalance = toDollarAmountString(
+    rawLeftOverBalance > 0 ? rawLeftOverBalance : 0,
+  );
 
   return (
     <div className={styles.spendingSnapshot}>
@@ -36,15 +40,15 @@ const SpendingSnapshot = ({ expenses, totalBudget }: SpendingSnapshotProps) => {
       <div className={styles.spendingSnapshotDetails}>
         <div>
           <h3 className={styles.snapshotTitle}>Total Balance</h3>
-          <div className={styles.snapshotAmount}>${totalBalance}</div>
+          <div className={styles.snapshotAmount}>{totalBalance}</div>
         </div>
         <div>
           <h3 className={styles.snapshotTitle}>Unpaid Balance</h3>
-          <div className={styles.snapshotAmount}>${unpaidBalance}</div>
+          <div className={styles.snapshotAmount}>{unpaidBalance}</div>
         </div>
         <div>
           <h3 className={styles.snapshotTitle}>Left Over Balance</h3>
-          <div className={styles.snapshotAmount}>${leftOverBalance}</div>
+          <div className={styles.snapshotAmount}>{leftOverBalance}</div>
         </div>
       </div>
     </div>
