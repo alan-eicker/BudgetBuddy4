@@ -16,12 +16,12 @@
   &__hero {
     background-color: $navy;
     color: $white;
+    padding: 20px;
     min-height: var(--heroMinHeight);
 
     &__content {
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
       width: 100%;
       height: 100%;
