@@ -58,7 +58,7 @@ const ExpenseList = ({ onDelete, onEdit, expenses = [] }: ExpenseListProps) => {
       ))}
     </div>
   ) : (
-    <>No expenses to list for this group.</>
+    <div>No expenses to list for this group.</div>
   );
 };
 
