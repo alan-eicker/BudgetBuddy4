@@ -25,10 +25,10 @@ const SpendingSnapshot = ({ expenses, totalBudget }: SpendingSnapshotProps) => {
         .toLocaleString()
     : 0;
 
-  const rawOverBalance = totalBudget ? totalBudget - rawTotalBalance : 0;
+  const rawLeftOverBalance = totalBudget ? totalBudget - rawTotalBalance : 0;
 
   let leftOverBalance =
-    rawOverBalance > 0 ? rawOverBalance.toFixed(2).toLocaleString() : 0;
+    rawLeftOverBalance > 0 ? rawLeftOverBalance.toFixed(2).toLocaleString() : 0;
 
   return (
     <div className={styles.spendingSnapshot}>
