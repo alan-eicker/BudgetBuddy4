@@ -15,6 +15,7 @@
 
   &__hero {
     background-color: $navy;
+    box-shadow: inset 0 0 60px $darkNavy;
     color: $white;
     padding: 20px;
     min-height: var(--heroMinHeight);
