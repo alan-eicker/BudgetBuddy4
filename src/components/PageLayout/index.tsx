@@ -10,7 +10,7 @@ import styles from './PageLayout.module.scss';
 export interface PageLayoutProps {
   children?: React.ReactNode;
   hasHero?: boolean;
-  heroMinHeight?: number;
+  heroMinHeight?: number | string;
   loading: boolean;
 }
 

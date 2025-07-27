@@ -18,7 +18,7 @@ function App() {
 
   return (
     <PageLayout
-      heroMinHeight={location.pathname === BASE_URL ? 400 : 150}
+      heroMinHeight={location.pathname === BASE_URL ? 400 : 'auto'}
       loading={loading}
     >
       <Routes>

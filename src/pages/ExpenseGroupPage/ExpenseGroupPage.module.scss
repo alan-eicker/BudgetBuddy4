@@ -1,13 +1,33 @@
 @import '../../styles/variables.scss';
 
-.expenseListContainer {
+.expenseGroupPageContainer {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.expenseListAction {
+.expenseGroupPageContent {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  & > :first-child {
+    flex: 1;
+  }
+
+  @media (min-width: $breakpoint-sm) {
+    flex-direction: row;
+  }
+
+  @media (min-width: $breakpoint-md) {
+    & > :last-child {
+      flex: 400px 0 0;
+    }
+  }
+}
+
+.actionButtons {
   background: $white;
   display: flex;
   justify-content: flex-end;
@@ -15,4 +35,29 @@
   top: 65px;
   z-index: 2;
   padding: 15px 0;
+}
+
+.spendingSnapshot {
+  background-color: $gray-10;
+  padding: 20px;
+  flex: 1;
+  border-radius: 5px;
+  position: sticky;
+  top: 135px;
+  align-self: flex-start;
+  text-align: center;
+}
+
+.spendingSnapshotTitle {
+  margin-bottom: 30px;
+}
+
+.spendingSnapshotDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  h3 {
+    margin-bottom: 15px;
+  }
 }

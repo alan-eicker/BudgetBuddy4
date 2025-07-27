@@ -57,15 +57,32 @@ const ExpenseGroupPage = () => {
         <title>Budget Buddy | Expense Group</title>
       </Helmet>
       {heroContent}
-      <div className={styles.expenseListContainer}>
-        <div className={styles.expenseListAction}>
+      <div className={styles.expenseGroupPageContainer}>
+        <div className={styles.actionButtons}>
           <Button text="+ Add Expense" variant="hollow" onClick={() => {}} />
         </div>
-        <ExpenseList
-          expenses={expenses}
-          onDelete={() => {}}
-          onEdit={() => navigate(`/expense-goup/edit/${id}`)}
-        />
+        <div className={styles.expenseGroupPageContent}>
+          <ExpenseList
+            expenses={expenses}
+            onDelete={() => {}}
+            onEdit={() => navigate(`/expense-goup/edit/${id}`)}
+          />
+          {/* Turn Expense Snapshot into feature */}
+          <div className={styles.spendingSnapshot}>
+            <h2 className={styles.spendingSnapshotTitle}>Spending Snapshot</h2>
+            <div className={styles.spendingSnapshotDetails}>
+              <div>
+                <h3>Total Balance</h3>
+              </div>
+              <div>
+                <h3>Unpaid Balance</h3>
+              </div>
+              <div>
+                <h3>Left Over Balance</h3>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
