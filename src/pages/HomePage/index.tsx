@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
@@ -10,18 +11,29 @@ import ExpenseSnapshotChart from '../../features/ExpenseSnapshotChart';
 import { useAppContext } from '../../shared/providers/AppProvider';
 
 const HomePage = () => {
-  const { expenseGroups } = useAppContext();
+  const { expenseGroups, allExpenses } = useAppContext();
   const navigate = useNavigate();
+
+  const [heroContent, setHeroContent] = useState<any>();
 
   const goToAddExpenseGroupPage = () => {
     navigate('/expense-goup/add');
   };
 
-  const portalTarget = document.querySelector('#hero-section');
+  useEffect(() => {
+    const portalTarget = document.querySelector('#hero-section');
 
-  const heroContent = portalTarget
-    ? createPortal(<ExpenseSnapshotChart />, portalTarget)
-    : null;
+    const portalElement = portalTarget ? (
+      createPortal(
+        <ExpenseSnapshotChart allExpenses={allExpenses} />,
+        portalTarget,
+      )
+    ) : (
+      <></>
+    );
+
+    setHeroContent(portalElement);
+  }, [allExpenses]);
 
   return (
     <>

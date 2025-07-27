@@ -13,11 +13,15 @@ import * as _ from 'lodash';
 import ChartLabel from './ChartLabel';
 import CategoryList from '../../components/CategoryList';
 
-import useAppProvider from '../../shared/hooks/useAppProvider';
+import { Expense } from '../../shared/types/expenseGroups';
 
 import { aggregateExpensesByMonth } from '../../shared/helpers/chartHelpers';
 
 import styles from './ExpenseSnapshotChart.module.scss';
+
+export interface ExpenseSnapshotChartProps {
+  allExpenses: Expense[];
+}
 
 const chartColors = {
   axisStroke: '#fff',
@@ -26,11 +30,9 @@ const chartColors = {
   referenceLine: 'rgba(255,255,255,0.20)',
 };
 
-const ExpenseSnapshotChart = () => {
+const ExpenseSnapshotChart = ({ allExpenses }: ExpenseSnapshotChartProps) => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
-
-  const { allExpenses } = useAppProvider();
-
+  console.log('ALL EXPENSES:', allExpenses);
   const expenseCategories = _.uniq(allExpenses.map((expense) => expense.type));
 
   const chartData = aggregateExpensesByMonth(allExpenses, 9000, activeCategory);
