@@ -26,6 +26,12 @@ const ExpenseGroupPage = () => {
 
   let title = 'Expense Group';
 
+  if (expenseGroup?.startDate && expenseGroup?.endDate) {
+    title = `${new Date(expenseGroup?.startDate).toDateString()} - ${new Date(
+      expenseGroup?.endDate,
+    ).toDateString()}`;
+  }
+
   const portalTarget = document.querySelector('#hero-section');
 
   const heroContent = portalTarget
@@ -44,12 +50,6 @@ const ExpenseGroupPage = () => {
         portalTarget,
       )
     : null;
-
-  if (expenseGroup?.startDate && expenseGroup?.endDate) {
-    title = `${new Date(expenseGroup?.startDate).toDateString()} - ${new Date(
-      expenseGroup?.endDate,
-    ).toDateString()}`;
-  }
 
   return (
     <>
