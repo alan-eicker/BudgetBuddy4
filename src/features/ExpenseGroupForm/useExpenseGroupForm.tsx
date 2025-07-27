@@ -7,7 +7,7 @@ import db from '../../firebase';
 export interface Expense {
   name: string;
   balance: number;
-  dueDate: string;
+  dueDate?: string;
   type: string;
   paid?: boolean;
 }
@@ -47,7 +47,7 @@ const useExpenseGroupForm = (
         .number()
         .typeError('Total budget must be a number')
         .min(1, 'Total budget must be greater than 0')
-        .required('Total budget is required'), // <-- required explicitly
+        .required('Total budget is required'),
       expenses: yup
         .array()
         .of(
@@ -58,7 +58,6 @@ const useExpenseGroupForm = (
               .typeError('Balance must be a number')
               .min(0.01, 'Balance must be greater than zero')
               .required('Balance is required'),
-            dueDate: yup.string().required('Due date is required'),
             type: yup.string().required('Type is required'),
             paid: yup.bool().optional(),
           }),
