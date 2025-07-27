@@ -26,7 +26,7 @@ const ExpenseGroupGrid = ({ expenseGroupData = [] }: ExpenseGroupGridProps) => {
               {new Date(group.endDate).toDateString()}
             </h3>
             <p className={styles.groupBudget}>
-              Total Budget: ${group.totalBudget.toLocaleString()}
+              Total Budget: ${group.totalBudget.toFixed(2).toLocaleString()}
             </p>
           </div>
           <ChevronRight />

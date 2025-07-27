@@ -27,7 +27,7 @@ const ExpenseList = ({ onDelete, onEdit, expenses = [] }: ExpenseListProps) => {
         <div key={expense.id} className={styles.expenseListItem}>
           <div>
             <h3 className={styles.expenseListItemTitle}>{expense.name}</h3>
-            <b>Balance Due:</b> ${expense.balance.toLocaleString()}
+            <b>Balance Due:</b> ${expense.balance.toFixed(2).toLocaleString()}
           </div>
           <div className={styles.expenseListItemActions}>
             <div className={styles.expenseListItemStatusSwitch}>

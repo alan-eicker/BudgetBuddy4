@@ -35,13 +35,15 @@ const ExpenseGroupPage = () => {
 
   const portalTarget = document.querySelector('#hero-section');
 
+  const totalBudgetStr = `Total Budget: $${(expenseGroup?.totalBudget || 0)
+    .toFixed(2)
+    .toLocaleString()}`;
+
   const heroContent = portalTarget
     ? createPortal(
         <HeaderSection
           title={title}
-          subtitle={`Total Budget: $${(
-            expenseGroup?.totalBudget || 0
-          ).toLocaleString()}`}
+          subtitle={totalBudgetStr}
           buttons={[
             <Button text="Edit" variant="secondary" onClick={() => {}} />,
             <Button text="Duplicate" variant="secondary" onClick={() => {}} />,
