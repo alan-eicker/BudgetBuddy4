@@ -9,6 +9,7 @@ import Button from '../../components/Button';
 import HeaderSection from './components/HeaderSection';
 
 import ExpenseList from '../../features/ExpenseList';
+import SpendingSnapshot from '../../features/SpendingSnapshot';
 
 import styles from './ExpenseGroupPage.module.scss';
 
@@ -67,20 +68,11 @@ const ExpenseGroupPage = () => {
             onDelete={() => {}}
             onEdit={() => navigate(`/expense-goup/edit/${id}`)}
           />
-          {/* Turn Expense Snapshot into feature */}
-          <div className={styles.spendingSnapshot}>
-            <h2 className={styles.spendingSnapshotTitle}>Spending Snapshot</h2>
-            <div className={styles.spendingSnapshotDetails}>
-              <div>
-                <h3>Total Balance</h3>
-              </div>
-              <div>
-                <h3>Unpaid Balance</h3>
-              </div>
-              <div>
-                <h3>Left Over Balance</h3>
-              </div>
-            </div>
+          <div className={styles.sidebar}>
+            <SpendingSnapshot
+              expenses={expenses}
+              totalBudget={expenseGroup?.totalBudget}
+            />
           </div>
         </div>
       </div>
