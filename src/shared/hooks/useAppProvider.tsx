@@ -82,20 +82,31 @@ const useAppProvider = (): UseAppProviderReturnType => {
   };
 
   useEffect(() => {
-    setLoading(true);
-    Promise.all([getExpenseGroups(), getAllExpenses(), getExpenseTypes()])
-      .then((response) => {
-        const [expenseGroupDocs, allExpenseDocs, expenseTypeDocs] = response;
-        setExpenseGroups(expenseGroupDocs);
-        setAllExpenses(allExpenseDocs);
-        setExpenseTypes(expenseTypeDocs);
-      })
-      .catch((err) => {
-        setError({ type: 'error', message: err.message });
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    const cachedData = sessionStorage.getItem('bb-expense-data');
+
+    if (cachedData) {
+      const [expenseGroupDocs, allExpenseDocs, expenseTypeDocs] =
+        JSON.parse(cachedData);
+      setExpenseGroups(expenseGroupDocs);
+      setAllExpenses(allExpenseDocs);
+      setExpenseTypes(expenseTypeDocs);
+    } else {
+      setLoading(true);
+      Promise.all([getExpenseGroups(), getAllExpenses(), getExpenseTypes()])
+        .then((response) => {
+          const [expenseGroupDocs, allExpenseDocs, expenseTypeDocs] = response;
+          sessionStorage.setItem('bb-expense-data', JSON.stringify(response));
+          setExpenseGroups(expenseGroupDocs);
+          setAllExpenses(allExpenseDocs);
+          setExpenseTypes(expenseTypeDocs);
+        })
+        .catch((err) => {
+          setError({ type: 'error', message: err.message });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   }, []);
 
   return {

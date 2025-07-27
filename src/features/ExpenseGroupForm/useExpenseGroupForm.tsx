@@ -120,6 +120,8 @@ const useExpenseGroupForm = (
           });
         }
       }
+
+      sessionStorage.removeItem('bb-expense-data');
     } catch (e) {
       throw new Error(`Error adding document: ${e}`);
     }
@@ -132,6 +134,11 @@ const useExpenseGroupForm = (
     // 1. Update expense group in ExpenseGroup collection
     // 2. Update expense(s) to Expense collections
     //       Requires document if from step 1
+    try {
+      sessionStorage.removeItem('bb-expense-data');
+    } catch (e) {
+      throw new Error(`Error adding document: ${e}`);
+    }
   };
 
   return {
