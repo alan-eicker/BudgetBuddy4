@@ -26,8 +26,7 @@ const useAppProvider = (): UseAppProviderReturnType => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<ErrorMessage>();
 
-  const getExpenseGroups = async () => {
-    setLoading(true);
+  const getExpenseGroups = async (): Promise<ExpenseGroup[]> => {
     try {
       const docs = await getDocs(collection(db, 'ExpenseGroup'));
       const docRefs = _.orderBy(
@@ -36,16 +35,13 @@ const useAppProvider = (): UseAppProviderReturnType => {
         ['desc'],
       );
 
-      setExpenseGroups(docRefs);
+      return docRefs;
     } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+      throw new Error(err.message);
     }
   };
 
-  const getAllExpenses = async () => {
-    setLoading(true);
+  const getAllExpenses = async (): Promise<Expense[]> => {
     try {
       const docs = await getDocs(collection(db, 'Expense'));
       const docRefs = _.orderBy(
@@ -54,27 +50,22 @@ const useAppProvider = (): UseAppProviderReturnType => {
         ['desc'],
       );
 
-      setAllExpenses(docRefs);
+      return docRefs;
     } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+      throw new Error(err.message);
     }
   };
 
-  const getExpenseTypes = async (): Promise<void> => {
-    setLoading(true);
+  const getExpenseTypes = async (): Promise<string[]> => {
     try {
       const docs = await getDocs(collection(db, 'ExpenseType'));
       const docRefs = _.orderBy(setDocRef<ExpenseType>(docs), ['name']).map(
         (type) => type.name,
       );
 
-      setExpenseTypes(docRefs);
+      return docRefs;
     } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+      throw new Error(err.message);
     }
   };
 
@@ -91,9 +82,20 @@ const useAppProvider = (): UseAppProviderReturnType => {
   };
 
   useEffect(() => {
-    getExpenseGroups();
-    getAllExpenses();
-    getExpenseTypes();
+    setLoading(true);
+    Promise.all([getExpenseGroups(), getAllExpenses(), getExpenseTypes()])
+      .then((response) => {
+        const [expenseGroupDocs, allExpenseDocs, expenseTypeDocs] = response;
+        setExpenseGroups(expenseGroupDocs);
+        setAllExpenses(allExpenseDocs);
+        setExpenseTypes(expenseTypeDocs);
+      })
+      .catch((err) => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   return {
