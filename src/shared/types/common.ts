@@ -1,4 +1,4 @@
-export interface ErrorMessage {
+export interface Message {
   type: 'success' | 'error' | 'warning' | 'info';
   message: string;
 }

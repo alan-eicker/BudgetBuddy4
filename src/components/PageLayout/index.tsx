@@ -4,6 +4,9 @@ import Footer from '../Footer';
 import { useAppContext } from '../../shared/providers/AppProvider';
 
 import LoaderOverlay from '../LoaderOverlay';
+import Notification from '../Notification';
+
+import { Message } from '../../shared/types/common';
 
 import styles from './PageLayout.module.scss';
 
@@ -12,6 +15,7 @@ export interface PageLayoutProps {
   hasHero?: boolean;
   heroMinHeight?: number | string;
   loading: boolean;
+  error?: Message;
 }
 
 const PageLayout = ({
@@ -19,6 +23,7 @@ const PageLayout = ({
   hasHero = true,
   heroMinHeight = 250,
   loading = false,
+  error,
 }: PageLayoutProps) => {
   const { staticSiteContent } = useAppContext();
 
@@ -42,18 +47,26 @@ const PageLayout = ({
         <LoaderOverlay heightOffset={60} />
       ) : (
         <>
-          {hasHero && (
-            <div className={styles.pageLayout__hero}>
-              <div
-                id="hero-section"
-                className={styles.pageLayout__hero__content}
-              />
-            </div>
+          {error ? (
+            <main className={styles.pageLayout__main}>
+              <Notification {...error} />
+            </main>
+          ) : (
+            <>
+              {hasHero && (
+                <div className={styles.pageLayout__hero}>
+                  <div
+                    id="hero-section"
+                    className={styles.pageLayout__hero__content}
+                  />
+                </div>
+              )}
+              <main className={styles.pageLayout__main}>
+                <div className={styles.pageLayout__content}>{children}</div>
+                <Footer copyrightText={staticSiteContent.copyrightText} />
+              </main>
+            </>
           )}
-          <main className={styles.pageLayout__main}>
-            <div className={styles.pageLayout__content}>{children}</div>
-            <Footer copyrightText={staticSiteContent.copyrightText} />
-          </main>
         </>
       )}
     </div>

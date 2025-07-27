@@ -14,12 +14,13 @@ import './styles/app.scss';
 
 function App() {
   const location = useLocation();
-  const { loading } = useAppProvider();
+  const { loading, error } = useAppProvider();
 
   return (
     <PageLayout
       heroMinHeight={location.pathname === BASE_URL ? 400 : 'auto'}
       loading={loading}
+      error={error}
     >
       <Routes>
         <Route path={BASE_URL} element={<HomePage />} />

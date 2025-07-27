@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import db from '../../firebase';
 
 import { ExpenseGroup, Expense, ExpenseType } from '../types/expenseGroups';
-import { ErrorMessage } from '../types/common';
+import { Message } from '../types/common';
 import { setDocRef } from '../helpers/data';
 
 import { collection, getDocs } from '@firebase/firestore';
@@ -14,7 +14,7 @@ export interface UseAppProviderReturnType {
   expenseTypes: string[];
   allExpenses: Expense[];
   loading: boolean;
-  error?: ErrorMessage;
+  error?: Message;
   getExpenseGroupById: (groupId: string) => ExpenseGroup | undefined;
   getExpensesByGroupId: (expenseGroupId: string) => Expense[] | undefined;
 }
@@ -24,7 +24,7 @@ const useAppProvider = (): UseAppProviderReturnType => {
   const [allExpenses, setAllExpenses] = useState<Expense[]>([]);
   const [expenseTypes, setExpenseTypes] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<ErrorMessage>();
+  const [error, setError] = useState<Message>();
 
   const getExpenseGroups = async (): Promise<ExpenseGroup[]> => {
     try {
@@ -91,7 +91,7 @@ const useAppProvider = (): UseAppProviderReturnType => {
         setExpenseTypes(expenseTypeDocs);
       })
       .catch((err) => {
-        setError(err.message);
+        setError({ type: 'error', message: err.message });
       })
       .finally(() => {
         setLoading(false);
