@@ -1,4 +1,7 @@
+import { toDollarAmountString } from '../../utils/numbers';
+
 const ChartLabel = ({ x, y, value }: any) => {
+  const isNumberValue = typeof value === 'number';
   return (
     <text
       x={x + 70 / 2}
@@ -9,7 +12,7 @@ const ChartLabel = ({ x, y, value }: any) => {
       fill={'#fff'}
       textAnchor="middle"
     >
-      ${value.toLocaleString()}
+      {isNumberValue ? toDollarAmountString(value) : value}
     </text>
   );
 };
