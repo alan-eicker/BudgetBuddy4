@@ -9,10 +9,17 @@ import styles from './ExpenseList.module.scss';
 
 export interface ExpenseListProps {
   expenses?: Expense[];
+  onDelete: () => void;
+  onEdit: () => void;
 }
 
-const ExpenseList = ({ expenses = [] }: ExpenseListProps) => {
+const ExpenseList = ({ onDelete, onEdit, expenses = [] }: ExpenseListProps) => {
   const [activeSliderIndex, setActiveSliderIndex] = useState<number>();
+
+  const handleConfirmClick = () => {
+    setActiveSliderIndex(undefined);
+    onDelete();
+  };
 
   return expenses.length > 0 ? (
     <div className={styles.expenseList}>
@@ -22,12 +29,17 @@ const ExpenseList = ({ expenses = [] }: ExpenseListProps) => {
             <h3 className={styles.expenseListItemTitle}>{expense.name}</h3>
             <b>Balance Due:</b> ${expense.balance}
           </div>
-          <div className={styles.expenseListItemTitleActions}>
+          <div className={styles.expenseListItemActions}>
             <div className={styles.expenseListItemStatusSwitch}>
               <label>Is Paid</label>
               <Switch checked={expense.paid} onChange={() => {}} />
             </div>
-            <Button text="Edit" variant="secondary" size="sm" />
+            <Button
+              text="Edit"
+              variant="secondary"
+              size="sm"
+              onClick={onEdit}
+            />
             <Button
               text="Delete"
               variant="delete"
@@ -36,7 +48,7 @@ const ExpenseList = ({ expenses = [] }: ExpenseListProps) => {
             />
           </div>
           <ConfirmationSlider
-            onConfirm={() => {}}
+            onConfirm={handleConfirmClick}
             onCancel={() => setActiveSliderIndex(undefined)}
             isActive={index === activeSliderIndex}
           />

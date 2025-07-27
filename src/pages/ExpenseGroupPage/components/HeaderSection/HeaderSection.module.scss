@@ -7,6 +7,8 @@
   justify-content: space-between;
   gap: 20px;
   text-align: center;
+  border-bottom: 1px solid $gray-7;
+  padding-bottom: 30px;
 
   @media (min-width: $breakpoint-sm) {
     flex-direction: row;

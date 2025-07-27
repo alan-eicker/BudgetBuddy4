@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 
 import useAppProvider from '../../shared/hooks/useAppProvider';
 import Button from '../../components/Button';
@@ -8,10 +9,14 @@ import HeaderSection from './components/HeaderSection';
 
 import ExpenseList from '../../features/ExpenseList';
 
+import styles from './ExpenseGroupPage.module.scss';
+
 const ExpenseGroupPage = () => {
   const { id } = useParams<{ id?: string }>();
 
   const { getExpenseGroupById, getExpensesByGroupId } = useAppProvider();
+
+  const navigate = useNavigate();
 
   if (!id) return <>No Expense Group ID</>;
 
@@ -43,7 +48,16 @@ const ExpenseGroupPage = () => {
         ]}
       />
       <section>
-        <ExpenseList expenses={expenses} />
+        <div className={styles.expenseListContainer}>
+          <div className={styles.expenseListAction}>
+            <Button text="+ Add Expense" variant="hollow" onClick={() => {}} />
+          </div>
+          <ExpenseList
+            expenses={expenses}
+            onDelete={() => {}}
+            onEdit={() => navigate(`/expense-goup/edit/${id}`)}
+          />
+        </div>
       </section>
     </>
   );
