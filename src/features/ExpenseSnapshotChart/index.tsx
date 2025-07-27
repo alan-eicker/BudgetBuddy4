@@ -32,7 +32,7 @@ const chartColors = {
 
 const ExpenseSnapshotChart = ({ allExpenses }: ExpenseSnapshotChartProps) => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
-  console.log('ALL EXPENSES:', allExpenses);
+
   const expenseCategories = _.uniq(allExpenses.map((expense) => expense.type));
 
   const chartData = aggregateExpensesByMonth(allExpenses, 9000, activeCategory);
