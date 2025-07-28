@@ -15,6 +15,7 @@ export interface ButtonProps
     | 'delete'
     | 'hollow';
   size?: 'sm' | 'md' | 'lg';
+  isFullWidth?: boolean;
 }
 
 const Button = ({
@@ -22,6 +23,7 @@ const Button = ({
   icon,
   variant = 'primary',
   size = 'md',
+  isFullWidth = false,
   ...otherProps
 }: ButtonProps) => {
   return (
@@ -29,6 +31,7 @@ const Button = ({
       className={classnames(styles.button, {
         [styles[variant]]: variant,
         [styles[size]]: size,
+        [styles.isFullWidth]: isFullWidth,
       })}
       {...otherProps}
     >

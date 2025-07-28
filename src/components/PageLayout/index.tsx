@@ -14,6 +14,7 @@ export interface PageLayoutProps {
   children?: React.ReactNode;
   hasHero?: boolean;
   heroMinHeight?: number | string;
+  loggedIn?: boolean;
   loading: boolean;
   error?: Message;
 }
@@ -22,6 +23,7 @@ const PageLayout = ({
   children,
   hasHero = true,
   heroMinHeight = 250,
+  loggedIn = false,
   loading = false,
   error,
 }: PageLayoutProps) => {
@@ -36,13 +38,15 @@ const PageLayout = ({
         } as React.CSSProperties
       }
     >
-      <div className={styles.pageLayout__header}>
-        <Header
-          nav={staticSiteContent.nav}
-          baseUrl={staticSiteContent.baseUrl}
-          logoUrl={`${staticSiteContent.baseUrl}images/logo.png`}
-        />
-      </div>
+      {loggedIn && (
+        <div className={styles.pageLayout__header}>
+          <Header
+            nav={staticSiteContent.nav}
+            baseUrl={staticSiteContent.baseUrl}
+            logoUrl={`${staticSiteContent.baseUrl}images/logo.png`}
+          />
+        </div>
+      )}
       {loading ? (
         <LoaderOverlay heightOffset={60} />
       ) : (
@@ -63,7 +67,9 @@ const PageLayout = ({
               )}
               <main className={styles.pageLayout__main}>
                 <div className={styles.pageLayout__content}>{children}</div>
-                <Footer copyrightText={staticSiteContent.copyrightText} />
+                {loggedIn && (
+                  <Footer copyrightText={staticSiteContent.copyrightText} />
+                )}
               </main>
             </>
           )}

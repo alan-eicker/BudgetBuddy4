@@ -15,6 +15,7 @@ export interface UseAppProviderReturnType {
   allExpenses: Expense[];
   loading: boolean;
   error?: Message;
+  loggedIn: boolean;
   getExpenseGroupById: (groupId: string) => ExpenseGroup | undefined;
   getExpensesByGroupId: (expenseGroupId: string) => Expense[] | undefined;
 }
@@ -25,6 +26,7 @@ const useAppProvider = (): UseAppProviderReturnType => {
   const [expenseTypes, setExpenseTypes] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Message>();
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const getExpenseGroups = async (): Promise<ExpenseGroup[]> => {
     try {
@@ -82,6 +84,8 @@ const useAppProvider = (): UseAppProviderReturnType => {
   };
 
   useEffect(() => {
+    if (!loggedIn) return;
+
     const cachedData = sessionStorage.getItem('bb-expense-data');
 
     if (cachedData) {
@@ -107,7 +111,7 @@ const useAppProvider = (): UseAppProviderReturnType => {
           setLoading(false);
         });
     }
-  }, []);
+  }, [loggedIn]);
 
   return {
     expenseGroups,
@@ -115,6 +119,7 @@ const useAppProvider = (): UseAppProviderReturnType => {
     allExpenses,
     loading,
     error,
+    loggedIn,
     getExpenseGroupById,
     getExpensesByGroupId,
   };

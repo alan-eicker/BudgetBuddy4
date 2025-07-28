@@ -10,9 +10,14 @@
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
 
   &:hover {
     background-color: $black;
+  }
+
+  &.isFullWidth {
+    width: 100%;
   }
 
   &.secondary {
