@@ -10,7 +10,7 @@ import ExpenseSnapshotChart from '../../features/ExpenseSnapshotChart';
 
 import { useAppContext } from '../../shared/providers/AppProvider';
 
-const HomePage = () => {
+const DashboardPage = () => {
   const { expenseGroups, allExpenses } = useAppContext();
   const navigate = useNavigate();
 
@@ -53,4 +53,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default DashboardPage;

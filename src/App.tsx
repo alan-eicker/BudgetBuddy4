@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 
-import HomePage from './pages/HomePage';
+import DashboardPage from './pages/DashboardPage';
 import ExpenseGroupPage from './pages/ExpenseGroupPage';
 import ExpenseGroupFormPage from './pages/ExpenseGroupFormPage';
 
@@ -8,22 +8,23 @@ import PageLayout from './components/PageLayout';
 
 import useAppProvider from './shared/hooks/useAppProvider';
 
-import { BASE_URL } from './constants/site';
-
 import './styles/app.scss';
 
 function App() {
   const location = useLocation();
   const { loading, error } = useAppProvider();
 
+  const isDashboard = location.pathname === '/dashboard';
+
   return (
     <PageLayout
-      heroMinHeight={location.pathname === BASE_URL ? 400 : 'auto'}
+      heroMinHeight={isDashboard ? 400 : 'auto'}
       loading={loading}
       error={error}
     >
       <Routes>
-        <Route path={BASE_URL} element={<HomePage />} />
+        {/* <Route path={BASE_URL} element={<HomePage />} /> */}
+        <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/expense-group/:id" element={<ExpenseGroupPage />} />
         <Route path="/expense-goup/add" element={<ExpenseGroupFormPage />} />
         <Route
