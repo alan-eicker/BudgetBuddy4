@@ -33,7 +33,7 @@ const LoginForm = () => {
               <ErrorMessage
                   name="email"
                   component="div"
-                  className={styles.error}
+                  className="error"
                 />
             </div>
             <div>
@@ -41,7 +41,7 @@ const LoginForm = () => {
               <ErrorMessage
                 name="password"
                 component="div"
-                className={styles.error}
+                className="error"
               />
             </div>
             <div>

@@ -77,3 +77,11 @@ p {
 b {
   font-weight: 600;
 }
+
+.error {
+  color: $red;
+  font-size: 14px;
+  font-weight: 500;
+  display: block;
+  margin-top: 4px;
+}

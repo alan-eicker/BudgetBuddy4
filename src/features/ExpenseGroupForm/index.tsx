@@ -73,7 +73,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                 <ErrorMessage
                   name="startDate"
                   component="div"
-                  className={styles.error}
+                  className="error"
                 />
               </div>
               <div>
@@ -82,7 +82,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                 <ErrorMessage
                   name="endDate"
                   component="div"
-                  className={styles.error}
+                  className="error"
                 />
               </div>
               <div>
@@ -91,7 +91,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                 <ErrorMessage
                   name="totalBudget"
                   component="div"
-                  className={styles.error}
+                  className="error"
                 />
               </div>
             </div>
@@ -117,7 +117,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                             name={`expenses[${index}].name`}
                           />
                           <ErrorMessage
-                            className={styles.error}
+                            className="error"
                             component="div"
                             name={`expenses[${index}].name`}
                           />
@@ -131,7 +131,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                             placeholder="balance"
                           />
                           <ErrorMessage
-                            className={styles.error}
+                            className="error"
                             component="div"
                             name={`expenses[${index}].balance`}
                           />
@@ -145,7 +145,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                             placeholder="Due date"
                           />
                           <ErrorMessage
-                            className={styles.error}
+                            className="error"
                             component="div"
                             name={`expenses[${index}].dueDate`}
                           />
@@ -165,7 +165,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
                             ))}
                           </Field>
                           <ErrorMessage
-                            className={styles.error}
+                            className="error"
                             component="div"
                             name={`expenses[${index}].type`}
                           />
