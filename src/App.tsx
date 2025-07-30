@@ -15,7 +15,7 @@ import './styles/app.scss';
 
 function App() {
   const location = useLocation();
-  const { loggedIn, loading, error } = useAppProvider();
+  const { loading, error } = useAppProvider();
 
   const isDashboard = location.pathname === '/dashboard';
   const hasHero = location.pathname === '/' ? false : true;
@@ -25,7 +25,6 @@ function App() {
       heroMinHeight={isDashboard ? 400 : 'auto'}
       hasHero={hasHero}
       loading={loading}
-      loggedIn={loggedIn}
       error={error}
     >
       <Routes>

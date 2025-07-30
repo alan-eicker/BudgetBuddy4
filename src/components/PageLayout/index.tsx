@@ -1,3 +1,5 @@
+import { useLocation } from 'react-router-dom';
+
 import Header from '../Header';
 import Footer from '../Footer';
 
@@ -23,11 +25,13 @@ const PageLayout = ({
   children,
   hasHero = true,
   heroMinHeight = 250,
-  loggedIn = false,
   loading = false,
   error,
 }: PageLayoutProps) => {
   const { staticSiteContent } = useAppContext();
+  const location = useLocation();
+
+  const isLoginPage = location.pathname === '/';
 
   return (
     <div
@@ -38,15 +42,14 @@ const PageLayout = ({
         } as React.CSSProperties
       }
     >
-      {loggedIn && (
-        <div className={styles.pageLayout__header}>
-          <Header
-            nav={staticSiteContent.nav}
-            baseUrl={staticSiteContent.baseUrl}
-            logoUrl={`${staticSiteContent.baseUrl}images/logo.png`}
-          />
-        </div>
-      )}
+      <div className={styles.pageLayout__header}>
+        <Header
+          nav={staticSiteContent.nav}
+          baseUrl={staticSiteContent.baseUrl}
+          logoUrl={`${staticSiteContent.baseUrl}images/logo.png`}
+          showNav={!isLoginPage}
+        />
+      </div>
       {loading ? (
         <LoaderOverlay heightOffset={60} />
       ) : (
@@ -67,9 +70,7 @@ const PageLayout = ({
               )}
               <main className={styles.pageLayout__main}>
                 <div className={styles.pageLayout__content}>{children}</div>
-                {loggedIn && (
-                  <Footer copyrightText={staticSiteContent.copyrightText} />
-                )}
+                <Footer copyrightText={staticSiteContent.copyrightText} />
               </main>
             </>
           )}

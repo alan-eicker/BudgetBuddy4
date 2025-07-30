@@ -12,11 +12,17 @@ export interface HeaderProps {
   nav: { text: string; url: string }[];
   baseUrl: string;
   logoUrl: string;
+  showNav?: boolean;
 }
 
 const HamburgerMenu = GiHamburgerMenu as unknown as React.FC;
 
-const Header = ({ nav, logoUrl, baseUrl = '/' }: HeaderProps) => {
+const Header = ({ 
+  nav, 
+  logoUrl, 
+  baseUrl = '/',
+  showNav = true 
+}: HeaderProps) => {
   const location = useLocation();
 
   const [activePath, setActivePath] = useState(location.pathname);
@@ -36,40 +42,42 @@ const Header = ({ nav, logoUrl, baseUrl = '/' }: HeaderProps) => {
       >
         <Logo logoUrl={logoUrl} />
       </Link>
-      <nav>
-        <ul
-          className={classnames(styles.nav, {
-            [styles.isOpen]: showMenu,
-          })}
-        >
-          {nav.map((item, index) => (
-            <li key={index}>
-              <Link
-                to={item.url}
-                className={classnames(styles.nav__link, {
-                  [styles.active]: activePath === item.url,
-                })}
-              >
-                {item.text}
-              </Link>
+      {showNav && (
+        <nav>
+          <ul
+            className={classnames(styles.nav, {
+              [styles.isOpen]: showMenu,
+            })}
+          >
+            {nav.map((item, index) => (
+              <li key={index}>
+                <Link
+                  to={item.url}
+                  className={classnames(styles.nav__link, {
+                    [styles.active]: activePath === item.url,
+                  })}
+                >
+                  {item.text}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Button
+                size="sm"
+                text="Log Out"
+                variant="primary"
+                onClick={() => {}}
+              />
             </li>
-          ))}
-          <li>
-            <Button
-              size="sm"
-              text="Log Out"
-              variant="primary"
-              onClick={() => {}}
-            />
-          </li>
-        </ul>
-        <button
-          className={styles.mobileMenuTrigger}
-          onClick={() => setShowMenu(!showMenu)}
-        >
-          <HamburgerMenu />
-        </button>
-      </nav>
+          </ul>
+          <button
+            className={styles.mobileMenuTrigger}
+            onClick={() => setShowMenu(!showMenu)}
+          >
+            <HamburgerMenu />
+          </button>
+        </nav>
+      )}
     </header>
   );
 };

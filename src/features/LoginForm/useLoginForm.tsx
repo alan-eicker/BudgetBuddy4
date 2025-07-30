@@ -44,7 +44,7 @@ const useLoginForm = (): UseLoginFormReturnType => {
         formikHelpers: FormikHelpers<LoginFormValues>,
     ): Promise<void> => {
         try {
-            const user = await signInWithEmailAndPassword(auth, values.email, values.password);
+            await signInWithEmailAndPassword(auth, values.email, values.password);
             formikHelpers.resetForm();
             navigate('/dashboard');
         } catch {
