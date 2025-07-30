@@ -1,6 +1,4 @@
-import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
-
-import styles from './LoginForm.module.scss';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import Logo from '../../components/Logo';
 import Button from '../../components/Button';
@@ -8,9 +6,12 @@ import Button from '../../components/Button';
 import { useAppContext } from '../../shared/providers/AppProvider';
 import useLoginForm from './useLoginForm';
 
+import styles from './LoginForm.module.scss';
+
 const LoginForm = () => {
     const { staticSiteContent } = useAppContext();
     const {
+      error,
       handleSubmit,
       initialValues,
       validationSchema
@@ -28,6 +29,11 @@ const LoginForm = () => {
             <div className={styles.logoContainer}>
               <Logo logoUrl={`${staticSiteContent.baseUrl}images/logo.png`} />
             </div>
+            {error && (
+              <div className="error">
+                {error}
+              </div>
+            )}
             <div>
               <Field type="text" name="email" placeholder="Email Address" />
               <ErrorMessage

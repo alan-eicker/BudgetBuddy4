@@ -2,7 +2,7 @@ import { useState } from 'react';
 import * as yup from 'yup';
 import { FormikHelpers } from 'formik';
 import { addDoc, collection } from 'firebase/firestore';
-import db from '../../firebase';
+import { db } from '../../firebase';
 
 export interface Expense {
   name: string;

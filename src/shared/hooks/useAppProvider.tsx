@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as _ from 'lodash';
 
-import db from '../../firebase';
+import { db } from '../../firebase';
 
 import { ExpenseGroup, Expense, ExpenseType } from '../types/expenseGroups';
 import { Message } from '../types/common';
