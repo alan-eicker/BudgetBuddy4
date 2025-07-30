@@ -1,30 +1,19 @@
-import Button from '../../components/Button';
-import Logo from '../../components/Logo';
-
-import { useAppContext } from '../../shared/providers/AppProvider';
+import { Helmet } from 'react-helmet-async';
 
 import styles from './LoginPage.module.scss';
 
-const LoginPage = () => {
-  const { staticSiteContent } = useAppContext();
+import LoginForm from '../../features/LoginForm';
 
+const LoginPage = () => {
   return (
-    <div className={styles.loginContainer}>
-      <form className={styles.loginForm}>
-        <div className={styles.logoContainer}>
-          <Logo logoUrl={`${staticSiteContent.baseUrl}images/logo.png`} />
-        </div>
-        <div>
-          <input type="text" placeholder="Username" />
-        </div>
-        <div>
-          <input type="password" placeholder="Password" />
-        </div>
-        <div>
-          <Button type="submit" text="Log In" variant="tertiary" isFullWidth />
-        </div>
-      </form>
-    </div>
+    <>
+      <Helmet>
+        <title>Budget Buddy | Log In</title>
+      </Helmet>
+      <div className={styles.loginPageContainer}>
+        <LoginForm />
+      </div>
+    </>
   );
 };
 

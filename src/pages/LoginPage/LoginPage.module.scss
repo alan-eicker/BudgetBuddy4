@@ -1,32 +1,7 @@
-@import '../../styles/variables.scss';
-
-.loginContainer {
+.loginPageContainer {
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.loginForm {
-  background-color: $gray-10;
-  padding: 20px;
-  width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  & > :last-child {
-    margin-bottom: 10px;
-  }
-
-  & > :last-child {
-    margin-top: 10px;
-  }
-}
-
-.logoContainer {
-  display: flex;
-  justify-content: center;
 }

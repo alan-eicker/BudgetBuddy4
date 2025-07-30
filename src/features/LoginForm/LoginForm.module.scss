@@ -1,0 +1,33 @@
+@import '../../styles/variables.scss';
+
+.loginForm {
+  background-color: $gray-10;
+  border: 1px solid $gray-7;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  & > :last-child {
+    margin-bottom: 10px;
+  }
+
+  & > :last-child {
+    margin-top: 10px;
+  }
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.error {
+  color: $red;
+  font-size: 14px;
+  font-weight: 500;
+  display: block;
+  margin-top: 4px;
+}
