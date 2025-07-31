@@ -5,10 +5,6 @@
   align-items: center;
   gap: 3px;
 
-  img {
-    min-width: 170px;
-    max-width: 170px;
-  }
 
   &::before {
     background-color: $red;
@@ -17,8 +13,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 32px;
-    min-width: 35px;
+    height: 45px;
+    min-width: 45px;
     font-size: 20px;
     border-radius: 5px;
   }

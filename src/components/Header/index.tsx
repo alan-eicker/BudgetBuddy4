@@ -39,7 +39,7 @@ const Header = ({
         to={baseUrl}
         aria-label="Go to dashboard"
       >
-        <Logo logoUrl={logoUrl} />
+        <Logo />
       </Link>
       {showNav && (
         <nav>

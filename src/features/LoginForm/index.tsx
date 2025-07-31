@@ -27,7 +27,7 @@ const LoginForm = () => {
          {() => (
           <Form className={styles.loginForm}>
             <div className={styles.logoContainer}>
-              <Logo logoUrl={`${staticSiteContent.baseUrl}images/logo.png`} />
+              <Logo />
             </div>
             {error && (
               <div className="error">
