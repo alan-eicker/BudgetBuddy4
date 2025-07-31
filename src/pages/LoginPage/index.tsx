@@ -11,6 +11,7 @@ const LoginPage = () => {
         <title>Budget Buddy | Log In</title>
       </Helmet>
       <div className={styles.loginPageContainer}>
+        TEST
         <LoginForm />
       </div>
     </>

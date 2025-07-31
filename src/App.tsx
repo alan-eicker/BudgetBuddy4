@@ -18,7 +18,7 @@ function App() {
   const { loading, error } = useAppProvider();
 
   const isDashboard = location.pathname === '/dashboard';
-  const hasHero = location.pathname === BASE_URL ? false : true;
+  const hasHero = location.pathname !== '/' ? true : false;
 
   return (
     <PageLayout
