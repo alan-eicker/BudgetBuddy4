@@ -17,7 +17,7 @@ export interface ExpenseGroupFormProps {
 }
 
 const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
-  const { staticSiteContent, expenseTypes } = useAppContext();
+  const { expenseTypes } = useAppContext();
 
   const { initialValues, validationSchema, handleSubmit, statusMessage } =
     useExpenseGroupForm(expenseGroupId);
@@ -33,7 +33,7 @@ const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
   const navigate = useNavigate();
 
   const handleCancelClick = () => {
-    navigate(staticSiteContent.baseUrl);
+    navigate('/dashboard');
   };
 
   return (

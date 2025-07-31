@@ -19,7 +19,7 @@
 }
 
 .formActionButtions {
-  background-color: $white;
+  background: $gray-9;
   padding: 15px 0;
   display: flex;
   align-items: center;
@@ -36,7 +36,8 @@
 }
 
 .fieldsetContainer {
-  background-color: $gray-9;
+  background-color: $white;
+  border: 1px solid $gray-7;
   border-radius: 5px;
   padding: 20px;
   margin-top: 20px;

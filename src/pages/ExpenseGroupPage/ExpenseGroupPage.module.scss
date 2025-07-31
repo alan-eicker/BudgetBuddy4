@@ -28,7 +28,7 @@
 }
 
 .actionButtons {
-  background: $white;
+  background: $gray-9;
   position: sticky;
   top: 65px;
   z-index: 2;
@@ -36,6 +36,9 @@
 }
 
 .sidebar {
+  background-color: $white;
+  border: 1px solid $gray-7;
+  padding: 20px;
   position: sticky;
   top: 135px;
   align-self: flex-start;

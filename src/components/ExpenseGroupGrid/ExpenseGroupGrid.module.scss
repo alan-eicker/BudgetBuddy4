@@ -15,7 +15,8 @@
 }
 
 .expenseGroupCard {
-  background-color: $gray-9;
+  background-color: $white;
+  border: 1px solid $gray-7;
   padding: 20px;
   border-radius: 8px;
   text-decoration: none;
@@ -26,7 +27,7 @@
   justify-content: space-between;
 
   &:hover {
-    background-color: $gray-8;
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.1);
   }
 }
 
