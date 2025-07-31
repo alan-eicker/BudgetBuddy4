@@ -47,9 +47,24 @@ const ExpenseGroupPage = () => {
           title={title}
           subtitle={totalBudgetStr}
           buttons={[
-            <Button key="Edit" text="Edit" variant="secondary" onClick={() => {}} />,
-            <Button key="Duplicate" text="Duplicate" variant="secondary" onClick={() => {}} />,
-            <Button key="Delete" text="Delete" variant="tertiary" onClick={() => {}} />,
+            <Button
+              key="Edit"
+              text="Edit"
+              variant="secondary"
+              onClick={() => {}}
+            />,
+            <Button
+              key="Duplicate"
+              text="Duplicate"
+              variant="secondary"
+              onClick={() => {}}
+            />,
+            <Button
+              key="Delete"
+              text="Delete"
+              variant="tertiary"
+              onClick={() => {}}
+            />,
           ]}
         />,
         portalTarget,
@@ -64,7 +79,12 @@ const ExpenseGroupPage = () => {
       {heroContent}
       <div className={styles.expenseGroupPageContainer}>
         <div className={styles.actionButtons}>
-          <Button text="+ Add Expense" variant="hollow" onClick={() => {}} />
+          <Button
+            text="+ Add Expense"
+            size="sm"
+            variant="secondary"
+            onClick={() => {}}
+          />
         </div>
         <div className={styles.expenseGroupPageContent}>
           <ExpenseList

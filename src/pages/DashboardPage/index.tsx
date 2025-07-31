@@ -43,6 +43,7 @@ const DashboardPage = () => {
       <Button
         text="Add Expense Group"
         variant="secondary"
+        size="sm"
         onClick={goToAddExpenseGroupPage}
       />
       <section>

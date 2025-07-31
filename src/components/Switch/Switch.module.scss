@@ -20,7 +20,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: $gray-7;
   transition: background-color 0.3s ease;
   border-radius: 26px;
 
@@ -46,6 +46,6 @@
 }
 
 .checkbox:disabled + .slider {
-  background-color: #eee;
+  background-color: $gray-8;
   cursor: not-allowed;
 }
