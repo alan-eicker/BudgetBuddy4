@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import * as _ from 'lodash';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { auth, db } from '../../firebase';
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { db } from '../../firebase';
 
 import { ExpenseGroup, Expense, ExpenseType } from '../types/expenseGroups';
 import { Message } from '../types/common';
@@ -11,8 +10,9 @@ import { setDocRef } from '../helpers/data';
 
 import { collection, getDocs } from '@firebase/firestore';
 
+import useAuth from './useAuth';
+
 export interface UseAppProviderReturnType {
-  user?: User | null | undefined;
   expenseGroups: ExpenseGroup[];
   expenseTypes: string[];
   allExpenses: Expense[];
@@ -23,13 +23,13 @@ export interface UseAppProviderReturnType {
 }
 
 const useAppProvider = (): UseAppProviderReturnType => {
+  const { user, initializing } = useAuth();
+
   const [expenseGroups, setExpenseGroups] = useState<ExpenseGroup[]>([]);
   const [allExpenses, setAllExpenses] = useState<Expense[]>([]);
   const [expenseTypes, setExpenseTypes] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Message>();
-  const [user, setUser] = useState<User | null | undefined>();
-  const [initializing, setInitializing] = useState(true);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -90,17 +90,6 @@ const useAppProvider = (): UseAppProviderReturnType => {
   };
 
   useEffect(() => {
-    auth.authStateReady?.().then(() => {
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        setUser(user);
-        setInitializing(false);
-      });
-
-      return unsubscribe;
-    });
-  }, []);
-
-  useEffect(() => {
     if (!initializing && !user) {
       navigate('/');
     }
@@ -138,7 +127,6 @@ const useAppProvider = (): UseAppProviderReturnType => {
   }, [user]);
 
   return {
-    user,
     expenseGroups,
     expenseTypes,
     allExpenses,
