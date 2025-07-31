@@ -7,7 +7,10 @@
 }
 
 .spendingSnapshotTitle {
+  font-weight: 600;
   margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid $gray-7;
 }
 
 .spendingSnapshotDetails {
