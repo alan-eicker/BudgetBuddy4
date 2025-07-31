@@ -13,13 +13,6 @@ import { Message } from '../../shared/types/common';
 
 export interface NotificationProps extends Message {}
 
-const iconMap = {
-  error: MdErrorOutline as unknown as React.FC,
-  warning: MdWarningAmber as unknown as React.FC,
-  success: MdCheck as unknown as React.FC,
-  info: MdInfoOutline as unknown as React.FC,
-};
-
 const Notification = ({ type, message }: NotificationProps) => {
   const IconComponent = () => {
     let IconComponent: React.FC;
