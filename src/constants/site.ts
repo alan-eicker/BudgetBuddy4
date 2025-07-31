@@ -1,5 +1,4 @@
-export const BASE_URL =
-  process.env.NODE_ENV === 'production' ? '/BudgetBuddy4/' : '/';
+export const BASE_URL = '/';
 
 export const APP_NAME = 'Budget Buddy';
 
