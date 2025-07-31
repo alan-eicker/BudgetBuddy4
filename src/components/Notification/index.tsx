@@ -36,10 +36,12 @@ const Notification = ({ type, message }: NotificationProps) => {
 
     return <IconComponent />;
   };
+
   return (
     <div className={classnames(styles.notification, styles[type])}>
       <div className={styles.icon}>
         <IconComponent />
+        ``
       </div>
       <div>{message}</div>
     </div>
