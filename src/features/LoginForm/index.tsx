@@ -3,13 +3,11 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Logo from '../../components/Logo';
 import Button from '../../components/Button';
 
-import { useAppContext } from '../../shared/providers/AppProvider';
 import useLoginForm from './useLoginForm';
 
 import styles from './LoginForm.module.scss';
 
 const LoginForm = () => {
-    const { staticSiteContent } = useAppContext();
     const {
       error,
       handleSubmit,
