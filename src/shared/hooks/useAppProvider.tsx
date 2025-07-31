@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import * as _ from 'lodash';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { auth, db } from "../../firebase";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { auth, db } from '../../firebase';
+import { onAuthStateChanged, User } from 'firebase/auth';
 
 import { ExpenseGroup, Expense, ExpenseType } from '../types/expenseGroups';
 import { Message } from '../types/common';
@@ -120,7 +120,8 @@ const useAppProvider = (): UseAppProviderReturnType => {
         setLoading(true);
         Promise.all([getExpenseGroups(), getAllExpenses(), getExpenseTypes()])
           .then((response) => {
-            const [expenseGroupDocs, allExpenseDocs, expenseTypeDocs] = response;
+            const [expenseGroupDocs, allExpenseDocs, expenseTypeDocs] =
+              response;
             sessionStorage.setItem('bb-expense-data', JSON.stringify(response));
             setExpenseGroups(expenseGroupDocs);
             setAllExpenses(allExpenseDocs);
