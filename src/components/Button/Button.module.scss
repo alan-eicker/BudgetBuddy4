@@ -69,18 +69,21 @@
   &.sm {
     font-size: 14px;
     height: 30px;
-    padding: 0 10px;
+    padding: 0 15px;
+    border-radius: 30px;
   }
 
   &.md {
     font-size: 16px;
     height: 40px;
     padding: 0 20px;
+    border-radius: 40px;
   }
 
   &.lg {
     font-size: 18px;
     height: 50px;
     padding: 0 30px;
+    border-radius: 50px;
   }
 }

@@ -26,9 +26,9 @@ const ExpenseGroupGrid = ({ expenseGroupData = [] }: ExpenseGroupGridProps) => {
               {new Date(group.startDate).toDateString()} -{' '}
               {new Date(group.endDate).toDateString()}
             </h3>
-            <p className={styles.groupBudget}>
+            <div className={styles.groupBudget}>
               Total Budget: {toDollarAmountString(group.totalBudget)}
-            </p>
+            </div>
           </div>
           <Icon name="ChevronRight" />
         </Link>
