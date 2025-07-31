@@ -133,8 +133,10 @@ const useAppProvider = (): UseAppProviderReturnType => {
             setLoading(false);
           });
       }
+
+      navigate('/dashboard');
     }
-  }, [user]);
+  }, [user, navigate]);
 
   return {
     user,
