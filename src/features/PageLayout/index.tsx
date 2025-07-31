@@ -46,7 +46,7 @@ const PageLayout = ({
         <Header
           logoutButton={<LogoutButton />}
           nav={staticSiteContent.nav}
-          baseUrl={staticSiteContent.baseUrl}
+          baseUrl="/dashboard"
           logoUrl={`${staticSiteContent.baseUrl}images/logo.png`}
           showNav={!isLoginPage}
         />

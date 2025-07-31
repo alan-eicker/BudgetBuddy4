@@ -1,9 +1,9 @@
 import { useState, useEffect, ReactNode } from 'react';
 import classnames from 'classnames';
 import { Link, useLocation } from 'react-router-dom';
-import { GiHamburgerMenu } from 'react-icons/gi';
 
 import Logo from '../Logo';
+import Icon from '../Icon';
 
 import styles from './Header.module.scss';
 
@@ -14,15 +14,12 @@ export interface HeaderProps {
   showNav?: boolean;
   logoutButton?: ReactNode;
 }
-
-const HamburgerMenu = GiHamburgerMenu as unknown as React.FC;
-
-const Header = ({ 
-  nav, 
-  logoUrl, 
+const Header = ({
+  nav,
+  logoUrl,
   logoutButton,
   baseUrl = '/',
-  showNav = true, 
+  showNav = true,
 }: HeaderProps) => {
   const location = useLocation();
 
@@ -50,10 +47,7 @@ const Header = ({
           >
             {nav.map((item, index) => (
               <li key={index}>
-                <Link
-                  to={item.url}
-                  className={styles.nav__link}
-                >
+                <Link to={item.url} className={styles.nav__link}>
                   {item.text}
                 </Link>
               </li>
@@ -64,7 +58,7 @@ const Header = ({
             className={styles.mobileMenuTrigger}
             onClick={() => setShowMenu(!showMenu)}
           >
-            <HamburgerMenu />
+            <Icon name="HamburgerMenu" />
           </button>
         </nav>
       )}

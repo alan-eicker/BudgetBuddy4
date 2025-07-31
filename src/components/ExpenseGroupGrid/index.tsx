@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { FaChevronRight } from 'react-icons/fa';
+
+import Icon from '../Icon';
 
 import { ExpenseGroup } from '../../shared/types/expenseGroups';
 
@@ -10,8 +11,6 @@ import styles from './ExpenseGroupGrid.module.scss';
 interface ExpenseGroupGridProps {
   expenseGroupData: ExpenseGroup[];
 }
-
-const ChevronRight = FaChevronRight as unknown as React.FC;
 
 const ExpenseGroupGrid = ({ expenseGroupData = [] }: ExpenseGroupGridProps) => {
   return (
@@ -31,7 +30,7 @@ const ExpenseGroupGrid = ({ expenseGroupData = [] }: ExpenseGroupGridProps) => {
               Total Budget: {toDollarAmountString(group.totalBudget)}
             </p>
           </div>
-          <ChevronRight />
+          <Icon name="ChevronRight" />
         </Link>
       ))}
     </div>
