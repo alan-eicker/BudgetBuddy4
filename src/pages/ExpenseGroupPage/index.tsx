@@ -47,9 +47,9 @@ const ExpenseGroupPage = () => {
           title={title}
           subtitle={totalBudgetStr}
           buttons={[
-            <Button text="Edit" variant="secondary" onClick={() => {}} />,
-            <Button text="Duplicate" variant="secondary" onClick={() => {}} />,
-            <Button text="Delete" variant="tertiary" onClick={() => {}} />,
+            <Button key="Edit" text="Edit" variant="secondary" onClick={() => {}} />,
+            <Button key="Duplicate" text="Duplicate" variant="secondary" onClick={() => {}} />,
+            <Button key="Delete" text="Delete" variant="tertiary" onClick={() => {}} />,
           ]}
         />,
         portalTarget,

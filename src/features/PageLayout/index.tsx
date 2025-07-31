@@ -1,12 +1,12 @@
 import { useLocation } from 'react-router-dom';
 
-import Header from '../Header';
-import Footer from '../Footer';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import LoaderOverlay from '../../components/LoaderOverlay';
+import Notification from '../../components/Notification';
+import LogoutButton from '../LogoutButton';
 
 import { useAppContext } from '../../shared/providers/AppProvider';
-
-import LoaderOverlay from '../LoaderOverlay';
-import Notification from '../Notification';
 
 import { Message } from '../../shared/types/common';
 
@@ -44,6 +44,7 @@ const PageLayout = ({
     >
       <div className={styles.pageLayout__header}>
         <Header
+          logoutButton={<LogoutButton />}
           nav={staticSiteContent.nav}
           baseUrl={staticSiteContent.baseUrl}
           logoUrl={`${staticSiteContent.baseUrl}images/logo.png`}

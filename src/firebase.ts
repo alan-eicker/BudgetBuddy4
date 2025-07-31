@@ -1,5 +1,6 @@
 import { initializeApp } from '@firebase/app';
 import { getFirestore } from '@firebase/firestore';
+import { initializeAuth, indexedDBLocalPersistence, Auth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -15,4 +16,8 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore();
 
-export { db, app };
+const auth: Auth = initializeAuth(app, {
+  persistence: indexedDBLocalPersistence
+});
+
+export { db, app, auth };

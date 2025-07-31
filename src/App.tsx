@@ -5,7 +5,7 @@ import ExpenseGroupPage from './pages/ExpenseGroupPage';
 import ExpenseGroupFormPage from './pages/ExpenseGroupFormPage';
 import LoginPage from './pages/LoginPage';
 
-import PageLayout from './components/PageLayout';
+import PageLayout from './features/PageLayout';
 
 import useAppProvider from './shared/hooks/useAppProvider';
 

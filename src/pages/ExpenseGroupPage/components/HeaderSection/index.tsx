@@ -4,7 +4,7 @@ import styles from './HeaderSection.module.scss';
 export interface HeaderSectionProps {
   title: string;
   subtitle?: string;
-  buttons?: React.ReactNode[];
+  buttons?: React.ReactNode;
 }
 
 const HeaderSection = ({ title, subtitle, buttons }: HeaderSectionProps) => {

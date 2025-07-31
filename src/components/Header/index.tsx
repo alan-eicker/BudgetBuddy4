@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import classnames from 'classnames';
 import { Link, useLocation } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi';
 
 import Logo from '../Logo';
-import Button from '../Button';
 
 import styles from './Header.module.scss';
 
@@ -13,6 +12,7 @@ export interface HeaderProps {
   baseUrl: string;
   logoUrl: string;
   showNav?: boolean;
+  logoutButton?: ReactNode;
 }
 
 const HamburgerMenu = GiHamburgerMenu as unknown as React.FC;
@@ -20,16 +20,15 @@ const HamburgerMenu = GiHamburgerMenu as unknown as React.FC;
 const Header = ({ 
   nav, 
   logoUrl, 
+  logoutButton,
   baseUrl = '/',
-  showNav = true 
+  showNav = true, 
 }: HeaderProps) => {
   const location = useLocation();
 
-  const [activePath, setActivePath] = useState(location.pathname);
   const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
-    setActivePath(location.pathname);
     setShowMenu(false);
   }, [location]);
 
@@ -53,22 +52,13 @@ const Header = ({
               <li key={index}>
                 <Link
                   to={item.url}
-                  className={classnames(styles.nav__link, {
-                    [styles.active]: activePath === item.url,
-                  })}
+                  className={styles.nav__link}
                 >
                   {item.text}
                 </Link>
               </li>
             ))}
-            <li>
-              <Button
-                size="sm"
-                text="Log Out"
-                variant="primary"
-                onClick={() => {}}
-              />
-            </li>
+            {logoutButton && <li>{logoutButton}</li>}
           </ul>
           <button
             className={styles.mobileMenuTrigger}
