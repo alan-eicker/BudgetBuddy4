@@ -32,10 +32,16 @@ const ExpenseList = ({ onDelete, onEdit, expenses = [] }: ExpenseListProps) => {
       {expenses.map((expense, index) => {
         const isOverdue = isOverDue(expense.dueDate);
         return (
-          <div key={expense.id} className={styles.expenseListItem}>
+          <div
+            key={expense.id}
+            className={classnames(styles.expenseListItem, {
+              [styles.isOverdue]: isOverdue,
+            })}
+          >
             <div className={styles.expenseListItemDetails}>
               <div className={styles.expenseListItemIcon}>
                 <Icon name={expense.type} />
+                {JSON.stringify(isOverDue)}
               </div>
               <div className={styles.expenseListItemInfo}>
                 <div className={styles.expenseListItemType}>{expense.type}</div>
@@ -44,11 +50,7 @@ const ExpenseList = ({ onDelete, onEdit, expenses = [] }: ExpenseListProps) => {
                 {expense.dueDate && (
                   <>
                     | <b>Due:</b>{' '}
-                    <span
-                      className={classnames(styles.dueDate, {
-                        [styles.isOverdue]: isOverdue,
-                      })}
-                    >
+                    <span className={styles.dueDate}>
                       {formatDate(expense.dueDate)}{' '}
                       {isOverdue && <Icon name="error" />}
                     </span>

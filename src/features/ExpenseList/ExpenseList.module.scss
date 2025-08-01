@@ -19,6 +19,14 @@
   position: relative;
   overflow: hidden;
 
+  &.isOverdue {
+    border-color: $red;
+
+    .dueDate {
+      color: $red;
+    }
+  }
+
   @media (min-width: $breakpoint-sm) {
     flex-direction: row;
   }
@@ -70,8 +78,4 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-
-  &.isOverdue {
-    color: $red;
-  }
 }
