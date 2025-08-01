@@ -16,11 +16,9 @@
     flex: 1;
   }
 
-  @media (min-width: $breakpoint-sm) {
-    flex-direction: row;
-  }
-
   @media (min-width: $breakpoint-md) {
+    flex-direction: row;
+
     & > :last-child {
       flex: 400px 0 0;
     }
@@ -33,6 +31,20 @@
   top: 65px;
   z-index: 2;
   padding: 15px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  @media (min-width: $breakpoint-md) {
+    width: calc(100% - 440px);
+  }
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .sidebar {

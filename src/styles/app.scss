@@ -78,6 +78,16 @@ b {
   font-weight: 600;
 }
 
+a {
+  color: $gray-1;
+  font-weight: 500;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .error {
   color: $red;
   font-size: 14px;

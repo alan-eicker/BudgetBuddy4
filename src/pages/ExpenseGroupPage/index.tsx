@@ -1,10 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 
 import useAppProvider from '../../shared/hooks/useAppProvider';
 import Button from '../../components/Button';
+import Icon from '../../components/Icon';
 
 import HeaderSection from './components/HeaderSection';
 
@@ -79,6 +80,10 @@ const ExpenseGroupPage = () => {
       {heroContent}
       <div className={styles.expenseGroupPageContainer}>
         <div className={styles.actionButtons}>
+          <Link to="/dashboard" className={styles.backButton}>
+            <Icon name="back" />
+            <span>Back to Dashboard</span>
+          </Link>
           <Button
             text="+ Add Expense"
             size="sm"
@@ -92,12 +97,12 @@ const ExpenseGroupPage = () => {
             onDelete={() => {}}
             onEdit={() => navigate(`/expense-goup/edit/${id}`)}
           />
-          <div className={styles.sidebar}>
+          <aside className={styles.sidebar}>
             <SpendingSnapshot
               expenses={expenses}
               totalBudget={expenseGroup?.totalBudget}
             />
-          </div>
+          </aside>
         </div>
       </div>
     </>

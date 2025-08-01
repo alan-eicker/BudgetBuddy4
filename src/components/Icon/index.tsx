@@ -7,6 +7,7 @@ import { AiFillBank } from 'react-icons/ai';
 import { FaGasPump } from 'react-icons/fa6';
 import { FaChevronRight } from 'react-icons/fa';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import {
   MdErrorOutline,
   MdWarningAmber,
@@ -72,6 +73,9 @@ const Icon = ({ name }: IconProps) => {
       break;
     case 'info':
       IconComponent = MdInfoOutline as unknown as React.FC;
+      break;
+    case 'back':
+      IconComponent = IoMdArrowRoundBack as unknown as React.FC;
       break;
     default:
       IconComponent = () => <></>;
