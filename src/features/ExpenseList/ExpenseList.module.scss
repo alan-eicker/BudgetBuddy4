@@ -46,14 +46,15 @@
 .expenseListItemTitle {
   font-size: 22px;
   font-weight: 600;
-  text-align: center;
-
-  @media (min-width: $breakpoint-sm) {
-    text-align: left;
-  }
 }
 
 .expenseListItemDetails {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.expenseListItemInfo {
   flex: 1;
 }
 

@@ -28,13 +28,15 @@ const ExpenseList = ({ onDelete, onEdit, expenses = [] }: ExpenseListProps) => {
     <div className={styles.expenseList}>
       {expenses.map((expense, index) => (
         <div key={expense.id} className={styles.expenseListItem}>
-          <div className={styles.expenseListItemIcon}>
-            <Icon name={expense.type} />
-          </div>
           <div className={styles.expenseListItemDetails}>
-            <div className={styles.expenseListItemType}>{expense.type}</div>
-            <h3 className={styles.expenseListItemTitle}>{expense.name}</h3>
-            <b>Balance Due:</b> {toDollarAmountString(expense.balance)}
+            <div className={styles.expenseListItemIcon}>
+              <Icon name={expense.type} />
+            </div>
+            <div className={styles.expenseListItemInfo}>
+              <div className={styles.expenseListItemType}>{expense.type}</div>
+              <h3 className={styles.expenseListItemTitle}>{expense.name}</h3>
+              <b>Balance Due:</b> {toDollarAmountString(expense.balance)}
+            </div>
           </div>
           <div className={styles.expenseListItemActions}>
             <div className={styles.expenseListItemStatusSwitch}>
