@@ -25,6 +25,10 @@
   align-items: center;
   justify-content: space-between;
 
+  &.hasOverdueExpenses {
+    border-color: $red;
+  }
+
   &:hover {
     box-shadow: 0 0 9px rgba(0, 0, 0, 0.1);
     text-decoration: none;
@@ -34,4 +38,10 @@
 .groupTitle {
   font-size: 20px;
   font-weight: 600;
+}
+
+.overDueAlert {
+  color: red;
+  font-weight: 600;
+  margin-bottom: 2px;
 }
