@@ -65,3 +65,13 @@
 .expenseListItemIcon {
   font-size: 35px;
 }
+
+.dueDate {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  &.isOverdue {
+    color: $red;
+  }
+}

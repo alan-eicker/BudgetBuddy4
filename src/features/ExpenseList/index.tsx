@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import classnames from 'classnames';
+
 import { Expense } from '../../shared/types/expenseGroups';
 
 import Button from '../../components/Button';
@@ -7,6 +9,7 @@ import ConfirmationSlider from '../../components/ConfirmationSlider';
 import Icon from '../../components/Icon';
 
 import { toDollarAmountString } from '../../utils/numbers';
+import { formatDate, isOverDue } from '../../utils/dates';
 
 import styles from './ExpenseList.module.scss';
 
@@ -26,43 +29,59 @@ const ExpenseList = ({ onDelete, onEdit, expenses = [] }: ExpenseListProps) => {
 
   return expenses.length > 0 ? (
     <div className={styles.expenseList}>
-      {expenses.map((expense, index) => (
-        <div key={expense.id} className={styles.expenseListItem}>
-          <div className={styles.expenseListItemDetails}>
-            <div className={styles.expenseListItemIcon}>
-              <Icon name={expense.type} />
+      {expenses.map((expense, index) => {
+        const isOverdue = isOverDue(expense.dueDate);
+        return (
+          <div key={expense.id} className={styles.expenseListItem}>
+            <div className={styles.expenseListItemDetails}>
+              <div className={styles.expenseListItemIcon}>
+                <Icon name={expense.type} />
+              </div>
+              <div className={styles.expenseListItemInfo}>
+                <div className={styles.expenseListItemType}>{expense.type}</div>
+                <h3 className={styles.expenseListItemTitle}>{expense.name}</h3>
+                <b>Balance Due:</b> {toDollarAmountString(expense.balance)}{' '}
+                {expense.dueDate && (
+                  <>
+                    | <b>Due:</b>{' '}
+                    <span
+                      className={classnames(styles.dueDate, {
+                        [styles.isOverdue]: isOverdue,
+                      })}
+                    >
+                      {formatDate(expense.dueDate)}{' '}
+                      {isOverdue && <Icon name="error" />}
+                    </span>
+                  </>
+                )}
+              </div>
             </div>
-            <div className={styles.expenseListItemInfo}>
-              <div className={styles.expenseListItemType}>{expense.type}</div>
-              <h3 className={styles.expenseListItemTitle}>{expense.name}</h3>
-              <b>Balance Due:</b> {toDollarAmountString(expense.balance)}
+            <div className={styles.expenseListItemActions}>
+              <div className={styles.expenseListItemStatusSwitch}>
+                <label>Is Paid</label>
+                <Switch checked={expense.paid} onChange={() => {}} />
+              </div>
+              <Button
+                text="Edit"
+                variant="secondary"
+                size="sm"
+                onClick={onEdit}
+              />
+              <Button
+                text="Delete"
+                variant="delete"
+                size="sm"
+                onClick={() => setActiveSliderIndex(index)}
+              />
             </div>
-          </div>
-          <div className={styles.expenseListItemActions}>
-            <div className={styles.expenseListItemStatusSwitch}>
-              <label>Is Paid</label>
-              <Switch checked={expense.paid} onChange={() => {}} />
-            </div>
-            <Button
-              text="Edit"
-              variant="secondary"
-              size="sm"
-              onClick={onEdit}
+            <ConfirmationSlider
+              onConfirm={handleConfirmClick}
+              onCancel={() => setActiveSliderIndex(undefined)}
+              isActive={index === activeSliderIndex}
             />
-            <Button
-              text="Delete"
-              variant="delete"
-              size="sm"
-              onClick={() => setActiveSliderIndex(index)}
-            />
           </div>
-          <ConfirmationSlider
-            onConfirm={handleConfirmClick}
-            onCancel={() => setActiveSliderIndex(undefined)}
-            isActive={index === activeSliderIndex}
-          />
-        </div>
-      ))}
+        );
+      })}
     </div>
   ) : (
     <div>No expenses to list for this group.</div>
