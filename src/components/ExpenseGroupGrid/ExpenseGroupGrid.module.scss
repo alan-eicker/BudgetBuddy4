@@ -19,7 +19,6 @@
   border: 1px solid $gray-7;
   padding: 20px;
   border-radius: 8px;
-  text-decoration: none;
   color: $black;
   display: flex;
   gap: 20px;
@@ -28,6 +27,7 @@
 
   &:hover {
     box-shadow: 0 0 9px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
   }
 }
 
