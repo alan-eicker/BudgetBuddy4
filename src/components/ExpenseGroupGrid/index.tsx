@@ -3,30 +3,26 @@ import classnames from 'classnames';
 
 import Icon from '../Icon';
 
-import { ExpenseGroup } from '../../shared/types/expenseGroups';
+import { ExpenseGroup, Expense } from '../../shared/types/expenseGroups';
 
 import { toDollarAmountString } from '../../utils/numbers';
-import { isOverDue } from '../../utils/dates';
-
-import useAppProvider from '../../shared/hooks/useAppProvider';
+import { getOverdueExpenses } from '../../utils/dates';
 
 import styles from './ExpenseGroupGrid.module.scss';
 
 interface ExpenseGroupGridProps {
   expenseGroupData: ExpenseGroup[];
+  allExpenses: Expense[];
 }
 
-const ExpenseGroupGrid = ({ expenseGroupData = [] }: ExpenseGroupGridProps) => {
-  const { allExpenses } = useAppProvider();
-
+const ExpenseGroupGrid = ({
+  expenseGroupData = [],
+  allExpenses = [],
+}: ExpenseGroupGridProps) => {
   return (
     <div className={styles.expenseGroupGrid}>
       {expenseGroupData.map((group) => {
-        const overdueExpenses = allExpenses
-          .filter((expense) => expense.expenseGroupId === group.id)
-          .map((expense) => isOverDue(expense.dueDate))
-          .filter(Boolean);
-
+        const overdueExpenses = getOverdueExpenses(allExpenses, group.id);
         const hasOverdueExpenses = overdueExpenses.length > 0;
 
         return (

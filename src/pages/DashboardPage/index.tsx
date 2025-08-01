@@ -48,7 +48,10 @@ const DashboardPage = () => {
       />
       <section>
         {heroContent}
-        <ExpenseGroupGrid expenseGroupData={expenseGroups} />
+        <ExpenseGroupGrid
+          expenseGroupData={expenseGroups}
+          allExpenses={allExpenses}
+        />
       </section>
     </>
   );
