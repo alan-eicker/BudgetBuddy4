@@ -11,6 +11,7 @@ import HeaderSection from './components/HeaderSection';
 
 import ExpenseList from '../../features/ExpenseList';
 import SpendingSnapshot from '../../features/SpendingSnapshot';
+import { ExpenseFormType, ExpenseFormValues } from '../../features/ExpenseForm';
 
 import { toDollarAmountString } from '../../utils/numbers';
 
@@ -93,6 +94,11 @@ const ExpenseGroupPage = () => {
         <div className={styles.expenseGroupPageContent}>
           <ExpenseList
             expenses={expenses}
+            onDeleteExpense={(id: string) => {}}
+            onEditExpense={(
+              values: ExpenseFormValues,
+              type: ExpenseFormType,
+            ) => {}}
             onUpdateStatus={updateExpenseStatus}
           />
           <aside className={styles.sidebar}>

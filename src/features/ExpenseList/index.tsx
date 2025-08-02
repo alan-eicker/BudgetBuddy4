@@ -19,9 +19,15 @@ import styles from './ExpenseList.module.scss';
 export interface ExpenseListProps {
   expenses?: Expense[];
   onUpdateStatus: (expenseId: string, padi: boolean) => void;
+  onEditExpense: (values: ExpenseFormValues, type: ExpenseFormType) => void;
+  onDeleteExpense: (id: string) => void;
 }
 
-const ExpenseList = ({ onUpdateStatus, expenses = [] }: ExpenseListProps) => {
+const ExpenseList = ({
+  onEditExpense,
+  onUpdateStatus,
+  expenses = [],
+}: ExpenseListProps) => {
   const [activeSliderIndex, setActiveSliderIndex] = useState<number>();
   const [selectedExpense, setSelectedExpense] = useState<string>();
 
@@ -35,7 +41,7 @@ const ExpenseList = ({ onUpdateStatus, expenses = [] }: ExpenseListProps) => {
   };
 
   const handleSubmit = (values: ExpenseFormValues, type: ExpenseFormType) => {
-    // save form data...
+    onEditExpense(values, type);
     setSelectedExpense(undefined);
   };
 

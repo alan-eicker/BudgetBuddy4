@@ -84,7 +84,9 @@ const ExpenseForm = ({ onSubmit, onCancel }: ExpenseFormProps) => {
           </div>
           <div>
             <label>Paid</label>
-            <Switch />
+            <div className={styles.paidSwitch}>
+              <Switch />
+            </div>
           </div>
         </div>
         <div className={styles.actionButtons}>
