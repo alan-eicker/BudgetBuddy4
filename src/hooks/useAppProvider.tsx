@@ -152,7 +152,12 @@ const useAppProvider = (): UseAppProviderReturnType => {
       db,
       'ExpenseGroup',
       (expenseGroupDocs) => {
-        setExpenseGroups(expenseGroupDocs);
+        const orderedExpenseGroupDocs = _.orderBy(
+          expenseGroupDocs,
+          ['startDate'],
+          ['desc'],
+        );
+        setExpenseGroups(orderedExpenseGroupDocs);
       },
     );
 
@@ -160,7 +165,12 @@ const useAppProvider = (): UseAppProviderReturnType => {
       db,
       'Expense',
       (expensesDocs) => {
-        setAllExpenses(expensesDocs);
+        const orderedExpensesDocs = _.orderBy(
+          expensesDocs,
+          ['dueDate'],
+          ['desc'],
+        );
+        setAllExpenses(orderedExpensesDocs);
       },
     );
 
