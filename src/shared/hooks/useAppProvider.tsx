@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import * as _ from 'lodash';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -22,6 +22,8 @@ export interface UseAppProviderReturnType {
   updateExpenseStatus: (expenseId: string, paid: boolean) => void;
   getExpenseGroupById: (groupId: string) => ExpenseGroup | undefined;
   getExpensesByGroupId: (expenseGroupId: string) => Expense[] | undefined;
+  setExpenseGroups: Dispatch<SetStateAction<ExpenseGroup[]>>;
+  setAllExpenses: Dispatch<SetStateAction<Expense[]>>;
 }
 
 const useAppProvider = (): UseAppProviderReturnType => {
@@ -118,9 +120,10 @@ const useAppProvider = (): UseAppProviderReturnType => {
   useEffect(() => {
     if (!initializing && !user) {
       navigate('/');
-      return;
     }
+  }, [location, user, navigate, initializing]);
 
+  useEffect(() => {
     if (user && !initializing) {
       setLoading(true);
       Promise.all([getExpenseGroups(), getAllExpenses(), getExpenseTypes()])
@@ -137,7 +140,7 @@ const useAppProvider = (): UseAppProviderReturnType => {
           setLoading(false);
         });
     }
-  }, [user, initializing, location, navigate]);
+  }, [user, initializing]);
 
   return {
     expenseGroups,
@@ -148,6 +151,8 @@ const useAppProvider = (): UseAppProviderReturnType => {
     updateExpenseStatus,
     getExpenseGroupById,
     getExpensesByGroupId,
+    setExpenseGroups,
+    setAllExpenses,
   };
 };
 

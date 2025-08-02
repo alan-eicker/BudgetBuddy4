@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { FormikHelpers } from 'formik';
 import { addDoc, collection } from 'firebase/firestore';
+
 import { db } from '../../firebase';
 
 export interface Expense {
@@ -81,6 +82,7 @@ const useExpenseGroupForm = (): UseExpenseGroupFormReturnType => {
   ) => {
     try {
       addExpenseGroup(values);
+
       navigate('/dashboard');
     } catch (e) {
       setStatusMessage({
