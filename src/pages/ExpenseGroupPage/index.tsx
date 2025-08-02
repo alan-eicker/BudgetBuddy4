@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 
-import useAppProvider from '../../shared/hooks/useAppProvider';
+import useAppProvider from '../../hooks/useAppProvider';
 import Button from '../../components/Button';
 import Icon from '../../components/Icon';
 

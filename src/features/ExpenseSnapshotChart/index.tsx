@@ -15,7 +15,7 @@ import CategoryList from '../../components/CategoryList';
 
 import { Expense } from '../../shared/types/expenseGroups';
 
-import { aggregateExpensesByMonth } from '../../shared/helpers/chartHelpers';
+import { aggregateExpensesByMonth } from './helpers/chartHelpers';
 
 import styles from './ExpenseSnapshotChart.module.scss';
 

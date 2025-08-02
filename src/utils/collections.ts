@@ -1,12 +1,17 @@
-import { onSnapshot, collection, Firestore } from 'firebase/firestore';
+import {
+  onSnapshot,
+  collection,
+  Firestore,
+  DocumentData,
+} from 'firebase/firestore';
 
 type FirestoreDoc<T> = T & { id: string };
 
-export function subscribeToCollection<T>(
+export const subscribeToCollection = <T>(
   db: Firestore,
   collectionName: string,
   setter: (docs: FirestoreDoc<T>[]) => void,
-): () => void {
+): (() => void) => {
   const unsubscribe = onSnapshot(collection(db, collectionName), (snapshot) => {
     const docs: FirestoreDoc<T>[] = snapshot.docs.map((doc) => ({
       id: doc.id,
@@ -17,4 +22,18 @@ export function subscribeToCollection<T>(
   });
 
   return unsubscribe;
-}
+};
+
+export const setDocRef = <T>(docs: DocumentData) => {
+  const docRefs: T[] = [];
+
+  docs.forEach((doc: DocumentData) => {
+    const data = doc.data();
+    docRefs.push({
+      id: doc.id,
+      ...data,
+    });
+  });
+
+  return docRefs;
+};

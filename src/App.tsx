@@ -7,7 +7,7 @@ import LoginPage from './pages/LoginPage';
 
 import PageLayout from './features/PageLayout';
 
-import useAppProvider from './shared/hooks/useAppProvider';
+import useAppProvider from './hooks/useAppProvider';
 
 import { BASE_URL } from './constants/site';
 

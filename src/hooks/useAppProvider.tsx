@@ -9,13 +9,16 @@ import {
   getDocs,
   collection,
 } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db } from '../firebase';
 
-import { ExpenseGroup, Expense, ExpenseType } from '../types/expenseGroups';
-import { Message } from '../types/common';
+import {
+  ExpenseGroup,
+  Expense,
+  ExpenseType,
+} from '../shared/types/expenseGroups';
+import { Message } from '../shared/types/common';
 
-import { setDocRef } from '../helpers/data';
-import { subscribeToCollection } from '../../utils/collections';
+import { subscribeToCollection, setDocRef } from '../utils/collections';
 
 import useAuth from './useAuth';
 

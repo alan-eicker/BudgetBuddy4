@@ -1,5 +1,5 @@
-import { Expense } from '../types/expenseGroups';
-import { ChartData } from '../types/chart';
+import { Expense } from '../../../shared/types/expenseGroups';
+import { ChartData } from '../../../shared/types/chart';
 
 export const aggregateExpensesByMonth = (
   expenses: Expense[],
