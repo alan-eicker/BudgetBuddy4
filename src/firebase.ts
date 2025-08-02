@@ -1,6 +1,10 @@
-import { initializeApp } from '@firebase/app';
-import { getFirestore } from '@firebase/firestore';
-import { initializeAuth, indexedDBLocalPersistence, Auth } from "firebase/auth";
+import { initializeApp } from 'firebase/app';
+import {
+  initializeFirestore,
+  persistentLocalCache,
+  persistentMultipleTabManager,
+} from 'firebase/firestore';
+import { initializeAuth, indexedDBLocalPersistence, Auth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -14,10 +18,14 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-const db = getFirestore();
+const db = initializeFirestore(app, {
+  localCache: persistentLocalCache({
+    tabManager: persistentMultipleTabManager(),
+  }),
+});
 
 const auth: Auth = initializeAuth(app, {
-  persistence: indexedDBLocalPersistence
+  persistence: indexedDBLocalPersistence,
 });
 
 export { db, app, auth };

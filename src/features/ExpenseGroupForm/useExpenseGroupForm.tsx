@@ -110,8 +110,6 @@ const useExpenseGroupForm = (): UseExpenseGroupFormReturnType => {
           });
         }
       }
-
-      sessionStorage.removeItem('bb-expense-data');
     } catch (e) {
       throw new Error(`Error adding document: ${e}`);
     }

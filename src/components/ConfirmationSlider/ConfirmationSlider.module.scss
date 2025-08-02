@@ -16,6 +16,7 @@
   transition: all 0.35s ease-in-out;
   width: 100%;
   padding: 10px;
+  z-index: 3;
 
   @media (min-width: $breakpoint-sm) {
     transition: all 0.5s ease-in-out;

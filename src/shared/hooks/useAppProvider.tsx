@@ -108,14 +108,6 @@ const useAppProvider = (): UseAppProviderReturnType => {
             : expense;
         });
 
-        const sessionData = sessionStorage.getItem('bb-expense-data');
-
-        if (sessionData) {
-          const parsedData = JSON.parse(sessionData);
-          parsedData[1] = updatedAllExpenses;
-          sessionStorage.setItem('bb-expense-data', JSON.stringify(parsedData));
-        }
-
         setAllExpenses(updatedAllExpenses);
       }
     } catch (err: any) {
@@ -130,35 +122,20 @@ const useAppProvider = (): UseAppProviderReturnType => {
   }, [location, user, navigate, initializing]);
 
   useEffect(() => {
-    if (user) {
-      const cachedData = sessionStorage.getItem('bb-expense-data');
-
-      if (cachedData) {
-        const [expenseGroupDocs, allExpenseDocs, expenseTypeDocs] =
-          JSON.parse(cachedData);
-
+    setLoading(true);
+    Promise.all([getExpenseGroups(), getAllExpenses(), getExpenseTypes()])
+      .then((response) => {
+        const [expenseGroupDocs, allExpenseDocs, expenseTypeDocs] = response;
         setExpenseGroups(expenseGroupDocs);
         setAllExpenses(allExpenseDocs);
         setExpenseTypes(expenseTypeDocs);
-      } else {
-        setLoading(true);
-        Promise.all([getExpenseGroups(), getAllExpenses(), getExpenseTypes()])
-          .then((response) => {
-            const [expenseGroupDocs, allExpenseDocs, expenseTypeDocs] =
-              response;
-            sessionStorage.setItem('bb-expense-data', JSON.stringify(response));
-            setExpenseGroups(expenseGroupDocs);
-            setAllExpenses(allExpenseDocs);
-            setExpenseTypes(expenseTypeDocs);
-          })
-          .catch((err) => {
-            setError({ type: 'error', message: err.message });
-          })
-          .finally(() => {
-            setLoading(false);
-          });
-      }
-    }
+      })
+      .catch((err) => {
+        setError({ type: 'error', message: err.message });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [user]);
 
   return {
