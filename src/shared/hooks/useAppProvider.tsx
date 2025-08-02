@@ -2,14 +2,22 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import * as _ from 'lodash';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { doc, updateDoc, getDoc } from 'firebase/firestore';
+import {
+  doc,
+  updateDoc,
+  getDoc,
+  getDocs,
+  onSnapshot,
+  collection,
+  Unsubscribe,
+} from 'firebase/firestore';
 import { db } from '../../firebase';
 
 import { ExpenseGroup, Expense, ExpenseType } from '../types/expenseGroups';
 import { Message } from '../types/common';
-import { setDocRef } from '../helpers/data';
 
-import { collection, getDocs } from '@firebase/firestore';
+import { setDocRef } from '../helpers/data';
+import { subscribeToCollection } from '../../utils/collections';
 
 import useAuth from './useAuth';
 
@@ -141,6 +149,30 @@ const useAppProvider = (): UseAppProviderReturnType => {
         });
     }
   }, [user, initializing]);
+
+  useEffect(() => {
+    const expensesGroupSubscription = subscribeToCollection<ExpenseGroup>(
+      db,
+      'ExpenseGroup',
+      (expenseGroupDocs) => {
+        setExpenseGroups(expenseGroupDocs);
+      },
+    );
+
+    const expenseSubscrption = subscribeToCollection<Expense>(
+      db,
+      'Expense',
+      (expensesDocs) => {
+        setAllExpenses(expensesDocs);
+      },
+    );
+
+    return () => {
+      // Unsubscribe to
+      expensesGroupSubscription();
+      expenseSubscrption();
+    };
+  }, []);
 
   return {
     expenseGroups,
