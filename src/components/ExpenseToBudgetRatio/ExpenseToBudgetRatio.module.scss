@@ -1,0 +1,17 @@
+@import '../../styles/variables.scss';
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  text-align: left;
+}
+
+.percentage {
+  color: $green;
+  font-weight: 600;
+
+  &.overBudget {
+    color: $red;
+  }
+}

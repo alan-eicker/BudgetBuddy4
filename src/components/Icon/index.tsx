@@ -20,10 +20,12 @@ import {
 
 export interface IconProps {
   name: string;
+  size?: string;
+  color?: string;
 }
 
-const Icon = ({ name }: IconProps) => {
-  let IconComponent: React.FC;
+const Icon = ({ name, size, color }: IconProps) => {
+  let IconComponent: React.FC<{ size?: string; color?: string }>;
 
   switch (name) {
     case 'Utilities':
@@ -81,7 +83,7 @@ const Icon = ({ name }: IconProps) => {
       IconComponent = () => <></>;
   }
 
-  return <IconComponent />;
+  return <IconComponent size={size} color={color} />;
 };
 
 export default Icon;

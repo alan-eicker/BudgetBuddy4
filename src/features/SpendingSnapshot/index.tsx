@@ -2,6 +2,8 @@ import { Expense } from '../../shared/types/expenseGroups';
 
 import { toDollarAmountString } from '../../utils/numbers';
 
+import ExpenditureToBudget from '../../components/ExpenseToBudgetRatio';
+
 import styles from './SpendingSnapshot.module.scss';
 
 export interface SpendingSnapshotProps {
@@ -30,7 +32,7 @@ const SpendingSnapshot = ({ expenses, totalBudget }: SpendingSnapshotProps) => {
 
   const rawLeftOverBalance = totalBudget ? totalBudget - rawTotalBalance : 0;
 
-  let leftOverBalance = toDollarAmountString(
+  const leftOverBalance = toDollarAmountString(
     rawLeftOverBalance > 0 ? rawLeftOverBalance : 0,
   );
 
@@ -38,6 +40,12 @@ const SpendingSnapshot = ({ expenses, totalBudget }: SpendingSnapshotProps) => {
     <div className={styles.spendingSnapshot}>
       <h2 className={styles.spendingSnapshotTitle}>Spending Snapshot</h2>
       <div className={styles.spendingSnapshotDetails}>
+        <div>
+          <ExpenditureToBudget
+            totalExpenses={rawTotalBalance}
+            totalBudget={totalBudget ?? 0}
+          />
+        </div>
         <div>
           <h3 className={styles.snapshotTitle}>Total Balance</h3>
           <div className={styles.snapshotAmount}>{totalBalance}</div>
