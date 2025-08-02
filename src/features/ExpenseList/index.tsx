@@ -58,10 +58,7 @@ const ExpenseList = ({
           >
             <div className={styles.expenseListItemDetailsContainer}>
               <div className={styles.expenseListItemDetails}>
-                <div className={styles.expenseListItemIcon}>
-                  <Icon name={expense.type} />
-                  {JSON.stringify(isOverDue)}
-                </div>
+                <Icon name={expense.type} size="35px" />
                 <div className={styles.expenseListItemInfo}>
                   <div className={styles.expenseListItemType}>
                     {expense.type}

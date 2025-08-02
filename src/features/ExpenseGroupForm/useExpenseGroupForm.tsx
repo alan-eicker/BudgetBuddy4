@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { FormikHelpers } from 'formik';
 import { addDoc, collection } from 'firebase/firestore';
@@ -36,6 +37,8 @@ export interface UseExpenseGroupFormReturnType {
 
 const useExpenseGroupForm = (): UseExpenseGroupFormReturnType => {
   const [statusMessage, setStatusMessage] = useState<StatusMessage>();
+
+  const navigate = useNavigate();
 
   const validationSchema: yup.ObjectSchema<ExpenseGroupFormValues> = yup.object(
     {
@@ -78,13 +81,10 @@ const useExpenseGroupForm = (): UseExpenseGroupFormReturnType => {
   ) => {
     try {
       addExpenseGroup(values);
-      setStatusMessage({
-        type: 'success',
-        message: 'Expense group created successfully.',
-      });
+      navigate('/dashboard');
     } catch (e) {
       setStatusMessage({
-        type: 'success',
+        type: 'error',
         message: `Error creating expense group: ${(e as Error).message}`,
       });
     } finally {

@@ -4,7 +4,7 @@ import { FaBriefcaseMedical } from 'react-icons/fa6';
 import { FaCreditCard } from 'react-icons/fa6';
 import { FaPlane } from 'react-icons/fa';
 import { AiFillBank } from 'react-icons/ai';
-import { FaGasPump } from 'react-icons/fa6';
+import { FaGasPump, FaMoneyBillTrendUp } from 'react-icons/fa6';
 import { FaChevronRight } from 'react-icons/fa';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { IoMdArrowRoundBack } from 'react-icons/io';
@@ -38,7 +38,7 @@ const Icon = ({ name, size, color }: IconProps) => {
       IconComponent = MdLocalGroceryStore as unknown as React.FC;
       break;
     case 'Investments':
-      IconComponent = MdOutlineAttachMoney as unknown as React.FC;
+      IconComponent = FaMoneyBillTrendUp as unknown as React.FC;
       break;
     case 'Medical':
       IconComponent = FaBriefcaseMedical as unknown as React.FC;

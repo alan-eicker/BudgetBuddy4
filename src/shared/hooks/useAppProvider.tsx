@@ -118,25 +118,26 @@ const useAppProvider = (): UseAppProviderReturnType => {
   useEffect(() => {
     if (!initializing && !user) {
       navigate('/');
+      return;
     }
-  }, [location, user, navigate, initializing]);
 
-  useEffect(() => {
-    setLoading(true);
-    Promise.all([getExpenseGroups(), getAllExpenses(), getExpenseTypes()])
-      .then((response) => {
-        const [expenseGroupDocs, allExpenseDocs, expenseTypeDocs] = response;
-        setExpenseGroups(expenseGroupDocs);
-        setAllExpenses(allExpenseDocs);
-        setExpenseTypes(expenseTypeDocs);
-      })
-      .catch((err) => {
-        setError({ type: 'error', message: err.message });
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [user]);
+    if (user && !initializing) {
+      setLoading(true);
+      Promise.all([getExpenseGroups(), getAllExpenses(), getExpenseTypes()])
+        .then((response) => {
+          const [expenseGroupDocs, allExpenseDocs, expenseTypeDocs] = response;
+          setExpenseGroups(expenseGroupDocs);
+          setAllExpenses(allExpenseDocs);
+          setExpenseTypes(expenseTypeDocs);
+        })
+        .catch((err) => {
+          setError({ type: 'error', message: err.message });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [user, initializing, location, navigate]);
 
   return {
     expenseGroups,
