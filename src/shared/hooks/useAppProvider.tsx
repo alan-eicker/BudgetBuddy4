@@ -7,9 +7,7 @@ import {
   updateDoc,
   getDoc,
   getDocs,
-  onSnapshot,
   collection,
-  Unsubscribe,
 } from 'firebase/firestore';
 import { db } from '../../firebase';
 
