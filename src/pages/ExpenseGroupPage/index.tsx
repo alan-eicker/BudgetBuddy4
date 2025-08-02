@@ -19,7 +19,8 @@ import styles from './ExpenseGroupPage.module.scss';
 const ExpenseGroupPage = () => {
   const { id } = useParams<{ id?: string }>();
 
-  const { getExpenseGroupById, getExpensesByGroupId } = useAppProvider();
+  const { getExpenseGroupById, getExpensesByGroupId, updateExpenseStatus } =
+    useAppProvider();
 
   const navigate = useNavigate();
 
@@ -94,6 +95,7 @@ const ExpenseGroupPage = () => {
         <div className={styles.expenseGroupPageContent}>
           <ExpenseList
             expenses={expenses}
+            onUpdateStatus={updateExpenseStatus}
             onDelete={() => {}}
             onEdit={() => navigate(`/expense-goup/edit/${id}`)}
           />

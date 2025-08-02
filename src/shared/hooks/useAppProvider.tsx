@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import * as _ from 'lodash';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 
 import { ExpenseGroup, Expense, ExpenseType } from '../types/expenseGroups';
@@ -18,6 +19,7 @@ export interface UseAppProviderReturnType {
   allExpenses: Expense[];
   loading: boolean;
   error?: Message;
+  updateExpenseStatus: (expenseId: string, paid: boolean) => void;
   getExpenseGroupById: (groupId: string) => ExpenseGroup | undefined;
   getExpensesByGroupId: (expenseGroupId: string) => Expense[] | undefined;
 }
@@ -89,6 +91,38 @@ const useAppProvider = (): UseAppProviderReturnType => {
     );
   };
 
+  const updateExpenseStatus = async (
+    expenseId: string,
+    paid: boolean,
+  ): Promise<void> => {
+    try {
+      const docRef = doc(db, 'Expense', expenseId);
+      await updateDoc(docRef, { paid });
+
+      const updatedSnap = await getDoc(docRef);
+
+      if (updatedSnap.exists()) {
+        const updatedAllExpenses = allExpenses.map((expense) => {
+          return expense.id === expenseId
+            ? ({ id: expenseId, ...updatedSnap.data() } as Expense)
+            : expense;
+        });
+
+        const sessionData = sessionStorage.getItem('bb-expense-data');
+
+        if (sessionData) {
+          const parsedData = JSON.parse(sessionData);
+          parsedData[1] = updatedAllExpenses;
+          sessionStorage.setItem('bb-expense-data', JSON.stringify(parsedData));
+        }
+
+        setAllExpenses(updatedAllExpenses);
+      }
+    } catch (err: any) {
+      throw new Error(err.message);
+    }
+  };
+
   useEffect(() => {
     if (!initializing && !user) {
       navigate('/');
@@ -102,6 +136,7 @@ const useAppProvider = (): UseAppProviderReturnType => {
       if (cachedData) {
         const [expenseGroupDocs, allExpenseDocs, expenseTypeDocs] =
           JSON.parse(cachedData);
+
         setExpenseGroups(expenseGroupDocs);
         setAllExpenses(allExpenseDocs);
         setExpenseTypes(expenseTypeDocs);
@@ -132,6 +167,7 @@ const useAppProvider = (): UseAppProviderReturnType => {
     allExpenses,
     loading,
     error,
+    updateExpenseStatus,
     getExpenseGroupById,
     getExpensesByGroupId,
   };

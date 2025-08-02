@@ -15,11 +15,17 @@ import styles from './ExpenseList.module.scss';
 
 export interface ExpenseListProps {
   expenses?: Expense[];
+  onUpdateStatus: (expenseId: string, padi: boolean) => void;
   onDelete: () => void;
   onEdit: () => void;
 }
 
-const ExpenseList = ({ onDelete, onEdit, expenses = [] }: ExpenseListProps) => {
+const ExpenseList = ({
+  onDelete,
+  onEdit,
+  onUpdateStatus,
+  expenses = [],
+}: ExpenseListProps) => {
   const [activeSliderIndex, setActiveSliderIndex] = useState<number>();
 
   const handleConfirmClick = () => {
@@ -30,7 +36,7 @@ const ExpenseList = ({ onDelete, onEdit, expenses = [] }: ExpenseListProps) => {
   return expenses.length > 0 ? (
     <div className={styles.expenseList}>
       {expenses.map((expense, index) => {
-        const isOverdue = isOverDue(expense.dueDate);
+        const isOverdue = !expense.paid && isOverDue(expense.dueDate);
         return (
           <div
             key={expense.id}
@@ -61,7 +67,10 @@ const ExpenseList = ({ onDelete, onEdit, expenses = [] }: ExpenseListProps) => {
             <div className={styles.expenseListItemActions}>
               <div className={styles.expenseListItemStatusSwitch}>
                 <label>Is Paid</label>
-                <Switch checked={expense.paid} onChange={() => {}} />
+                <Switch
+                  checked={expense.paid}
+                  onChange={(e) => onUpdateStatus(expense.id, e.target.checked)}
+                />
               </div>
               <Button
                 text="Edit"
