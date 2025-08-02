@@ -1,4 +1,4 @@
-import { Expense } from '../shared/types/expenseGroups';
+import { Expense } from '../types/expenseGroups';
 
 export const formatDate = (date: Date) => {
   return new Date(date).toDateString();

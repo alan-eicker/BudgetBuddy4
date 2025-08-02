@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import classnames from 'classnames';
 
-import { Expense } from '../../shared/types/expenseGroups';
+import { Expense } from '../../types/expenseGroups';
 import { ExpenseFormValues, ExpenseFormType } from '../ExpenseForm';
 
 import Button from '../../components/Button';

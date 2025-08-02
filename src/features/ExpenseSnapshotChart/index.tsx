@@ -13,7 +13,7 @@ import * as _ from 'lodash';
 import ChartLabel from './ChartLabel';
 import CategoryList from '../../components/CategoryList';
 
-import { Expense } from '../../shared/types/expenseGroups';
+import { Expense } from '../../types/expenseGroups';
 
 import { aggregateExpensesByMonth } from './helpers/chartHelpers';
 

@@ -6,9 +6,9 @@ import LoaderOverlay from '../../components/LoaderOverlay';
 import Notification from '../../components/Notification';
 import LogoutButton from '../LogoutButton';
 
-import { useAppContext } from '../../shared/providers/AppProvider';
+import { useAppContext } from '../../providers/AppProvider';
 
-import { Message } from '../../shared/types/common';
+import { Message } from '../../types/common';
 
 import styles from './PageLayout.module.scss';
 

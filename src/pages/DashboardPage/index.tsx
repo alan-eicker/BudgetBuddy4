@@ -8,7 +8,7 @@ import Button from '../../components/Button';
 
 import ExpenseSnapshotChart from '../../features/ExpenseSnapshotChart';
 
-import { useAppContext } from '../../shared/providers/AppProvider';
+import { useAppContext } from '../../providers/AppProvider';
 
 const DashboardPage = () => {
   const { expenseGroups, allExpenses } = useAppContext();

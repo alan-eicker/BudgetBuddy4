@@ -11,12 +11,8 @@ import {
 } from 'firebase/firestore';
 import { db } from '../firebase';
 
-import {
-  ExpenseGroup,
-  Expense,
-  ExpenseType,
-} from '../shared/types/expenseGroups';
-import { Message } from '../shared/types/common';
+import { ExpenseGroup, Expense, ExpenseType } from '../types/expenseGroups';
+import { Message } from '../types/common';
 
 import { subscribeToCollection, setDocRef } from '../utils/collections';
 

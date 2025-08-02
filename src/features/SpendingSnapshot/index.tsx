@@ -1,4 +1,4 @@
-import { Expense } from '../../shared/types/expenseGroups';
+import { Expense } from '../../types/expenseGroups';
 
 import { toDollarAmountString } from '../../utils/numbers';
 

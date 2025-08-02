@@ -8,7 +8,7 @@ import Button from '../../components/Button';
 import Switch from '../../components/Switch';
 
 import useExpenseGroupForm from './useExpenseGroupForm';
-import { useAppContext } from '../../shared/providers/AppProvider';
+import { useAppContext } from '../../providers/AppProvider';
 
 import styles from './ExpenseGroupForm.module.scss';
 

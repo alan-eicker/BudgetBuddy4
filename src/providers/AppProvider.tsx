@@ -1,8 +1,8 @@
 import { createContext, useContext } from 'react';
 
-import { NAV, COPYRIGHT_TEXT, APP_NAME, BASE_URL } from '../../constants/site';
+import { NAV, COPYRIGHT_TEXT, APP_NAME, BASE_URL } from '../constants/site';
 
-import useAppProvider from '../../hooks/useAppProvider';
+import useAppProvider from '../hooks/useAppProvider';
 
 import { ExpenseGroup, Expense } from '../types/expenseGroups';
 

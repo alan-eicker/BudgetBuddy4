@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import Icon from '../Icon';
 
-import { ExpenseGroup, Expense } from '../../shared/types/expenseGroups';
+import { ExpenseGroup, Expense } from '../../types/expenseGroups';
 
 import { toDollarAmountString } from '../../utils/numbers';
 import { getOverdueExpenses } from '../../utils/dates';

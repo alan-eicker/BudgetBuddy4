@@ -2,7 +2,7 @@ import classnames from 'classnames';
 
 import Icon from '../Icon';
 
-import { Message } from '../../shared/types/common';
+import { Message } from '../../types/common';
 
 import styles from './Notification.module.scss';
 
