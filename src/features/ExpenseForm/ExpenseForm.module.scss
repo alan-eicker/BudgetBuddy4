@@ -1,0 +1,20 @@
+.expensForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.expenseInfoFields {
+  display: flex;
+  gap: 16px;
+
+  & > *:not(:last-child) {
+    flex: 1;
+  }
+}
+
+.actionButtons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

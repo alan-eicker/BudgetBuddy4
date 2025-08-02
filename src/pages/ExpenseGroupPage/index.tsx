@@ -94,8 +94,6 @@ const ExpenseGroupPage = () => {
           <ExpenseList
             expenses={expenses}
             onUpdateStatus={updateExpenseStatus}
-            onDelete={() => {}}
-            onEdit={() => {}}
           />
           <aside className={styles.sidebar}>
             <SpendingSnapshot
