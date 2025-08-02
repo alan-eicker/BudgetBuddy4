@@ -11,7 +11,6 @@ import { IoMdArrowRoundBack } from 'react-icons/io';
 import {
   MdErrorOutline,
   MdWarningAmber,
-  MdOutlineAttachMoney,
   MdCheck,
   MdInfoOutline,
   MdLocalGroceryStore,
