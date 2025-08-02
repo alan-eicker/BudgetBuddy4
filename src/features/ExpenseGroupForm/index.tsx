@@ -12,15 +12,11 @@ import { useAppContext } from '../../shared/providers/AppProvider';
 
 import styles from './ExpenseGroupForm.module.scss';
 
-export interface ExpenseGroupFormProps {
-  expenseGroupId?: string;
-}
-
-const ExpenseGroupForm = ({ expenseGroupId }: ExpenseGroupFormProps) => {
+const ExpenseGroupForm = () => {
   const { expenseTypes } = useAppContext();
 
   const { initialValues, validationSchema, handleSubmit, statusMessage } =
-    useExpenseGroupForm(expenseGroupId);
+    useExpenseGroupForm();
 
   const newExpense = {
     name: '',

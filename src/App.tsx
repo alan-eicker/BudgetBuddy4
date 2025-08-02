@@ -32,10 +32,6 @@ function App() {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/expense-group/:id" element={<ExpenseGroupPage />} />
         <Route path="/expense-goup/add" element={<ExpenseGroupFormPage />} />
-        <Route
-          path="/expense-goup/edit/:id"
-          element={<ExpenseGroupFormPage />}
-        />
       </Routes>
     </PageLayout>
   );

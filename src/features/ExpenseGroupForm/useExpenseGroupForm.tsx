@@ -34,9 +34,7 @@ export interface UseExpenseGroupFormReturnType {
   ) => void;
 }
 
-const useExpenseGroupForm = (
-  expenseGroupId?: string,
-): UseExpenseGroupFormReturnType => {
+const useExpenseGroupForm = (): UseExpenseGroupFormReturnType => {
   const [statusMessage, setStatusMessage] = useState<StatusMessage>();
 
   const validationSchema: yup.ObjectSchema<ExpenseGroupFormValues> = yup.object(
@@ -79,19 +77,11 @@ const useExpenseGroupForm = (
     formikHelpers: FormikHelpers<ExpenseGroupFormValues>,
   ) => {
     try {
-      if (expenseGroupId) {
-        updateExpenseGroup(values, expenseGroupId);
-        setStatusMessage({
-          type: 'success',
-          message: 'Expense group updated successfully.',
-        });
-      } else {
-        addExpenseGroup(values);
-        setStatusMessage({
-          type: 'success',
-          message: 'Expense group created successfully.',
-        });
-      }
+      addExpenseGroup(values);
+      setStatusMessage({
+        type: 'success',
+        message: 'Expense group created successfully.',
+      });
     } catch (e) {
       setStatusMessage({
         type: 'success',
@@ -121,20 +111,6 @@ const useExpenseGroupForm = (
         }
       }
 
-      sessionStorage.removeItem('bb-expense-data');
-    } catch (e) {
-      throw new Error(`Error adding document: ${e}`);
-    }
-  };
-
-  const updateExpenseGroup = (
-    values: ExpenseGroupFormValues,
-    expenseGroupId: string,
-  ): void => {
-    // 1. Update expense group in ExpenseGroup collection
-    // 2. Update expense(s) to Expense collections
-    //       Requires document if from step 1
-    try {
       sessionStorage.removeItem('bb-expense-data');
     } catch (e) {
       throw new Error(`Error adding document: ${e}`);

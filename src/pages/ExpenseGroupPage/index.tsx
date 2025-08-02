@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 
 import useAppProvider from '../../shared/hooks/useAppProvider';
@@ -21,8 +21,6 @@ const ExpenseGroupPage = () => {
 
   const { getExpenseGroupById, getExpensesByGroupId, updateExpenseStatus } =
     useAppProvider();
-
-  const navigate = useNavigate();
 
   if (!id) return <>No Expense Group ID</>;
 
@@ -97,7 +95,7 @@ const ExpenseGroupPage = () => {
             expenses={expenses}
             onUpdateStatus={updateExpenseStatus}
             onDelete={() => {}}
-            onEdit={() => navigate(`/expense-goup/edit/${id}`)}
+            onEdit={() => {}}
           />
           <aside className={styles.sidebar}>
             <SpendingSnapshot
