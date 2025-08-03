@@ -5,9 +5,11 @@ import ExpenseGroupPage from './pages/ExpenseGroupPage';
 import ExpenseGroupFormPage from './pages/ExpenseGroupFormPage';
 import LoginPage from './pages/LoginPage';
 
-import PageLayout from './features/PageLayout';
+import PageLayout from './components/PageLayout';
 
 import useAppProvider from './hooks/useAppProvider';
+
+import { useAppContext } from './providers/AppProvider';
 
 import { BASE_URL } from './constants/site';
 
@@ -16,14 +18,21 @@ import './styles/app.scss';
 function App() {
   const location = useLocation();
   const { loading, error } = useAppProvider();
+  const { staticSiteContent } = useAppContext();
 
   const isDashboard = location.pathname === '/dashboard';
-  const hasHero = location.pathname !== BASE_URL ? true : false;
+  const isLoginPage = location.pathname === '/';
+
+  const { nav, baseUrl, copyrightText } = staticSiteContent;
 
   return (
     <PageLayout
+      nav={nav}
+      baseUrl={baseUrl}
+      copyrightText={copyrightText}
       heroMinHeight={isDashboard ? 400 : 'auto'}
-      hasHero={hasHero}
+      hasHero={!isLoginPage}
+      isLoginPage={isLoginPage}
       loading={loading}
       error={error}
     >

@@ -1,12 +1,8 @@
-import { useLocation } from 'react-router-dom';
-
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
-import LoaderOverlay from '../../components/LoaderOverlay';
-import Notification from '../../components/Notification';
-import LogoutButton from '../LogoutButton';
-
-import { useAppContext } from '../../providers/AppProvider';
+import Header from '../Header';
+import Footer from '../Footer';
+import LoaderOverlay from '../LoaderOverlay';
+import Notification from '../Notification';
+import LogoutButton from '../../features/LogoutButton';
 
 import { Message } from '../../types/common';
 
@@ -14,25 +10,28 @@ import styles from './PageLayout.module.scss';
 
 export interface PageLayoutProps {
   children?: React.ReactNode;
+  isLoginPage?: boolean;
   hasHero?: boolean;
   heroMinHeight?: number | string;
   loggedIn?: boolean;
   loading: boolean;
   error?: Message;
+  nav: { text: string; url: string }[];
+  baseUrl: string;
+  copyrightText: string;
 }
 
 const PageLayout = ({
   children,
+  isLoginPage = false,
   hasHero = true,
   heroMinHeight = 250,
   loading = false,
   error,
+  nav,
+  baseUrl,
+  copyrightText,
 }: PageLayoutProps) => {
-  const { staticSiteContent } = useAppContext();
-  const location = useLocation();
-
-  const isLoginPage = location.pathname === '/';
-
   return (
     <div
       className={styles.pageLayout}
@@ -45,9 +44,9 @@ const PageLayout = ({
       <div className={styles.pageLayout__header}>
         <Header
           logoutButton={<LogoutButton />}
-          nav={staticSiteContent.nav}
+          nav={nav}
           baseUrl="/dashboard"
-          logoUrl={`${staticSiteContent.baseUrl}images/logo.png`}
+          logoUrl={`${baseUrl}images/logo.png`}
           showNav={!isLoginPage}
         />
       </div>
@@ -71,7 +70,7 @@ const PageLayout = ({
               )}
               <main className={styles.pageLayout__main}>
                 <div className={styles.pageLayout__content}>{children}</div>
-                <Footer copyrightText={staticSiteContent.copyrightText} />
+                <Footer copyrightText={copyrightText} />
               </main>
             </>
           )}
