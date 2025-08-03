@@ -8,11 +8,15 @@ import Button from '../../components/Button';
 import Switch from '../../components/Switch';
 import ConfirmationSlider from '../../components/ConfirmationSlider';
 import Icon from '../../components/Icon';
+import Notification, { NotificationProps } from '../../components/Notification';
 
 import ExpenseForm from '../ExpenseForm';
 
 import { toDollarAmountString } from '../../utils/numbers';
 import { formatDate, isOverDue } from '../../utils/dates';
+
+import { doc, deleteDoc } from 'firebase/firestore';
+import { db } from '../../firebase';
 
 import styles from './ExpenseList.module.scss';
 
@@ -30,10 +34,19 @@ const ExpenseList = ({
 }: ExpenseListProps) => {
   const [activeSliderIndex, setActiveSliderIndex] = useState<number>();
   const [selectedExpense, setSelectedExpense] = useState<string>();
+  const [notification, setNotification] = useState<NotificationProps>();
 
-  const handleConfirmClick = (): void => {
+  const handleConfirmClick = async (expenseId: string): Promise<void> => {
     setActiveSliderIndex(undefined);
-    // Delete expense...
+    try {
+      const docRef = doc(db, 'Expense', expenseId);
+      await deleteDoc(docRef);
+    } catch (error) {
+      setNotification({
+        type: 'error',
+        message: 'Error: could not delete document',
+      });
+    }
   };
 
   const toggleExpenseForm = (id: string): void => {
@@ -47,6 +60,7 @@ const ExpenseList = ({
 
   return expenses.length > 0 ? (
     <div className={styles.expenseList}>
+      {notification && <Notification {...notification} />}
       {expenses.map((expense, index) => {
         const isOverdue = !expense.paid && isOverDue(expense.dueDate);
         return (
@@ -104,7 +118,7 @@ const ExpenseList = ({
             </div>
 
             <ConfirmationSlider
-              onConfirm={handleConfirmClick}
+              onConfirm={() => handleConfirmClick(expense.id)}
               onCancel={() => setActiveSliderIndex(undefined)}
               isActive={index === activeSliderIndex}
             />
