@@ -3,8 +3,6 @@ import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 
 import { db } from '../../firebase';
 
-import { ExpenseFormValues, ExpenseFormType } from '../ExpenseForm';
-
 import { NotificationProps } from '../../components/Notification';
 
 export interface UseExpenseListReturn {
@@ -17,7 +15,6 @@ export interface UseExpenseListReturn {
   updateExpenseStatus: (expenseId: string, paid: boolean) => void;
   toggleExpenseForm: (expenseId: string) => void;
   handleConfirmDeleteClick: (expenseId: string) => Promise<void>;
-  handleSubmitClick: (values: ExpenseFormValues, type: ExpenseFormType) => void;
 }
 
 const useExpenseList = (): UseExpenseListReturn => {
@@ -54,13 +51,6 @@ const useExpenseList = (): UseExpenseListReturn => {
     }
   };
 
-  const handleSubmitClick = (
-    values: ExpenseFormValues,
-    type: ExpenseFormType,
-  ) => {
-    setSelectedExpense(undefined);
-  };
-
   return {
     activeSliderIndex,
     selectedExpense,
@@ -71,7 +61,6 @@ const useExpenseList = (): UseExpenseListReturn => {
     updateExpenseStatus,
     toggleExpenseForm,
     handleConfirmDeleteClick,
-    handleSubmitClick,
   };
 };
 
