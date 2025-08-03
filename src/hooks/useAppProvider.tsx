@@ -24,7 +24,6 @@ export interface UseAppProviderReturnType {
   allExpenses: Expense[];
   loading: boolean;
   error?: Message;
-  updateExpenseStatus: (expenseId: string, paid: boolean) => void;
   getExpenseGroupById: (groupId: string) => ExpenseGroup | undefined;
   getExpensesByGroupId: (expenseGroupId: string) => Expense[] | undefined;
   setExpenseGroups: Dispatch<SetStateAction<ExpenseGroup[]>>;
@@ -98,30 +97,6 @@ const useAppProvider = (): UseAppProviderReturnType => {
     );
   };
 
-  const updateExpenseStatus = async (
-    expenseId: string,
-    paid: boolean,
-  ): Promise<void> => {
-    try {
-      const docRef = doc(db, 'Expense', expenseId);
-      await updateDoc(docRef, { paid });
-
-      const updatedSnap = await getDoc(docRef);
-
-      if (updatedSnap.exists()) {
-        const updatedAllExpenses = allExpenses.map((expense) => {
-          return expense.id === expenseId
-            ? ({ id: expenseId, ...updatedSnap.data() } as Expense)
-            : expense;
-        });
-
-        setAllExpenses(updatedAllExpenses);
-      }
-    } catch (err: any) {
-      throw new Error(err.message);
-    }
-  };
-
   useEffect(() => {
     if (!initializing && !user) {
       navigate('/');
@@ -187,7 +162,6 @@ const useAppProvider = (): UseAppProviderReturnType => {
     allExpenses,
     loading,
     error,
-    updateExpenseStatus,
     getExpenseGroupById,
     getExpensesByGroupId,
     setExpenseGroups,

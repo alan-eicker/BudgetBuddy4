@@ -1,62 +1,38 @@
-import { useState } from 'react';
 import classnames from 'classnames';
 
 import { Expense } from '../../types/expenseGroups';
-import { ExpenseFormValues, ExpenseFormType } from '../ExpenseForm';
 
 import Button from '../../components/Button';
 import Switch from '../../components/Switch';
 import ConfirmationSlider from '../../components/ConfirmationSlider';
 import Icon from '../../components/Icon';
-import Notification, { NotificationProps } from '../../components/Notification';
+import Notification from '../../components/Notification';
 
 import ExpenseForm from '../ExpenseForm';
 
 import { toDollarAmountString } from '../../utils/numbers';
 import { formatDate, isOverDue } from '../../utils/dates';
 
-import { doc, deleteDoc } from 'firebase/firestore';
-import { db } from '../../firebase';
+import useExpenseList from './useExpenseList';
 
 import styles from './ExpenseList.module.scss';
 
 export interface ExpenseListProps {
   expenses?: Expense[];
-  onUpdateStatus: (expenseId: string, padi: boolean) => void;
-  onEditExpense: (values: ExpenseFormValues, type: ExpenseFormType) => void;
-  onDeleteExpense: (id: string) => void;
 }
 
-const ExpenseList = ({
-  onEditExpense,
-  onUpdateStatus,
-  expenses = [],
-}: ExpenseListProps) => {
-  const [activeSliderIndex, setActiveSliderIndex] = useState<number>();
-  const [selectedExpense, setSelectedExpense] = useState<string>();
-  const [notification, setNotification] = useState<NotificationProps>();
-
-  const handleConfirmClick = async (expenseId: string): Promise<void> => {
-    setActiveSliderIndex(undefined);
-    try {
-      const docRef = doc(db, 'Expense', expenseId);
-      await deleteDoc(docRef);
-    } catch (error) {
-      setNotification({
-        type: 'error',
-        message: 'Error: could not delete document',
-      });
-    }
-  };
-
-  const toggleExpenseForm = (id: string): void => {
-    setSelectedExpense(!selectedExpense ? id : undefined);
-  };
-
-  const handleSubmit = (values: ExpenseFormValues, type: ExpenseFormType) => {
-    onEditExpense(values, type);
-    setSelectedExpense(undefined);
-  };
+const ExpenseList = ({ expenses = [] }: ExpenseListProps) => {
+  const {
+    notification,
+    selectedExpense,
+    activeSliderIndex,
+    updateExpenseStatus,
+    toggleExpenseForm,
+    setActiveSliderIndex,
+    setSelectedExpense,
+    handleConfirmClick,
+    handleSubmitClick,
+  } = useExpenseList();
 
   return expenses.length > 0 ? (
     <div className={styles.expenseList}>
@@ -98,7 +74,7 @@ const ExpenseList = ({
                   <Switch
                     checked={expense.paid}
                     onChange={(e) =>
-                      onUpdateStatus(expense.id, e.target.checked)
+                      updateExpenseStatus(expense.id, e.target.checked)
                     }
                   />
                 </div>
@@ -126,7 +102,7 @@ const ExpenseList = ({
             {selectedExpense === expense.id && (
               <div className={styles.expenseForm}>
                 <ExpenseForm
-                  onSubmit={handleSubmit}
+                  onSubmit={handleSubmitClick}
                   onCancel={() => setSelectedExpense(undefined)}
                 />
               </div>

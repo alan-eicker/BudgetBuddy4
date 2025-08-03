@@ -20,8 +20,7 @@ import styles from './ExpenseGroupPage.module.scss';
 const ExpenseGroupPage = () => {
   const { id } = useParams<{ id?: string }>();
 
-  const { getExpenseGroupById, getExpensesByGroupId, updateExpenseStatus } =
-    useAppProvider();
+  const { getExpenseGroupById, getExpensesByGroupId } = useAppProvider();
 
   if (!id) return <>No Expense Group ID</>;
 
@@ -92,15 +91,7 @@ const ExpenseGroupPage = () => {
           />
         </div>
         <div className={styles.expenseGroupPageContent}>
-          <ExpenseList
-            expenses={expenses}
-            onDeleteExpense={(id: string) => {}}
-            onEditExpense={(
-              values: ExpenseFormValues,
-              type: ExpenseFormType,
-            ) => {}}
-            onUpdateStatus={updateExpenseStatus}
-          />
+          <ExpenseList expenses={expenses} />
           <aside className={styles.sidebar}>
             <SpendingSnapshot
               expenses={expenses}
