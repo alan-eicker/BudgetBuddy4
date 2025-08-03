@@ -16,7 +16,7 @@ export interface UseExpenseListReturn {
   setNotification: Dispatch<SetStateAction<NotificationProps | undefined>>;
   updateExpenseStatus: (expenseId: string, paid: boolean) => void;
   toggleExpenseForm: (expenseId: string) => void;
-  handleConfirmClick: (expenseId: string) => Promise<void>;
+  handleConfirmDeleteClick: (expenseId: string) => Promise<void>;
   handleSubmitClick: (values: ExpenseFormValues, type: ExpenseFormType) => void;
 }
 
@@ -25,7 +25,7 @@ const useExpenseList = (): UseExpenseListReturn => {
   const [selectedExpense, setSelectedExpense] = useState<string>();
   const [notification, setNotification] = useState<NotificationProps>();
 
-  const handleConfirmClick = async (expenseId: string): Promise<void> => {
+  const handleConfirmDeleteClick = async (expenseId: string): Promise<void> => {
     setActiveSliderIndex(undefined);
     try {
       const docRef = doc(db, 'Expense', expenseId);
@@ -70,7 +70,7 @@ const useExpenseList = (): UseExpenseListReturn => {
     setNotification,
     updateExpenseStatus,
     toggleExpenseForm,
-    handleConfirmClick,
+    handleConfirmDeleteClick,
     handleSubmitClick,
   };
 };

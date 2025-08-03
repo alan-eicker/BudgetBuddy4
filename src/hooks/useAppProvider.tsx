@@ -144,7 +144,6 @@ const useAppProvider = (): UseAppProviderReturnType => {
     );
 
     return () => {
-      // Unsubscribe to
       expensesGroupSubscription();
       expenseSubscrption();
     };

@@ -30,8 +30,7 @@ const ExpenseList = ({ expenses = [] }: ExpenseListProps) => {
     toggleExpenseForm,
     setActiveSliderIndex,
     setSelectedExpense,
-    handleConfirmClick,
-    handleSubmitClick,
+    handleConfirmDeleteClick,
   } = useExpenseList();
 
   return expenses.length > 0 ? (
@@ -94,17 +93,14 @@ const ExpenseList = ({ expenses = [] }: ExpenseListProps) => {
             </div>
 
             <ConfirmationSlider
-              onConfirm={() => handleConfirmClick(expense.id)}
+              onConfirm={() => handleConfirmDeleteClick(expense.id)}
               onCancel={() => setActiveSliderIndex(undefined)}
               isActive={index === activeSliderIndex}
             />
 
             {selectedExpense === expense.id && (
               <div className={styles.expenseForm}>
-                <ExpenseForm
-                  onSubmit={handleSubmitClick}
-                  onCancel={() => setSelectedExpense(undefined)}
-                />
+                <ExpenseForm onCancel={() => setSelectedExpense(undefined)} />
               </div>
             )}
           </div>

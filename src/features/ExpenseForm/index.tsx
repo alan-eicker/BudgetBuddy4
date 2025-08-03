@@ -1,52 +1,18 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 
 import Button from '../../components/Button';
 import Switch from '../../components/Switch';
 
+import useExpenseForm from './useExpenseForm';
+
 import styles from './ExpenseForm.module.scss';
 
-// id: string;
-// expenseGroupId: string;
-
-export type ExpenseFormType = 'new' | 'edit';
-
 export interface ExpenseFormProps {
-  onSubmit: (values: ExpenseFormValues, type: ExpenseFormType) => void;
   onCancel: () => void;
 }
 
-export interface ExpenseFormValues {
-  name: string;
-  balance: number;
-  type: string;
-  paid: boolean;
-  dueDate: string;
-}
-
-const validationSchema = Yup.object({
-  name: Yup.string().required('Expense name is required'),
-  balance: Yup.number()
-    .typeError('Balance must be a number')
-    .min(0.01, 'Balance must be greater than zero')
-    .required('Balance is required'),
-  type: Yup.string().required('Type is required'),
-  paid: Yup.bool().optional(),
-  dueDate: Yup.bool().optional(),
-});
-
-const ExpenseForm = ({ onSubmit, onCancel }: ExpenseFormProps) => {
-  const initialValues = {
-    name: '',
-    balance: 0,
-    dueDate: '',
-    type: '',
-    paid: false,
-  };
-
-  const handleSubmit = (values: ExpenseFormValues) => {
-    onSubmit(values, 'edit');
-  };
+const ExpenseForm = ({ onCancel }: ExpenseFormProps) => {
+  const { initialValues, validationSchema, handleSubmit } = useExpenseForm();
 
   return (
     <Formik

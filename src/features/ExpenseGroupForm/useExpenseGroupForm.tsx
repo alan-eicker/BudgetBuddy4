@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as yup from 'yup';
+import * as Yup from 'yup';
 import { FormikHelpers } from 'formik';
 import { addDoc, collection } from 'firebase/firestore';
 
@@ -29,7 +29,7 @@ export interface ExpenseGroupFormValues {
 export interface UseExpenseGroupFormReturnType {
   statusMessage?: StatusMessage;
   initialValues: ExpenseGroupFormValues;
-  validationSchema: yup.ObjectSchema<ExpenseGroupFormValues>;
+  validationSchema: Yup.ObjectSchema<ExpenseGroupFormValues>;
   handleSubmit: (
     values: ExpenseGroupFormValues,
     formikHelpers: FormikHelpers<ExpenseGroupFormValues>,
@@ -41,27 +41,24 @@ const useExpenseGroupForm = (): UseExpenseGroupFormReturnType => {
 
   const navigate = useNavigate();
 
-  const validationSchema: yup.ObjectSchema<ExpenseGroupFormValues> = yup.object(
+  const validationSchema: Yup.ObjectSchema<ExpenseGroupFormValues> = Yup.object(
     {
-      startDate: yup.string().required('Start date is required'),
-      endDate: yup.string().required('End date is required'),
-      totalBudget: yup
-        .number()
+      startDate: Yup.string().required('Start date is required'),
+      endDate: Yup.string().required('End date is required'),
+      totalBudget: Yup.number()
         .typeError('Total budget must be a number')
         .min(1, 'Total budget must be greater than 0')
         .required('Total budget is required'),
-      expenses: yup
-        .array()
+      expenses: Yup.array()
         .of(
-          yup.object({
-            name: yup.string().required('Expense name is required'),
-            balance: yup
-              .number()
+          Yup.object({
+            name: Yup.string().required('Expense name is required'),
+            balance: Yup.number()
               .typeError('Balance must be a number')
               .min(0.01, 'Balance must be greater than zero')
               .required('Balance is required'),
-            type: yup.string().required('Type is required'),
-            paid: yup.bool().optional(),
+            type: Yup.string().required('Type is required'),
+            paid: Yup.bool().optional(),
           }),
         )
         .min(1, 'At least one expense is required')
