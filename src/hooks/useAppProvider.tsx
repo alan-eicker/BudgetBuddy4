@@ -1,14 +1,8 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import * as _ from 'lodash';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { getDocs, collection } from 'firebase/firestore';
 
-import {
-  doc,
-  updateDoc,
-  getDoc,
-  getDocs,
-  collection,
-} from 'firebase/firestore';
 import { db } from '../firebase';
 
 import { ExpenseGroup, Expense, ExpenseType } from '../types/expenseGroups';

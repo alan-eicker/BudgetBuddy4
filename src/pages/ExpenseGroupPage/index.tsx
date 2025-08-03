@@ -11,7 +11,6 @@ import HeaderSection from './components/HeaderSection';
 
 import ExpenseList from '../../features/ExpenseList';
 import SpendingSnapshot from '../../features/SpendingSnapshot';
-import { ExpenseFormType, ExpenseFormValues } from '../../features/ExpenseForm';
 
 import { toDollarAmountString } from '../../utils/numbers';
 
